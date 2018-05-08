@@ -1,0 +1,84 @@
+
+# 1 "ES_LookupTables.c"
+
+# 4 "ES_Types.h"
+typedef unsigned char boolean;
+
+# 11
+typedef signed char int8_t;
+
+
+typedef signed int int16_t;
+
+
+typedef signed long int int32_t;
+
+
+
+typedef unsigned char uint8_t;
+
+
+typedef unsigned int uint16_t;
+
+
+typedef unsigned long int uint32_t;
+
+# 36 "ES_Timers.h"
+typedef enum { ES_Timer_RATE_OFF = (0),
+ES_Timer_RATE_1MS ,
+ES_Timer_RATE_2MS ,
+ES_Timer_RATE_4MS ,
+ES_Timer_RATE_8MS ,
+ES_Timer_RATE_16MS,
+ES_Timer_RATE_32MS
+} TimerRate_t;
+
+typedef enum { ES_Timer_ERR = -1,
+ES_Timer_ACTIVE = 1,
+ES_Timer_OK = 0,
+ES_Timer_NOT_ACTIVE = 0
+} ES_TimerReturn_t;
+
+void ES_Timer_Init(TimerRate_t Rate);
+ES_TimerReturn_t ES_Timer_InitTimer(uint8_t Num, uint16_t NewTime);
+ES_TimerReturn_t ES_Timer_SetTimer(uint8_t Num, uint16_t NewTime);
+ES_TimerReturn_t ES_Timer_StartTimer(uint8_t Num);
+ES_TimerReturn_t ES_Timer_StopTimer(uint8_t Num);
+ES_TimerReturn_t ES_Timer_IsTimerActive(uint8_t Num);
+uint16_t ES_Timer_GetTime(void);
+void ES_Timer_RTI_Resp(void);
+
+# 62 "ES_LookupTables.c"
+uint8_t const BitNum2SetMask[] = {
+0x00000001, 0x00000002, 0x00000004, 0x00000008, 0x00000010, 0x00000020, 0x00000040, 0x00000080
+};
+
+# 73
+uint8_t const Nybble2MSBitNum[15] = {
+0U, 1U, 1U, 2U, 2U, 2U, 2U, 3U, 3U, 3U, 3U, 3U, 3U, 3U, 3U
+};
+
+
+uint8_t ES_GetMSBitSet( uint8_t Val2Check) {
+
+int8_t LoopCntr;
+uint8_t Nybble2Test;
+uint8_t ReturnVal = 128;
+
+
+for( LoopCntr = sizeof(Val2Check) * (8/4)-1;
+LoopCntr >= 0; LoopCntr--) {
+
+Nybble2Test = (uint8_t)
+((Val2Check >> (uint8_t)(LoopCntr * 4)) &
+0x0F);
+if ( Nybble2Test != 0){
+
+ReturnVal = Nybble2MSBitNum[Nybble2Test-1] +
+(LoopCntr * 4);
+break;
+}
+}
+return ReturnVal;
+}
+

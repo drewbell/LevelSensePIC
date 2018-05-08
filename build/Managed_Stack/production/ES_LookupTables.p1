@@ -1,0 +1,138 @@
+Version 3.2 HI-TECH Software Intermediate Code
+[; ;ES_Types.h: 4: typedef unsigned char boolean;
+[; ;ES_Types.h: 11: typedef signed char int8_t;
+[; ;ES_Types.h: 14: typedef signed int int16_t;
+[; ;ES_Types.h: 17: typedef signed long int int32_t;
+[; ;ES_Types.h: 21: typedef unsigned char uint8_t;
+[; ;ES_Types.h: 24: typedef unsigned int uint16_t;
+[; ;ES_Types.h: 27: typedef unsigned long int uint32_t;
+[; ;ES_Timers.h: 36: typedef enum { ES_Timer_RATE_OFF = (0),
+[; ;ES_Timers.h: 37: ES_Timer_RATE_1MS ,
+[; ;ES_Timers.h: 38: ES_Timer_RATE_2MS ,
+[; ;ES_Timers.h: 39: ES_Timer_RATE_4MS ,
+[; ;ES_Timers.h: 40: ES_Timer_RATE_8MS ,
+[; ;ES_Timers.h: 41: ES_Timer_RATE_16MS,
+[; ;ES_Timers.h: 42: ES_Timer_RATE_32MS
+[; ;ES_Timers.h: 43: } TimerRate_t;
+[; ;ES_Timers.h: 45: typedef enum { ES_Timer_ERR = -1,
+[; ;ES_Timers.h: 46: ES_Timer_ACTIVE = 1,
+[; ;ES_Timers.h: 47: ES_Timer_OK = 0,
+[; ;ES_Timers.h: 48: ES_Timer_NOT_ACTIVE = 0
+[; ;ES_Timers.h: 49: } ES_TimerReturn_t;
+[; ;ES_Timers.h: 51: void ES_Timer_Init(TimerRate_t Rate);
+[; ;ES_Timers.h: 52: ES_TimerReturn_t ES_Timer_InitTimer(uint8_t Num, uint16_t NewTime);
+[; ;ES_Timers.h: 53: ES_TimerReturn_t ES_Timer_SetTimer(uint8_t Num, uint16_t NewTime);
+[; ;ES_Timers.h: 54: ES_TimerReturn_t ES_Timer_StartTimer(uint8_t Num);
+[; ;ES_Timers.h: 55: ES_TimerReturn_t ES_Timer_StopTimer(uint8_t Num);
+[; ;ES_Timers.h: 56: ES_TimerReturn_t ES_Timer_IsTimerActive(uint8_t Num);
+[; ;ES_Timers.h: 57: uint16_t ES_Timer_GetTime(void);
+[; ;ES_Timers.h: 58: void ES_Timer_RTI_Resp(void);
+"62 ES_LookupTables.c
+[v _BitNum2SetMask `Cuc ~T0 @X0 -> 0 `x e ]
+[i _BitNum2SetMask
+:U ..
+"63
+-> -> 1 `i `uc
+-> -> 2 `i `uc
+-> -> 4 `i `uc
+-> -> 8 `i `uc
+-> -> 16 `i `uc
+-> -> 32 `i `uc
+-> -> 64 `i `uc
+"64
+-> -> 128 `i `uc
+..
+]
+[; ;ES_LookupTables.c: 62: uint8_t const BitNum2SetMask[] = {
+[; ;ES_LookupTables.c: 63: 0x00000001, 0x00000002, 0x00000004, 0x00000008, 0x00000010, 0x00000020, 0x00000040, 0x00000080
+[; ;ES_LookupTables.c: 64: };
+"73
+[v _Nybble2MSBitNum `Cuc ~T0 @X0 -> 15 `i e ]
+[i _Nybble2MSBitNum
+:U ..
+"74
+-> -> 0 `ui `uc
+-> -> 1 `ui `uc
+-> -> 1 `ui `uc
+-> -> 2 `ui `uc
+-> -> 2 `ui `uc
+-> -> 2 `ui `uc
+-> -> 2 `ui `uc
+-> -> 3 `ui `uc
+-> -> 3 `ui `uc
+-> -> 3 `ui `uc
+-> -> 3 `ui `uc
+-> -> 3 `ui `uc
+-> -> 3 `ui `uc
+-> -> 3 `ui `uc
+"75
+-> -> 3 `ui `uc
+..
+]
+[; ;ES_LookupTables.c: 73: uint8_t const Nybble2MSBitNum[15] = {
+[; ;ES_LookupTables.c: 74: 0U, 1U, 1U, 2U, 2U, 2U, 2U, 3U, 3U, 3U, 3U, 3U, 3U, 3U, 3U
+[; ;ES_LookupTables.c: 75: };
+"78
+[v _ES_GetMSBitSet `(uc ~T0 @X0 1 ef1`uc ]
+{
+[; ;ES_LookupTables.c: 78: uint8_t ES_GetMSBitSet( uint8_t Val2Check) {
+[e :U _ES_GetMSBitSet ]
+[v _Val2Check `uc ~T0 @X0 1 r1 ]
+[f ]
+"80
+[v _LoopCntr `c ~T0 @X0 1 a ]
+"81
+[v _Nybble2Test `uc ~T0 @X0 1 a ]
+"82
+[v _ReturnVal `uc ~T0 @X0 1 a ]
+[; ;ES_LookupTables.c: 80: int8_t LoopCntr;
+[; ;ES_LookupTables.c: 81: uint8_t Nybble2Test;
+[; ;ES_LookupTables.c: 82: uint8_t ReturnVal = 128;
+[e = _ReturnVal -> -> 128 `i `uc ]
+[; ;ES_LookupTables.c: 85: for( LoopCntr = sizeof(Val2Check) * (8/4)-1;
+"85
+{
+[e = _LoopCntr -> - * -> # _Val2Check `ui -> / -> 8 `i -> 4 `i `ui -> -> 1 `i `ui `c ]
+[; ;ES_LookupTables.c: 86: LoopCntr >= 0; LoopCntr--) {
+[e $ >= -> _LoopCntr `i -> 0 `i 2  ]
+[e $U 3  ]
+"86
+[e :U 2 ]
+{
+[; ;ES_LookupTables.c: 88: Nybble2Test = (uint8_t)
+[; ;ES_LookupTables.c: 89: ((Val2Check >> (uint8_t)(LoopCntr * 4)) &
+[; ;ES_LookupTables.c: 90: 0x0F);
+"90
+[e = _Nybble2Test -> & >> -> _Val2Check `i -> * -> _LoopCntr `i -> 4 `i `uc -> 15 `i `uc ]
+[; ;ES_LookupTables.c: 91: if ( Nybble2Test != 0){
+"91
+[e $ ! != -> _Nybble2Test `i -> 0 `i 5  ]
+{
+[; ;ES_LookupTables.c: 93: ReturnVal = Nybble2MSBitNum[Nybble2Test-1] +
+[; ;ES_LookupTables.c: 94: (LoopCntr * 4);
+"94
+[e = _ReturnVal -> + -> *U + &U _Nybble2MSBitNum * -> -> - -> _Nybble2Test `i -> 1 `i `ui `ux -> -> # *U &U _Nybble2MSBitNum `ui `ux `i * -> _LoopCntr `i -> 4 `i `uc ]
+[; ;ES_LookupTables.c: 95: break;
+"95
+[e $U 3  ]
+"96
+}
+[e :U 5 ]
+"97
+}
+"86
+[e -- _LoopCntr -> -> 1 `i `c ]
+[e $ >= -> _LoopCntr `i -> 0 `i 2  ]
+[e :U 3 ]
+"97
+}
+[; ;ES_LookupTables.c: 96: }
+[; ;ES_LookupTables.c: 97: }
+[; ;ES_LookupTables.c: 98: return ReturnVal;
+"98
+[e ) _ReturnVal ]
+[e $UE 1  ]
+[; ;ES_LookupTables.c: 99: }
+"99
+[e :UE 1 ]
+}

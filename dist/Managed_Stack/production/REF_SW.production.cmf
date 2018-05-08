@@ -1,0 +1,893 @@
+%CMF
+# %PSECTS Section
+# For each object file, details of its psects are enumerated here.
+# The begining of the section is indicated by %PSECTS.  The first
+# line indicates the name of the first object file, e.g.
+#    $foo.obj
+# Each line that follows describes a psect in that object file, until
+# the next object file.  The lines that describe a psect have the
+# format:
+#    <psect name> <class name> <space> <link address> <load addresses> <length> <delta>
+# All addresses and the length are given in unqualified hexadecimal
+# in delta units.  Any other numeric values are decimal.
+%PSECTS
+$dist/Managed_Stack/production/REF_SW.production.obj
+cinit CODE 0 13 13 1A 2
+text1 CODE 0 50C 50C 1A 2
+text2 CODE 0 3F 3F 73 2
+text3 CODE 0 185 185 63 2
+text4 CODE 0 490 490 28 2
+text5 CODE 0 58C 58C A 2
+text6 CODE 0 581 581 B 2
+text7 CODE 0 1E8 1E8 63 2
+text8 CODE 0 575 575 C 2
+text9 CODE 0 35A 35A 42 2
+text10 CODE 0 24B 24B 63 2
+text11 CODE 0 4D6 4D6 1B 2
+text12 CODE 0 53D 53D 16 2
+text13 CODE 0 2AE 2AE 58 2
+text14 CODE 0 39C 39C 38 2
+text15 CODE 0 4F1 4F1 1B 2
+text16 CODE 0 467 467 29 2
+text17 CODE 0 306 306 54 2
+text18 CODE 0 553 553 13 2
+text19 CODE 0 4B8 4B8 1E 2
+text20 CODE 0 526 526 17 2
+text21 CODE 0 409 409 30 2
+text22 CODE 0 11C 11C 69 2
+text23 CODE 0 566 566 F 2
+text24 CODE 0 B2 B2 6A 2
+text25 CODE 0 59E 59E 4 2
+text26 CODE 0 5A4 5A4 2 2
+idataCOMMON CODE 0 5A2 5A2 2 2
+maintext CODE 0 3D4 3D4 35 2
+cstackCOMMON COMMON 1 70 70 9 1
+cstackBANK0 BANK0 1 50 50 1F 1
+intentry CODE 0 4 4 D 2
+bssBANK0 BANK0 1 20 20 30 1
+bssBANK1 BANK1 1 A0 A0 28 1
+strings STRING 0 439 439 2E 2
+jmp_tab__ES_Run ENTRY 0 2 2 2 2
+dataCOMMON COMMON 1 7C 7C 2 1
+functab ENTRY 0 2D 2D 12 2
+clrtext CODE 0 596 596 8 2
+bssCOMMON COMMON 1 79 79 3 1
+$/tmp/xchtOdYCz.obj
+reset_vec CODE 0 0 0 2 2
+end_init CODE 0 11 11 2 2
+config CONFIG 0 2007 2007 1 2
+# %UNUSED Section
+# This section enumerates the unused ranges of each CLASS. Each entry
+# is described on a single line as follows:
+#    <class name> <range> <delta>
+# Addresses given in the range are in hexadecimal and units of delta.
+%UNUSED
+RAM 6F-6F 1
+RAM C8-EF 1
+RAM 120-16F 1
+BANK0 6F-6F 1
+BANK1 C8-EF 1
+BANK2 120-16F 1
+CONST 5A6-FFF 2
+ENTRY 5A6-FFF 2
+IDLOC 2000-2003 2
+STACK 120-16F 1
+CODE 5A6-FFF 2
+SFR0 0-1F 1
+SFR1 80-9F 1
+SFR2 100-11F 1
+SFR3 180-1EF 1
+EEDATA 2100-21FF 2
+STRCODE 5A6-FFF 2
+STRING 5A6-FFF 2
+# %LINETAB Section
+# This section enumerates the file/line to address mappings.
+# The beginning of the section is indicated by %LINETAB.
+# The first line indicates the name of the first object file, e.g.
+#   $foo.obj
+# Each line that follows describes a single mapping until the next
+# object file.  Mappings have the following format:
+#    <address> <psect name> <class name> ><line number>:<file name>
+# The address is absolute and given given in unqualified hex 
+# in delta units of the psect. All mappings within an object file
+# are in ascending order of addresses.
+# All other numeric values are in decimal.
+%LINETAB
+$dist/Managed_Stack/production/REF_SW.production.obj
+13 cinit CODE >1934:/tmp/xcT2Xk3lO
+13 cinit CODE >1937:/tmp/xcT2Xk3lO
+13 cinit CODE >2056:/tmp/xcT2Xk3lO
+16 cinit CODE >2057:/tmp/xcT2Xk3lO
+17 cinit CODE >2058:/tmp/xcT2Xk3lO
+1A cinit CODE >2059:/tmp/xcT2Xk3lO
+1B cinit CODE >2078:/tmp/xcT2Xk3lO
+1C cinit CODE >2079:/tmp/xcT2Xk3lO
+1D cinit CODE >2080:/tmp/xcT2Xk3lO
+1E cinit CODE >2081:/tmp/xcT2Xk3lO
+1F cinit CODE >2082:/tmp/xcT2Xk3lO
+22 cinit CODE >2085:/tmp/xcT2Xk3lO
+23 cinit CODE >2086:/tmp/xcT2Xk3lO
+24 cinit CODE >2087:/tmp/xcT2Xk3lO
+25 cinit CODE >2088:/tmp/xcT2Xk3lO
+27 cinit CODE >2091:/tmp/xcT2Xk3lO
+28 cinit CODE >2092:/tmp/xcT2Xk3lO
+29 cinit CODE >2093:/tmp/xcT2Xk3lO
+2A cinit CODE >2099:/tmp/xcT2Xk3lO
+2A cinit CODE >2101:/tmp/xcT2Xk3lO
+2B cinit CODE >2102:/tmp/xcT2Xk3lO
+2D functab ENTRY >7375:/tmp/xcT2Xk3lO
+2D functab ENTRY >7377:/tmp/xcT2Xk3lO
+2D functab ENTRY >7378:/tmp/xcT2Xk3lO
+2D functab ENTRY >7379:/tmp/xcT2Xk3lO
+2E functab ENTRY >7380:/tmp/xcT2Xk3lO
+2F functab ENTRY >7381:/tmp/xcT2Xk3lO
+30 functab ENTRY >7382:/tmp/xcT2Xk3lO
+31 functab ENTRY >7383:/tmp/xcT2Xk3lO
+32 functab ENTRY >7385:/tmp/xcT2Xk3lO
+32 functab ENTRY >7386:/tmp/xcT2Xk3lO
+33 functab ENTRY >7389:/tmp/xcT2Xk3lO
+33 functab ENTRY >7390:/tmp/xcT2Xk3lO
+35 functab ENTRY >7393:/tmp/xcT2Xk3lO
+35 functab ENTRY >7394:/tmp/xcT2Xk3lO
+37 functab ENTRY >7397:/tmp/xcT2Xk3lO
+37 functab ENTRY >7398:/tmp/xcT2Xk3lO
+37 functab ENTRY >7400:/tmp/xcT2Xk3lO
+39 functab ENTRY >7403:/tmp/xcT2Xk3lO
+39 functab ENTRY >7404:/tmp/xcT2Xk3lO
+3B functab ENTRY >7407:/tmp/xcT2Xk3lO
+3B functab ENTRY >7408:/tmp/xcT2Xk3lO
+3B functab ENTRY >7410:/tmp/xcT2Xk3lO
+3D functab ENTRY >7413:/tmp/xcT2Xk3lO
+3D functab ENTRY >7414:/tmp/xcT2Xk3lO
+3D functab ENTRY >7416:/tmp/xcT2Xk3lO
+4 intentry CODE >53:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+5A4 text26 CODE >225:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+5A4 text26 CODE >226:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+59E text25 CODE >208:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+59E text25 CODE >209:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+B2 text24 CODE >183:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+B2 text24 CODE >187:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+B6 text24 CODE >190:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+BC text24 CODE >193:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+BD text24 CODE >197:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+BF text24 CODE >199:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+C5 text24 CODE >211:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+CB text24 CODE >213:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+CF text24 CODE >217:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+D6 text24 CODE >218:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+D8 text24 CODE >221:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+DC text24 CODE >225:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+E4 text24 CODE >226:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+E9 text24 CODE >229:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+ED text24 CODE >230:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+F1 text24 CODE >233:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+F7 text24 CODE >234:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+F9 text24 CODE >235:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+FA text24 CODE >237:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+FE text24 CODE >238:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+100 text24 CODE >241:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+104 text24 CODE >242:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+108 text24 CODE >243:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+109 text24 CODE >245:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+10A text24 CODE >246:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+10B text24 CODE >250:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+10C text24 CODE >193:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+11A text24 CODE >250:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+11A text24 CODE >251:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+566 text23 CODE >427:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+566 text23 CODE >428:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+56B text23 CODE >430:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+570 text23 CODE >428:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+11C text22 CODE >310:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+11C text22 CODE >315:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+122 text22 CODE >317:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+123 text22 CODE >319:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+127 text22 CODE >321:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+129 text22 CODE >322:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+12D text22 CODE >324:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+12E text22 CODE >327:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+131 text22 CODE >329:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+135 text22 CODE >330:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+136 text22 CODE >333:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+137 text22 CODE >335:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+138 text22 CODE >338:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+13C text22 CODE >339:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+140 text22 CODE >341:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+141 text22 CODE >342:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+142 text22 CODE >345:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+143 text22 CODE >346:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+144 text22 CODE >348:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+148 text22 CODE >350:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+149 text22 CODE >353:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+14D text22 CODE >355:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+155 text22 CODE >356:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+159 text22 CODE >358:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+15A text22 CODE >359:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+15E text22 CODE >361:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+15F text22 CODE >362:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+163 text22 CODE >363:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+164 text22 CODE >366:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+165 text22 CODE >368:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+169 text22 CODE >369:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+16A text22 CODE >372:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+16D text22 CODE >374:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+171 text22 CODE >376:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+172 text22 CODE >380:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+173 text22 CODE >317:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+184 text22 CODE >381:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+409 text21 CODE >53:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+409 text21 CODE >54:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+40A text21 CODE >56:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+410 text21 CODE >57:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+413 text21 CODE >60:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+41B text21 CODE >61:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+41E text21 CODE >69:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+420 text21 CODE >70:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+421 text21 CODE >71:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+427 text21 CODE >72:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+42B text21 CODE >75:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+42E text21 CODE >76:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+526 text20 CODE >56:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+529 text20 CODE >60:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+52D text20 CODE >62:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+535 text20 CODE >63:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+538 text20 CODE >64:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+4B8 text19 CODE >25:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+4B8 text19 CODE >29:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+4BB text19 CODE >30:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+4BE text19 CODE >31:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+4C1 text19 CODE >34:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+4C4 text19 CODE >35:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+4C7 text19 CODE >38:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+4C8 text19 CODE >40:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+4CB text19 CODE >41:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+4CC text19 CODE >42:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+4CD text19 CODE >43:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+4CE text19 CODE >44:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+4CF text19 CODE >46:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+4D2 text19 CODE >47:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+4D3 text19 CODE >48:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+4D4 text19 CODE >50:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+4D5 text19 CODE >51:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+553 text18 CODE >4:/Applications/microchip/xc8/v1.45/sources/common/Umul8.c
+556 text18 CODE >6:/Applications/microchip/xc8/v1.45/sources/common/Umul8.c
+557 text18 CODE >43:/Applications/microchip/xc8/v1.45/sources/common/Umul8.c
+559 text18 CODE >44:/Applications/microchip/xc8/v1.45/sources/common/Umul8.c
+55D text18 CODE >45:/Applications/microchip/xc8/v1.45/sources/common/Umul8.c
+55F text18 CODE >46:/Applications/microchip/xc8/v1.45/sources/common/Umul8.c
+561 text18 CODE >47:/Applications/microchip/xc8/v1.45/sources/common/Umul8.c
+564 text18 CODE >50:/Applications/microchip/xc8/v1.45/sources/common/Umul8.c
+306 text17 CODE >83:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+309 text17 CODE >88:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+30D text17 CODE >91:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+31B text17 CODE >93:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+327 text17 CODE >94:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+32D text17 CODE >95:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+331 text17 CODE >98:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+336 text17 CODE >99:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+34D text17 CODE >100:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+354 text17 CODE >101:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+356 text17 CODE >103:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+357 text17 CODE >104:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+358 text17 CODE >105:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+467 text16 CODE >313:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+46A text16 CODE >316:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+482 text16 CODE >317:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+48C text16 CODE >318:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+48D text16 CODE >319:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+48E text16 CODE >320:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+4F1 text15 CODE >79:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+4F1 text15 CODE >82:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+4F7 text15 CODE >85:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+4FB text15 CODE >86:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+508 text15 CODE >87:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+509 text15 CODE >88:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+50A text15 CODE >89:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+39C text14 CODE >78:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+39C text14 CODE >81:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+3A2 text14 CODE >84:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+3A3 text14 CODE >88:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+3A6 text14 CODE >96:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+3A7 text14 CODE >97:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+3A8 text14 CODE >98:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+3A9 text14 CODE >99:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+3AA text14 CODE >102:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+3B2 text14 CODE >105:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+3B5 text14 CODE >110:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+3B7 text14 CODE >113:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+3B8 text14 CODE >115:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+3BB text14 CODE >116:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+3BC text14 CODE >117:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+3BD text14 CODE >120:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+3C3 text14 CODE >121:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+3D0 text14 CODE >122:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+3D1 text14 CODE >123:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+3D2 text14 CODE >124:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+2AE text13 CODE >189:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+2AE text13 CODE >191:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+2B1 text13 CODE >193:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+2B8 text13 CODE >195:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+2CD text13 CODE >196:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+2CF text13 CODE >198:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+2E4 text13 CODE >200:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+2F8 text13 CODE >201:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+2FA text13 CODE >193:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+304 text13 CODE >203:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+53D text12 CODE >290:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+53D text12 CODE >293:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+540 text12 CODE >295:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+544 text12 CODE >296:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+54B text12 CODE >299:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+54C text12 CODE >300:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+54E text12 CODE >303:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+4D6 text11 CODE >396:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+4D6 text11 CODE >397:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+4DB text11 CODE >401:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+4DF text11 CODE >402:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+4E1 text11 CODE >403:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+4EA text11 CODE >405:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+4ED text11 CODE >406:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+4EF text11 CODE >408:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+24B text10 CODE >125:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+24E text10 CODE >131:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+252 text10 CODE >132:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+259 text10 CODE >134:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+25E text10 CODE >135:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+282 text10 CODE >137:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+288 text10 CODE >138:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+294 text10 CODE >139:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+297 text10 CODE >141:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+2A0 text10 CODE >142:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+2A2 text10 CODE >143:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+2A3 text10 CODE >144:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+2A6 text10 CODE >145:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+2AB text10 CODE >146:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+2AC text10 CODE >148:/Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+35A text9 CODE >78:/Users/drewbell/Desktop/Repos/REF_SW/ES_LookupTables.c
+35D text9 CODE >82:/Users/drewbell/Desktop/Repos/REF_SW/ES_LookupTables.c
+361 text9 CODE >85:/Users/drewbell/Desktop/Repos/REF_SW/ES_LookupTables.c
+365 text9 CODE >90:/Users/drewbell/Desktop/Repos/REF_SW/ES_LookupTables.c
+37D text9 CODE >91:/Users/drewbell/Desktop/Repos/REF_SW/ES_LookupTables.c
+380 text9 CODE >94:/Users/drewbell/Desktop/Repos/REF_SW/ES_LookupTables.c
+393 text9 CODE >95:/Users/drewbell/Desktop/Repos/REF_SW/ES_LookupTables.c
+394 text9 CODE >86:/Users/drewbell/Desktop/Repos/REF_SW/ES_LookupTables.c
+39A text9 CODE >98:/Users/drewbell/Desktop/Repos/REF_SW/ES_LookupTables.c
+575 text8 CODE >110:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+575 text8 CODE >111:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+1E8 text7 CODE >259:/Users/drewbell/Desktop/Repos/REF_SW/ES_Timers.c
+1E8 text7 CODE >264:/Users/drewbell/Desktop/Repos/REF_SW/ES_Timers.c
+1F0 text7 CODE >265:/Users/drewbell/Desktop/Repos/REF_SW/ES_Timers.c
+1F3 text7 CODE >267:/Users/drewbell/Desktop/Repos/REF_SW/ES_Timers.c
+1F7 text7 CODE >270:/Users/drewbell/Desktop/Repos/REF_SW/ES_Timers.c
+200 text7 CODE >272:/Users/drewbell/Desktop/Repos/REF_SW/ES_Timers.c
+217 text7 CODE >273:/Users/drewbell/Desktop/Repos/REF_SW/ES_Timers.c
+21B text7 CODE >274:/Users/drewbell/Desktop/Repos/REF_SW/ES_Timers.c
+222 text7 CODE >276:/Users/drewbell/Desktop/Repos/REF_SW/ES_Timers.c
+231 text7 CODE >278:/Users/drewbell/Desktop/Repos/REF_SW/ES_Timers.c
+23D text7 CODE >281:/Users/drewbell/Desktop/Repos/REF_SW/ES_Timers.c
+247 text7 CODE >282:/Users/drewbell/Desktop/Repos/REF_SW/ES_Timers.c
+581 text6 CODE >78:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+581 text6 CODE >79:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+586 text6 CODE >80:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+588 text6 CODE >81:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+589 text6 CODE >82:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+58A text6 CODE >83:/Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+58C text5 CODE >162:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+58C text5 CODE >164:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+58F text5 CODE >166:/Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+490 text4 CODE >205:/Users/drewbell/Desktop/Repos/REF_SW/ES_Timers.c
+493 text4 CODE >212:/Users/drewbell/Desktop/Repos/REF_SW/ES_Timers.c
+4A4 text4 CODE >214:/Users/drewbell/Desktop/Repos/REF_SW/ES_Timers.c
+4AF text4 CODE >215:/Users/drewbell/Desktop/Repos/REF_SW/ES_Timers.c
+185 text3 CODE >131:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+185 text3 CODE >134:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+188 text3 CODE >136:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+189 text3 CODE >139:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+18D text3 CODE >142:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+191 text3 CODE >144:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+192 text3 CODE >146:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+196 text3 CODE >147:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+19A text3 CODE >149:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+1A9 text3 CODE >152:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+1AE text3 CODE >154:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+1BA text3 CODE >152:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+1C2 text3 CODE >157:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+1C6 text3 CODE >159:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+1CE text3 CODE >160:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+1D2 text3 CODE >164:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+1D3 text3 CODE >166:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+1D7 text3 CODE >168:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+1D8 text3 CODE >173:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+1D9 text3 CODE >136:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+1E1 text3 CODE >175:/Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+3F text2 CODE >224:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+42 text2 CODE >233:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+47 text2 CODE >234:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+52 text2 CODE >235:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+64 text2 CODE >236:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+70 text2 CODE >243:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+71 text2 CODE >245:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+7E text2 CODE >248:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+91 text2 CODE >243:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+9B text2 CODE >233:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+9C text2 CODE >255:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+9F text2 CODE >254:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+A5 text2 CODE >259:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+A8 text2 CODE >260:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+AE text2 CODE >264:/Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+50C text1 CODE >11:/Users/drewbell/Desktop/Repos/REF_SW/sci.c
+50C text1 CODE >13:/Users/drewbell/Desktop/Repos/REF_SW/sci.c
+50D text1 CODE >16:/Users/drewbell/Desktop/Repos/REF_SW/sci.c
+511 text1 CODE >17:/Users/drewbell/Desktop/Repos/REF_SW/sci.c
+512 text1 CODE >18:/Users/drewbell/Desktop/Repos/REF_SW/sci.c
+513 text1 CODE >19:/Users/drewbell/Desktop/Repos/REF_SW/sci.c
+514 text1 CODE >22:/Users/drewbell/Desktop/Repos/REF_SW/sci.c
+515 text1 CODE >23:/Users/drewbell/Desktop/Repos/REF_SW/sci.c
+518 text1 CODE >26:/Users/drewbell/Desktop/Repos/REF_SW/sci.c
+51B text1 CODE >27:/Users/drewbell/Desktop/Repos/REF_SW/sci.c
+51C text1 CODE >28:/Users/drewbell/Desktop/Repos/REF_SW/sci.c
+51D text1 CODE >31:/Users/drewbell/Desktop/Repos/REF_SW/sci.c
+51E text1 CODE >34:/Users/drewbell/Desktop/Repos/REF_SW/sci.c
+521 text1 CODE >35:/Users/drewbell/Desktop/Repos/REF_SW/sci.c
+524 text1 CODE >38:/Users/drewbell/Desktop/Repos/REF_SW/sci.c
+525 text1 CODE >40:/Users/drewbell/Desktop/Repos/REF_SW/sci.c
+2 jmp_tab__ES_Run ENTRY >50:/Users/drewbell/Desktop/Repos/REF_SW/main.c
+3D4 maintext CODE >21:/Users/drewbell/Desktop/Repos/REF_SW/main.c
+3D4 maintext CODE >28:/Users/drewbell/Desktop/Repos/REF_SW/main.c
+3D8 maintext CODE >30:/Users/drewbell/Desktop/Repos/REF_SW/main.c
+3DB maintext CODE >33:/Users/drewbell/Desktop/Repos/REF_SW/main.c
+3DE maintext CODE >34:/Users/drewbell/Desktop/Repos/REF_SW/main.c
+3E1 maintext CODE >35:/Users/drewbell/Desktop/Repos/REF_SW/main.c
+3E4 maintext CODE >38:/Users/drewbell/Desktop/Repos/REF_SW/main.c
+3E7 maintext CODE >39:/Users/drewbell/Desktop/Repos/REF_SW/main.c
+3EA maintext CODE >42:/Users/drewbell/Desktop/Repos/REF_SW/main.c
+3F3 maintext CODE >45:/Users/drewbell/Desktop/Repos/REF_SW/main.c
+3F4 maintext CODE >48:/Users/drewbell/Desktop/Repos/REF_SW/main.c
+3F7 maintext CODE >50:/Users/drewbell/Desktop/Repos/REF_SW/main.c
+400 maintext CODE >54:/Users/drewbell/Desktop/Repos/REF_SW/main.c
+408 maintext CODE >66:/Users/drewbell/Desktop/Repos/REF_SW/main.c
+596 clrtext CODE >2065:/tmp/xcT2Xk3lO
+596 clrtext CODE >2066:/tmp/xcT2Xk3lO
+597 clrtext CODE >2067:/tmp/xcT2Xk3lO
+597 clrtext CODE >2068:/tmp/xcT2Xk3lO
+598 clrtext CODE >2069:/tmp/xcT2Xk3lO
+599 clrtext CODE >2070:/tmp/xcT2Xk3lO
+59A clrtext CODE >2071:/tmp/xcT2Xk3lO
+59B clrtext CODE >2072:/tmp/xcT2Xk3lO
+59C clrtext CODE >2073:/tmp/xcT2Xk3lO
+59D clrtext CODE >2074:/tmp/xcT2Xk3lO
+# %SYMTAB Section
+# An enumeration of all symbols in the program.
+# The beginning of the section is indicated by %SYMTAB.
+# Each line describes a single symbol as follows:
+#    <label> <value> [-]<load-adj> <class> <space> <psect> <file-name>
+# The value and load-adj are both in unqualified hexadecimal.
+# All other numeric values are in decimal.  The load-adj is the
+# quantity one needs to add to the symbol value in order to obtain the load
+# address of the symbol.  This value may be signed. If the symbol
+# was defined in a psect then <psect> will be "-". File-name
+# is the name of the object file in which the symbol was defined.
+%SYMTAB
+___latbits 1 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_StatusResponseStore 79 0 COMMON 1 bssCOMMON dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_ES_Sys_Timer_Init 9AC 0 CODE 0 text19 dist/Managed_Stack/production/REF_SW.production.obj
+__Hspace_0 2008 0 ABS 0 - -
+__Hspace_1 C8 0 ABS 0 - -
+__Hspace_2 0 0 ABS 0 - -
+__Hspace_3 0 0 ABS 0 - -
+__CFG_IESO$OFF 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+__Ljmp_tab__ES_Run 0 0 ABS 0 jmp_tab__ES_Run -
+_StatusArray 3B 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+ES_Timer_InitTimer@Num 53 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+_ReceivedData 44 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+ES_GetMSBitSet@Val2Check 53 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__Heeprom_data 0 0 EEDATA 3 eeprom_data -
+__end_of_ES_Initialize 60C 0 CODE 0 text13 dist/Managed_Stack/production/REF_SW.production.obj
+_ES_EnQueueFIFO 60C 0 CODE 0 text17 dist/Managed_Stack/production/REF_SW.production.obj
+__CFG_MCLRE$ON 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_BF 4A0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+__Hstrings 0 0 ABS 0 strings -
+_ANS4 8F4 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_ANS7 8F7 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_BRGH 4C2 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_CREN C4 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+ES_Initialize@i 69 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+_PEIE 5E 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_RCIE 465 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_RCIF 65 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_SPEN C7 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_T0CS 40D 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_T0IE 5D 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_T0IF 5A 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_SYNC 4C4 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_TMR0 1 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_TXEN 4C5 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_TXIE 464 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_TXIF 64 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+___sp 0 0 STACK 2 stack /tmp/xchtOdYCz.obj
+_main 7A8 0 CODE 0 maintext dist/Managed_Stack/production/REF_SW.production.obj
+_time 25 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+btemp 7E 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_ServDescList 8C4 0 STRING 0 strings dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_UARTRXIntResponse 30A 0 CODE 0 text22 dist/Managed_Stack/production/REF_SW.production.obj
+start 22 0 CODE 0 init /tmp/xchtOdYCz.obj
+__pfunctab 5A 0 ENTRY 0 functab dist/Managed_Stack/production/REF_SW.production.obj
+__CFG_BOREN$OFF 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+__size_of_main 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+ES_Timer_RTI_Resp@NewEvent 20 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+_ES_GetMSBitSet 6B4 0 CODE 0 text9 dist/Managed_Stack/production/REF_SW.production.obj
+__HbssCOMMON 0 0 ABS 0 bssCOMMON -
+__end_of_USART_Init A4C 0 CODE 0 text1 dist/Managed_Stack/production/REF_SW.production.obj
+__size_of_CheckSSEvent 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+ES_PostToService@WhichService 61 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__Hpowerup 0 0 CODE 0 powerup -
+__HdataCOMMON 0 0 ABS 0 dataCOMMON -
+CheckUARTRXEvent@CommEvent 63 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+_RunSPIService B18 0 CODE 0 text5 dist/Managed_Stack/production/REF_SW.production.obj
+intlevel0 5A 0 ENTRY 0 functab /tmp/xchtOdYCz.obj
+intlevel1 5A 0 ENTRY 0 functab /tmp/xchtOdYCz.obj
+intlevel2 5A 0 ENTRY 0 functab /tmp/xchtOdYCz.obj
+intlevel3 5A 0 ENTRY 0 functab /tmp/xchtOdYCz.obj
+intlevel4 5A 0 ENTRY 0 functab /tmp/xchtOdYCz.obj
+intlevel5 5A 0 ENTRY 0 functab /tmp/xchtOdYCz.obj
+RunUARTRXService@ReturnEvent 5B 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__LbssCOMMON 0 0 ABS 0 bssCOMMON -
+___bmul@multiplicand 50 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+wtemp0 7E 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+__Hfunctab 7E 0 ENTRY 0 functab -
+__end_of_CheckSSEvent AA6 0 CODE 0 text12 dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_ES_EnQueueFIFO 6B4 0 CODE 0 text17 dist/Managed_Stack/production/REF_SW.production.obj
+__Hclrtext 0 0 ABS 0 clrtext -
+__pidataCOMMON B44 0 CODE 0 idataCOMMON dist/Managed_Stack/production/REF_SW.production.obj
+__size_of_RX_newStatusReady 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+ES_GetMSBitSet@LoopCntr 56 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+RunUARTRXService@FieldAddressLSB 5F 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+RunUARTRXService@FieldAddressMSB 5E 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_PostUARTRXService B02 0 CODE 0 text8 dist/Managed_Stack/production/REF_SW.production.obj
+_newStatusAvailable 32 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+_ES_Sys_Timer_Init 970 0 CODE 0 text19 dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_ES_GetMSBitSet 738 0 CODE 0 text9 dist/Managed_Stack/production/REF_SW.production.obj
+_ANSELH 11F 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+UARTRXIntResponse@currentByteIndex 7B 0 COMMON 1 bssCOMMON dist/Managed_Stack/production/REF_SW.production.obj
+_ES_InitQueue A4C 0 CODE 0 text20 dist/Managed_Stack/production/REF_SW.production.obj
+_ClearReceivedDataArray ACC 0 CODE 0 text23 dist/Managed_Stack/production/REF_SW.production.obj
+RunUARTRXService@i 60 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__LdataCOMMON 0 0 ABS 0 dataCOMMON -
+entry__CheckUARTRXEvent 6E 0 ENTRY 0 functab dist/Managed_Stack/production/REF_SW.production.obj
+_RunUARTRXService 30A 0 CODE 0 text3 dist/Managed_Stack/production/REF_SW.production.obj
+ES_InitQueue@pThisQueue 53 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__end_of___bmul ACC 0 CODE 0 text18 dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_ServDescList 8CC 0 STRING 0 strings dist/Managed_Stack/production/REF_SW.production.obj
+ES_InitQueue@pBlock 52 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+_ES_Run 7E 0 CODE 0 text2 dist/Managed_Stack/production/REF_SW.production.obj
+__Lmaintext 0 0 ABS 0 maintext -
+__size_of_InitSPIService 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+___bmul@multiplier 53 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+_UARTRXIntResponse 238 0 CODE 0 text22 dist/Managed_Stack/production/REF_SW.production.obj
+_INTCON B 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+ES_Timer_InitTimer@NewTime 50 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_Nybble2MSBitNum 89C 0 STRING 0 strings dist/Managed_Stack/production/REF_SW.production.obj
+__LidataCOMMON 0 0 ABS 0 idataCOMMON -
+__size_of_ES_InitQueue 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+UARTRXIntResponse@bodyByteCount 7A 0 COMMON 1 bssCOMMON dist/Managed_Stack/production/REF_SW.production.obj
+__size_of_RX_getStatusBuffer 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+RunSPIService@ThisEvent 50 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+RunSPIService@ReturnEvent 53 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+ES_DeQueue@pReturnEvent 54 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__CFG_FCMEN$OFF 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+start_initialization 26 0 CODE 0 cinit dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_ES_Timer_InitTimer 970 0 CODE 0 text4 dist/Managed_Stack/production/REF_SW.production.obj
+_OSCCON 8F 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_hasHeartbeat 2D 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+_newResponseAvailable 31 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__size_of_RunSPIService 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_ES_DeQueue 496 0 CODE 0 text10 dist/Managed_Stack/production/REF_SW.production.obj
+_BitNum2SetMask 8AC 0 STRING 0 strings dist/Managed_Stack/production/REF_SW.production.obj
+__size_of_ES_Run 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_Queue0 BC 0 BANK1 1 bssBANK1 dist/Managed_Stack/production/REF_SW.production.obj
+_Queue1 B0 0 BANK1 1 bssBANK1 dist/Managed_Stack/production/REF_SW.production.obj
+_RXFlag 2E 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_ES_InitQueue A7A 0 CODE 0 text20 dist/Managed_Stack/production/REF_SW.production.obj
+clear_ram0 B2C 0 CODE 0 clrtext dist/Managed_Stack/production/REF_SW.production.obj
+_SPBRGH 9A 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+__pcstackBANK0 50 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+_SSPBUF 13 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_SSPCON 14 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_PostUARTRXService AEA 0 CODE 0 text8 dist/Managed_Stack/production/REF_SW.production.obj
+_TRISB4 434 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_TRISB6 436 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_TRISC0 438 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_TRISC3 43B 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_TRISC4 43C 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_TRISC5 43D 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_TRISC6 43E 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_TRISC7 43F 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+PostUARTRXService@ThisEvent 62 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__size_of_SPIIntResponse 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_RunUARTRXService 3D0 0 CODE 0 text3 dist/Managed_Stack/production/REF_SW.production.obj
+_IsTimerPending B02 0 CODE 0 text6 dist/Managed_Stack/production/REF_SW.production.obj
+__size_of_USART_Init 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+___int_sp 0 0 STACK 2 stack /tmp/xchtOdYCz.obj
+_ES_Timer_InitTimer 920 0 CODE 0 text4 dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_RunSPIService B2C 0 CODE 0 text5 dist/Managed_Stack/production/REF_SW.production.obj
+RunUARTRXService@ThisEvent 54 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_RX_newStatusReady B44 0 CODE 0 text25 dist/Managed_Stack/production/REF_SW.production.obj
+__Hbank0 0 0 ABS 0 bank0 -
+__Hbank1 0 0 ABS 0 bank1 -
+__Hbank2 0 0 ABS 0 bank2 -
+__Hbank3 0 0 BANK3 1 bank3 -
+__Hcinit 5A 0 CODE 0 cinit -
+_Nybble2MSBitNum 87E 0 STRING 0 strings dist/Managed_Stack/production/REF_SW.production.obj
+__Hidloc 0 0 IDLOC 0 idloc -
+__Hstack 0 0 STACK 2 stack -
+__stringbase 87C 0 STRING 0 strings dist/Managed_Stack/production/REF_SW.production.obj
+ES_DeQueue@pBlock 5C 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__size_of_RunUARTRXService 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+__Hmaintext 0 0 ABS 0 maintext -
+ES_EnQueueFIFO@pBlock 5B 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__Hcommon 0 0 ABS 0 common -
+__Hconfig 4010 0 CONFIG 0 config -
+CheckSSEvent@returnVal 51 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__Lbank0 0 0 ABS 0 bank0 -
+__Lbank1 0 0 ABS 0 bank1 -
+__Lbank2 0 0 ABS 0 bank2 -
+__Lbank3 0 0 BANK3 1 bank3 -
+__Lcinit 26 0 CODE 0 cinit -
+__Lidloc 0 0 IDLOC 0 idloc -
+_EventQueues 8BC 0 STRING 0 strings dist/Managed_Stack/production/REF_SW.production.obj
+__Lstack 0 0 STACK 2 stack -
+__size_of__fptable 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_BitNum2SetMask 8BC 0 STRING 0 strings dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_ES_DeQueue 55C 0 CODE 0 text10 dist/Managed_Stack/production/REF_SW.production.obj
+ES_Timer_RTI_Resp@NextTimer2Process 35 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__Habs1 0 0 ABS 0 abs1 -
+__Hcode 0 0 ABS 0 code -
+__Hinit 22 0 CODE 0 init -
+__Hsfr0 0 0 ABS 0 sfr0 -
+__Hsfr1 0 0 ABS 0 sfr1 -
+__Hsfr2 0 0 ABS 0 sfr2 -
+__Hsfr3 0 0 ABS 0 sfr3 -
+__Htext 0 0 ABS 0 text -
+__Labs1 0 0 ABS 0 abs1 -
+__Lcode 0 0 ABS 0 code -
+__Linit 22 0 CODE 0 init -
+__Lsfr0 0 0 ABS 0 sfr0 -
+__Lsfr1 0 0 ABS 0 sfr1 -
+__Lsfr2 0 0 ABS 0 sfr2 -
+__Lsfr3 0 0 ABS 0 sfr3 -
+__Ltext 0 0 ABS 0 text -
+___bmul AA6 0 CODE 0 text18 dist/Managed_Stack/production/REF_SW.production.obj
+__LcstackBANK0 0 0 ABS 0 cstackBANK0 -
+__HcstackCOMMON 0 0 ABS 0 cstackCOMMON -
+_Timer2PostFunc 89C 0 STRING 0 strings dist/Managed_Stack/production/REF_SW.production.obj
+_GIE 5F 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_ISR 812 0 CODE 0 text21 dist/Managed_Stack/production/REF_SW.production.obj
+_PS0 408 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_PS1 409 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_PS2 40A 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_PSA 40B 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_RC0 38 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_RC3 3B 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_RC4 3C 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_RC5 3D 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_RC6 3E 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+__S0 2008 0 ABS 0 - -
+__S1 C8 0 ABS 0 - -
+__S2 0 0 ABS 0 - -
+__S3 0 0 ABS 0 - -
+ES_GetMSBitSet@Nybble2Test 55 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_ClearReceivedDataArray AEA 0 CODE 0 text23 dist/Managed_Stack/production/REF_SW.production.obj
+__size_of_InitUARTRXService 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+saved_w 7E 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_IsTimerPending B18 0 CODE 0 text6 dist/Managed_Stack/production/REF_SW.production.obj
+_ES_PostToService 8CE 0 CODE 0 text16 dist/Managed_Stack/production/REF_SW.production.obj
+__HidataCOMMON 0 0 ABS 0 idataCOMMON -
+_newRequest 28 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_ISR 872 0 CODE 0 text21 dist/Managed_Stack/production/REF_SW.production.obj
+__size_of_ES_Timer_RTI_Resp 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+__Lintentry 8 0 CODE 0 intentry -
+__stringtab 872 0 STRING 0 strings dist/Managed_Stack/production/REF_SW.production.obj
+reset_vec 0 0 CODE 0 reset_vec /tmp/xchtOdYCz.obj
+__fptable 5A 0 ENTRY 0 functab dist/Managed_Stack/production/REF_SW.production.obj
+__size_of___bmul 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+__LbssBANK0 0 0 ABS 0 bssBANK0 -
+__LbssBANK1 0 0 ABS 0 bssBANK1 -
+__size_of_ES_EnQueueFIFO 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_RX_newStatusReady B3C 0 CODE 0 text25 dist/Managed_Stack/production/REF_SW.production.obj
+ES_EnQueueFIFO@saveCrit 59 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+_TickCount 38 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__end_of__fptable 7E 0 ENTRY 0 functab dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_Timer2PostFunc 8AC 0 STRING 0 strings dist/Managed_Stack/production/REF_SW.production.obj
+ES_PostToService@TheEvent 5D 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+SPI_SM@MyPriority 2C 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext10 496 0 CODE 0 text10 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext11 9AC 0 CODE 0 text11 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext12 A7A 0 CODE 0 text12 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext13 55C 0 CODE 0 text13 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext14 738 0 CODE 0 text14 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext15 9E2 0 CODE 0 text15 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext16 8CE 0 CODE 0 text16 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext17 60C 0 CODE 0 text17 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext18 AA6 0 CODE 0 text18 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext19 970 0 CODE 0 text19 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext20 A4C 0 CODE 0 text20 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext21 812 0 CODE 0 text21 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext22 238 0 CODE 0 text22 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext23 ACC 0 CODE 0 text23 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext24 164 0 CODE 0 text24 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext25 B3C 0 CODE 0 text25 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext26 B48 0 CODE 0 text26 dist/Managed_Stack/production/REF_SW.production.obj
+ClearReceivedDataArray@i 71 0 COMMON 1 cstackCOMMON dist/Managed_Stack/production/REF_SW.production.obj
+__pmaintext 7A8 0 CODE 0 maintext dist/Managed_Stack/production/REF_SW.production.obj
+ES_DeQueue@pThisQueue 5D 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+ES_DeQueue@saveCrit 5A 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__size_of_ES_GetMSBitSet 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+__Lcommon 0 0 ABS 0 common -
+__Lconfig 400E 0 CONFIG 0 config -
+__CFG_CP$OFF 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_CheckUARTRXEvent 9AC 0 CODE 0 text11 dist/Managed_Stack/production/REF_SW.production.obj
+__CFG_WDTE$OFF 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+u1497jf 7F4 0 CODE 0 maintext dist/Managed_Stack/production/REF_SW.production.obj
+main@ErrorType 6E 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_ES_EventList 8CE 0 STRING 0 strings dist/Managed_Stack/production/REF_SW.production.obj
+ES_Run@HighestPrior 6C 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+stackhi 0 0 ABS 0 - /tmp/xchtOdYCz.obj
+stacklo 0 0 ABS 0 - /tmp/xchtOdYCz.obj
+CheckSSEvent@lastSS 27 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+UARTRXIntResponse@newByte 73 0 COMMON 1 cstackCOMMON dist/Managed_Stack/production/REF_SW.production.obj
+_InitSPIService 738 0 CODE 0 text14 dist/Managed_Stack/production/REF_SW.production.obj
+__end_of__stringtab 87E 0 STRING 0 strings dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_ES_PostToService 920 0 CODE 0 text16 dist/Managed_Stack/production/REF_SW.production.obj
+__Lspace_0 0 0 ABS 0 - -
+__Lspace_1 0 0 ABS 0 - -
+__Lspace_2 0 0 ABS 0 - -
+__Lspace_3 0 0 ABS 0 - -
+__pbssCOMMON 79 0 COMMON 1 bssCOMMON dist/Managed_Stack/production/REF_SW.production.obj
+__HcstackBANK0 0 0 ABS 0 cstackBANK0 -
+?_RunUARTRXService 54 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__Lend_init 22 0 CODE 0 end_init -
+__size_of_ES_PostToService 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+__LcstackCOMMON 0 0 ABS 0 cstackCOMMON -
+end_of_initialization 54 0 CODE 0 cinit dist/Managed_Stack/production/REF_SW.production.obj
+__pjmp_tab__ES_Run 4 0 ENTRY 0 jmp_tab__ES_Run dist/Managed_Stack/production/REF_SW.production.obj
+__Hintentry 22 0 CODE 0 intentry -
+InitSPIService@Priority 62 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_InitUARTRXService A18 0 CODE 0 text15 dist/Managed_Stack/production/REF_SW.production.obj
+fptable 5A 0 ENTRY 0 functab dist/Managed_Stack/production/REF_SW.production.obj
+fptotal C 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+__Lstrings 0 0 ABS 0 strings -
+__Hreset_vec 4 0 CODE 0 reset_vec -
+CheckSSEvent@thisSS 52 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+_checksum 3A 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__HbssBANK0 0 0 ABS 0 bssBANK0 -
+__HbssBANK1 0 0 ABS 0 bssBANK1 -
+_ES_Initialize 55C 0 CODE 0 text13 dist/Managed_Stack/production/REF_SW.production.obj
+__size_of_ES_Timer_InitTimer 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+__size_of_ES_DeQueue 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_ES_Timer_RTI_Resp 496 0 CODE 0 text7 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext1 A18 0 CODE 0 text1 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext2 7E 0 CODE 0 text2 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext3 30A 0 CODE 0 text3 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext4 920 0 CODE 0 text4 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext5 B18 0 CODE 0 text5 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext6 B02 0 CODE 0 text6 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext7 3D0 0 CODE 0 text7 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext8 AEA 0 CODE 0 text8 dist/Managed_Stack/production/REF_SW.production.obj
+__ptext9 6B4 0 CODE 0 text9 dist/Managed_Stack/production/REF_SW.production.obj
+__size_of_ES_Sys_Timer_Init 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_MyPriority 34 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+entry__RunUARTRXService 7A 0 ENTRY 0 functab dist/Managed_Stack/production/REF_SW.production.obj
+_TMR_ActiveFlags 37 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+ES_EnQueueFIFO@InsertionPoint 5A 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__Lpowerup 0 0 CODE 0 powerup -
+_TMR_TimerArray A0 0 BANK1 1 bssBANK1 dist/Managed_Stack/production/REF_SW.production.obj
+__Leeprom_data 0 0 EEDATA 3 eeprom_data -
+_currentState 33 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_InitSPIService 7A8 0 CODE 0 text14 dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_CheckUARTRXEvent 9E2 0 CODE 0 text11 dist/Managed_Stack/production/REF_SW.production.obj
+__Lreset_vec 0 0 CODE 0 reset_vec -
+ES_InitQueue@BlockSize 50 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__Hjmp_tab__ES_Run 0 0 ABS 0 jmp_tab__ES_Run -
+__size_of_ClearReceivedDataArray 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+__CFG_FOSC$HS 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+SPIIntResponse@readByte 71 0 COMMON 1 cstackCOMMON dist/Managed_Stack/production/REF_SW.production.obj
+__size_of_UARTRXIntResponse 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_SPIIntResponse 164 0 CODE 0 text24 dist/Managed_Stack/production/REF_SW.production.obj
+__size_of_CheckUARTRXEvent 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+__end_of__initialization 54 0 CODE 0 cinit dist/Managed_Stack/production/REF_SW.production.obj
+?_ES_Run 68 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__Lfunctab 5A 0 ENTRY 0 functab -
+__end_of_EventQueues 8C4 0 STRING 0 strings dist/Managed_Stack/production/REF_SW.production.obj
+_FieldAddr 23 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+ES_Timer_RTI_Resp@NeedsProcessing 36 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_RX_getStatusBuffer B4C 0 CODE 0 text26 dist/Managed_Stack/production/REF_SW.production.obj
+?_RunSPIService 50 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+ES_EnQueueFIFO@pThisQueue 5C 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__Lclrtext 0 0 ABS 0 clrtext -
+SPI_SM@currentState 2B 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__CFG_PWRTE$ON 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+__pcstackCOMMON 70 0 COMMON 1 cstackCOMMON dist/Managed_Stack/production/REF_SW.production.obj
+_SPIBuffer 2A 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+_SSPSTAT 94 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+__Hend_init 26 0 CODE 0 end_init -
+InitSPIService@ThisEvent 64 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+entry__RunSPIService 76 0 ENTRY 0 functab dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_main 812 0 CODE 0 maintext dist/Managed_Stack/production/REF_SW.production.obj
+ES_Run@ThisEvent 4D 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+_responseBytes 7C 0 COMMON 1 dataCOMMON dist/Managed_Stack/production/REF_SW.production.obj
+_ANS11 8FB 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_BRG16 4DB 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+InitUARTRXService@Priority 62 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+_PORTC 7 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_RCREG 1A 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_Ready 39 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+_SPBRG 99 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_SSPIE 463 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_SSPIF 63 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_TXREG 19 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_InitUARTRXService 9E2 0 CODE 0 text15 dist/Managed_Stack/production/REF_SW.production.obj
+__Hram 0 0 ABS 0 ram -
+__Lram 0 0 ABS 0 ram -
+interrupt_function 8 0 CODE 0 intentry dist/Managed_Stack/production/REF_SW.production.obj
+_flag2 30 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+_flag3 2F 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__CFG_CPD$OFF 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+ES_GetMSBitSet@ReturnVal 54 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+InitUARTRXService@ThisEvent 64 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__pintentry 8 0 CODE 0 intentry dist/Managed_Stack/production/REF_SW.production.obj
+_commOpen 29 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__size_of_ISR 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+_RX_getStatusBuffer B48 0 CODE 0 text26 dist/Managed_Stack/production/REF_SW.production.obj
+__size_of_IsTimerPending 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+__size_of_PostUARTRXService 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+ES_EnQueueFIFO@Event2Add 54 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+ES_DeQueue@NumLeft 5B 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_SPIIntResponse 238 0 CODE 0 text24 dist/Managed_Stack/production/REF_SW.production.obj
+_USART_Init A18 0 CODE 0 text1 dist/Managed_Stack/production/REF_SW.production.obj
+__initialization 26 0 CODE 0 cinit dist/Managed_Stack/production/REF_SW.production.obj
+___bmul@product 52 0 BANK0 1 cstackBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+_ES_Timer_RTI_Resp 3D0 0 CODE 0 text7 dist/Managed_Stack/production/REF_SW.production.obj
+__pbssBANK0 20 0 BANK0 1 bssBANK0 dist/Managed_Stack/production/REF_SW.production.obj
+__pbssBANK1 A0 0 BANK1 1 bssBANK1 dist/Managed_Stack/production/REF_SW.production.obj
+__size_of_ES_Initialize 0 0 ABS 0 - dist/Managed_Stack/production/REF_SW.production.obj
+__pdataCOMMON 7C 0 COMMON 1 dataCOMMON dist/Managed_Stack/production/REF_SW.production.obj
+__pstrings 872 0 STRING 0 strings dist/Managed_Stack/production/REF_SW.production.obj
+__end_of_ES_Run 164 0 CODE 0 text2 dist/Managed_Stack/production/REF_SW.production.obj
+fpbase 64 0 ENTRY 0 functab dist/Managed_Stack/production/REF_SW.production.obj
+_CheckSSEvent A7A 0 CODE 0 text12 dist/Managed_Stack/production/REF_SW.production.obj
+# %SPLITSTAB Section
+# This section enumerates all the psect splits performed by the assembler.
+# The beginning of the section is indicated by %SPLITSTAB.
+# Each line is a record a particular split, where the parent psect is on
+# the left and the child on the right.  Note that a child psect is always
+# split form the top of the parent psect. All splits from a given parent
+# are listed in the order in which they occurred.
+%SPLITSTAB
+# %DABS Section
+# This section contains a table of all usuage of the assember
+# directive DABS in the program. Each line has the following format:
+#   <name> <space> <address> <size>
+# If the DABS was originally labelled then that shall be <name>,
+# otherwise name will be "-".  The <space> number is in decimal.
+# <address> and <size> are in byte units as unqaulified hexadecimal
+%DABS
+- 1 7E 2
+# %SEGMENTS Section
+# This sections enumerates the segments of the program.  Each segment
+# is described on a single line as follows:
+#    <name> <space> <link address> <file address> <size> <delta>
+# Addresses and size are in unqualified hexadecimal.  The link address
+# and size are in units of delta. The file address is in units of bytes.
+# All other numeric quantities are in decimal.
+%SEGMENTS
+text2 0 3F 7E 3FA 2
+text16 0 467 8CE 13F 2
+cstackCOMMON 1 70 70 E 1
+intentry 0 4 8 29 2
+reset_vec 0 0 0 2 2
+bssBANK0 1 20 20 4F 1
+bssBANK1 1 A0 A0 28 1
+strings 0 439 872 2E 2
+jmp_tab__ES_Run 0 2 4 2 2
+functab 0 2D 5A 12 2
+config 0 2007 400E 1 2

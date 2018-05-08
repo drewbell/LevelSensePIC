@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <executable name="dist/HW_Stack/production\PAC.production.hex">
+    <memory name="program">
+      <units>words</units>
+      <length>4096</length>
+      <used>2339</used>
+      <free>1757</free>
+    </memory>
+    <memory name="data">
+      <units>bytes</units>
+      <length>256</length>
+      <used>215</used>
+      <free>41</free>
+    </memory>
+  </executable>
+</project>

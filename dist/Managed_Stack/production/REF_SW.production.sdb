@@ -1,0 +1,669 @@
+[p LITE_MODE AUTOSTATIC PIC14 PICREGULAR PICMID ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 16F690 ]
+[d frameptr 6 ]
+"66 /Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+[e E1 . `uc
+ES_NO_EVENT 0
+ES_ERROR 1
+ES_INIT 2
+ES_NEW_KEY 3
+ES_TIMEOUT 4
+ES_LOCK 5
+ES_UNLOCK 6
+ES_RX_NEW_PACKET 7
+ES_RX_BROADCAST 8
+ES_RX_RESPONSE 9
+ES_RX_TXSTAT 10
+ES_TX_NEW_ADDR 11
+ES_TX_SEND_COMPLETE 12
+ES_TX_REQUEST_SEND 13
+ES_TX_STATUS 14
+ES_TOGGLE_LED 15
+]
+"189
+[e E93 . `uc
+ES_Timer_RATE_OFF 0
+ES_Timer_RATE_1MS 1
+ES_Timer_RATE_2MS 2
+ES_Timer_RATE_4MS 3
+ES_Timer_RATE_8MS 4
+ES_Timer_RATE_16MS 5
+ES_Timer_RATE_32MS 6
+]
+[e E1595 . `uc
+Success 0
+FailedPost 1
+FailedRun 2
+FailedPointer 3
+FailedIndex 4
+FailedInit 5
+]
+"57 /Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+[e E1510 . `uc
+ES_NO_EVENT 0
+ES_ERROR 1
+ES_INIT 2
+ES_NEW_KEY 3
+ES_TIMEOUT 4
+ES_LOCK 5
+ES_UNLOCK 6
+ES_RX_NEW_PACKET 7
+ES_RX_BROADCAST 8
+ES_RX_RESPONSE 9
+ES_RX_TXSTAT 10
+ES_TX_NEW_ADDR 11
+ES_TX_SEND_COMPLETE 12
+ES_TX_REQUEST_SEND 13
+ES_TX_STATUS 14
+ES_TOGGLE_LED 15
+]
+"99 /Users/drewbell/Desktop/Repos/REF_SW/ES_Timers.c
+[e E1510 . `uc
+ES_NO_EVENT 0
+ES_ERROR 1
+ES_INIT 2
+ES_NEW_KEY 3
+ES_TIMEOUT 4
+ES_LOCK 5
+ES_UNLOCK 6
+ES_RX_NEW_PACKET 7
+ES_RX_BROADCAST 8
+ES_RX_RESPONSE 9
+ES_RX_TXSTAT 10
+ES_TX_NEW_ADDR 11
+ES_TX_SEND_COMPLETE 12
+ES_TX_REQUEST_SEND 13
+ES_TX_STATUS 14
+ES_TOGGLE_LED 15
+]
+"129
+[e E1482 . `c
+ES_Timer_ERR -1
+ES_Timer_ACTIVE 1
+ES_Timer_OK 0
+ES_Timer_NOT_ACTIVE 0
+]
+"22 /Users/drewbell/Desktop/Repos/REF_SW/main.c
+[e E1642 . `uc
+Success 0
+FailedPost 1
+FailedRun 2
+FailedPointer 3
+FailedIndex 4
+FailedInit 5
+]
+"42
+[e E1553 . `uc
+ES_Timer_RATE_OFF 0
+ES_Timer_RATE_1MS 1
+ES_Timer_RATE_2MS 2
+ES_Timer_RATE_4MS 3
+ES_Timer_RATE_8MS 4
+ES_Timer_RATE_16MS 5
+ES_Timer_RATE_32MS 6
+]
+"43 /Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+[e E1598 . `uc
+WaitFor7E 0
+WaitForMSB 1
+WaitForLSB 2
+SuckUpOverhead 3
+SuckUpData 4
+WaitForCkSum 5
+]
+"80
+[e E1 . `uc
+ES_NO_EVENT 0
+ES_ERROR 1
+ES_INIT 2
+ES_NEW_KEY 3
+ES_TIMEOUT 4
+ES_LOCK 5
+ES_UNLOCK 6
+ES_RX_NEW_PACKET 7
+ES_RX_BROADCAST 8
+ES_RX_RESPONSE 9
+ES_RX_TXSTAT 10
+ES_TX_NEW_ADDR 11
+ES_TX_SEND_COMPLETE 12
+ES_TX_REQUEST_SEND 13
+ES_TX_STATUS 14
+ES_TOGGLE_LED 15
+]
+"159
+[e E1500 . `c
+ES_Timer_ERR -1
+ES_Timer_ACTIVE 1
+ES_Timer_OK 0
+ES_Timer_NOT_ACTIVE 0
+]
+"52 /Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+[e E1634 . `uc
+Waiting4Command 0
+Waiting4Dummy1 1
+Waiting4Dummy2 2
+Waiting4Dummy3 3
+]
+"79
+[e E1 . `uc
+ES_NO_EVENT 0
+ES_ERROR 1
+ES_INIT 2
+ES_NEW_KEY 3
+ES_TIMEOUT 4
+ES_LOCK 5
+ES_UNLOCK 6
+ES_RX_NEW_PACKET 7
+ES_RX_BROADCAST 8
+ES_RX_RESPONSE 9
+ES_RX_TXSTAT 10
+ES_TX_NEW_ADDR 11
+ES_TX_SEND_COMPLETE 12
+ES_TX_REQUEST_SEND 13
+ES_TX_STATUS 14
+ES_TOGGLE_LED 15
+]
+"62 /Applications/microchip/xc8/v1.45/sources/common/float.c
+[v ___ftpack __ftpack `(f  1 e 3 0 ]
+"86 /Applications/microchip/xc8/v1.45/sources/common/ftadd.c
+[v ___ftadd __ftadd `(f  1 e 3 0 ]
+"4 /Applications/microchip/xc8/v1.45/sources/common/Umul8.c
+[v ___bmul __bmul `(uc  1 e 1 0 ]
+"6 /Applications/microchip/xc8/v1.45/sources/pic/eeprom.c
+[v _eecpymem eecpymem `(v  1 e 1 0 ]
+"39
+[v _memcpyee memcpyee `(v  1 e 1 0 ]
+"189 /Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+[v _ES_Initialize ES_Initialize `(E1595  1 e 1 0 ]
+"224
+[v _ES_Run ES_Run `(E1595  1 e 1 0 ]
+"313
+[v _ES_PostToService ES_PostToService `(uc  1 e 1 0 ]
+"78 /Users/drewbell/Desktop/Repos/REF_SW/ES_LookupTables.c
+[v _ES_GetMSBitSet ES_GetMSBitSet `(uc  1 e 1 0 ]
+"25 /Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+[v _ES_Sys_Timer_Init ES_Sys_Timer_Init `(v  1 e 1 0 ]
+"53
+[v _ISR ISR `II(v  1 e 1 0 ]
+"78
+[v _IsTimerPending IsTimerPending `(uc  1 e 1 0 ]
+"56 /Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+[v _ES_InitQueue ES_InitQueue `(uc  1 e 1 0 ]
+"83
+[v _ES_EnQueueFIFO ES_EnQueueFIFO `(uc  1 e 1 0 ]
+"125
+[v _ES_DeQueue ES_DeQueue `(uc  1 e 1 0 ]
+"205 /Users/drewbell/Desktop/Repos/REF_SW/ES_Timers.c
+[v _ES_Timer_InitTimer ES_Timer_InitTimer `(E1482  1 e 1 0 ]
+"259
+[v _ES_Timer_RTI_Resp ES_Timer_RTI_Resp `(v  1 e 1 0 ]
+"21 /Users/drewbell/Desktop/Repos/REF_SW/main.c
+[v _main main `(v  1 e 1 0 ]
+"11 /Users/drewbell/Desktop/Repos/REF_SW/sci.c
+[v _USART_Init USART_Init `(v  1 e 1 0 ]
+"78 /Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+[v _InitSPIService InitSPIService `(uc  1 e 1 0 ]
+"23 /Users/drewbell/Desktop/Repos/REF_SW/ES_Events.h
+[s S46 ES_Event_t 3 `E1 1 EventType 1 0 `ui 1 EventParam 2 1 ]
+"162 /Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+[v _RunSPIService RunSPIService `(S46  1 e 3 0 ]
+"183
+[v _SPIIntResponse SPIIntResponse `T(v  1 e 1 0 ]
+"290
+[v _CheckSSEvent CheckSSEvent `(uc  1 e 1 0 ]
+"79 /Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+[v _InitUARTRXService InitUARTRXService `(uc  1 e 1 0 ]
+"110
+[v _PostUARTRXService PostUARTRXService `(uc  1 e 1 0 ]
+"23 /Users/drewbell/Desktop/Repos/REF_SW/ES_Events.h
+[s S46 ES_Event_t 3 `E1 1 EventType 1 0 `ui 1 EventParam 2 1 ]
+"131 /Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+[v _RunUARTRXService RunUARTRXService `(S46  1 e 3 0 ]
+"208
+[v _RX_newStatusReady RX_newStatusReady `T(uc  1 e 1 0 ]
+"225
+[v _RX_getStatusBuffer RX_getStatusBuffer `(*.4VEuc  1 e 1 0 ]
+"310
+[v _UARTRXIntResponse UARTRXIntResponse `T(v  1 e 1 0 ]
+"396
+[v _CheckUARTRXEvent CheckUARTRXEvent `(uc  1 e 1 0 ]
+"427
+[v _ClearReceivedDataArray ClearReceivedDataArray `(v  1 s 1 ClearReceivedDataArray ]
+"57 /Applications/microchip/xc8/v1.45/include/pic16f690.h
+[v _TMR0 TMR0 `VEuc  1 e 1 @1 ]
+"253
+[v _PORTC PORTC `VEuc  1 e 1 @7 ]
+"322
+[v _INTCON INTCON `VEuc  1 e 1 @11 ]
+"663
+[v _SSPBUF SSPBUF `VEuc  1 e 1 @19 ]
+"670
+[v _SSPCON SSPCON `VEuc  1 e 1 @20 ]
+"905
+[v _TXREG TXREG `VEuc  1 e 1 @25 ]
+"912
+[v _RCREG RCREG `VEuc  1 e 1 @26 ]
+"1542
+[v _OSCCON OSCCON `VEuc  1 e 1 @143 ]
+"1795
+[v _SSPSTAT SSPSTAT `VEuc  1 e 1 @148 ]
+"2416
+[v _SPBRG SPBRG `VEuc  1 e 1 @153 ]
+"2478
+[v _SPBRGH SPBRGH `VEuc  1 e 1 @154 ]
+"3062
+[v _ANSELH ANSELH `VEuc  1 e 1 @287 ]
+"3287
+[v _ANS11 ANS11 `VEb  1 e 0 @2299 ]
+"3293
+[v _ANS4 ANS4 `VEb  1 e 0 @2292 ]
+"3299
+[v _ANS7 ANS7 `VEb  1 e 0 @2295 ]
+"3305
+[v _BF BF `VEb  1 e 0 @1184 ]
+"3323
+[v _BRG16 BRG16 `VEb  1 e 0 @1243 ]
+"3341
+[v _BRGH BRGH `VEb  1 e 0 @1218 ]
+"3415
+[v _CREN CREN `VEb  1 e 0 @196 ]
+"3447
+[v _GIE GIE `VEb  1 e 0 @95 ]
+"3559
+[v _PEIE PEIE `VEb  1 e 0 @94 ]
+"3563
+[v _PS0 PS0 `VEb  1 e 0 @1032 ]
+"3565
+[v _PS1 PS1 `VEb  1 e 0 @1033 ]
+"3567
+[v _PS2 PS2 `VEb  1 e 0 @1034 ]
+"3569
+[v _PSA PSA `VEb  1 e 0 @1035 ]
+"3607
+[v _RC0 RC0 `VEb  1 e 0 @56 ]
+"3613
+[v _RC3 RC3 `VEb  1 e 0 @59 ]
+"3615
+[v _RC4 RC4 `VEb  1 e 0 @60 ]
+"3617
+[v _RC5 RC5 `VEb  1 e 0 @61 ]
+"3619
+[v _RC6 RC6 `VEb  1 e 0 @62 ]
+"3625
+[v _RCIE RCIE `VEb  1 e 0 @1125 ]
+"3627
+[v _RCIF RCIF `VEb  1 e 0 @101 ]
+"3657
+[v _SPEN SPEN `VEb  1 e 0 @199 ]
+"3667
+[v _SSPIE SSPIE `VEb  1 e 0 @1123 ]
+"3669
+[v _SSPIF SSPIF `VEb  1 e 0 @99 ]
+"3693
+[v _SYNC SYNC `VEb  1 e 0 @1220 ]
+"3695
+[v _T0CS T0CS `VEb  1 e 0 @1037 ]
+"3697
+[v _T0IE T0IE `VEb  1 e 0 @93 ]
+"3699
+[v _T0IF T0IF `VEb  1 e 0 @90 ]
+"3761
+[v _TRISB4 TRISB4 `VEb  1 e 0 @1076 ]
+"3765
+[v _TRISB6 TRISB6 `VEb  1 e 0 @1078 ]
+"3769
+[v _TRISC0 TRISC0 `VEb  1 e 0 @1080 ]
+"3775
+[v _TRISC3 TRISC3 `VEb  1 e 0 @1083 ]
+"3777
+[v _TRISC4 TRISC4 `VEb  1 e 0 @1084 ]
+"3779
+[v _TRISC5 TRISC5 `VEb  1 e 0 @1085 ]
+"3781
+[v _TRISC6 TRISC6 `VEb  1 e 0 @1086 ]
+"3783
+[v _TRISC7 TRISC7 `VEb  1 e 0 @1087 ]
+"3801
+[v _TXEN TXEN `VEb  1 e 0 @1221 ]
+"3803
+[v _TXIE TXIE `VEb  1 e 0 @1124 ]
+"3805
+[v _TXIF TXIF `VEb  1 e 0 @100 ]
+[s S46 ES_Event_t 3 `E1 1 EventType 1 0 `ui 1 EventParam 2 1 ]
+"66 /Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+[s S50 . 2 `*.27(uc 1 InitFunc 1 0 `*.27(S46 1 RunFunc 1 1 ]
+[v _ServDescList ServDescList `DC[2]S50  1 s 4 ServDescList ]
+"108
+[v _Queue0 Queue0 `[4]S46  1 s 12 Queue0 ]
+"110
+[v _Queue1 Queue1 `[4]S46  1 s 12 Queue1 ]
+"134
+[s S81 . 2 `*.4S46 1 pMem 1 0 `uc 1 Size 1 1 ]
+[v _EventQueues EventQueues `DC[2]S81  1 s 4 EventQueues ]
+"169
+[v _Ready Ready `uc  1 e 1 0 ]
+"62 /Users/drewbell/Desktop/Repos/REF_SW/ES_LookupTables.c
+[v _BitNum2SetMask BitNum2SetMask `DC[8]uc  1 e 8 0 ]
+"73
+[v _Nybble2MSBitNum Nybble2MSBitNum `DC[15]uc  1 e 15 0 ]
+"7 /Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+[v _TickCount TickCount `uc  1 s 1 TickCount ]
+"72 /Users/drewbell/Desktop/Repos/REF_SW/ES_Timers.c
+[v _TMR_TimerArray TMR_TimerArray `[8]ui  1 s 16 TMR_TimerArray ]
+"96
+[v _TMR_ActiveFlags TMR_ActiveFlags `uc  1 s 1 TMR_ActiveFlags ]
+"97
+[v _time time `VEui  1 s 2 time ]
+"99
+[v _Timer2PostFunc Timer2PostFunc `DC[8]*.27(uc  1 s 8 Timer2PostFunc ]
+"51 /Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+[v SPI_SM@MyPriority MyPriority `uc  1 s 1 MyPriority ]
+"52
+[v SPI_SM@currentState currentState `E1634  1 s 1 currentState ]
+"53
+[v _responseBytes responseBytes `VE[2]uc  1 s 2 responseBytes ]
+"55
+[v _SPIBuffer SPIBuffer `*.1VEuc  1 s 1 SPIBuffer ]
+"56
+[v _StatusResponseStore StatusResponseStore `*.4VEuc  1 s 1 StatusResponseStore ]
+"58
+[v _commOpen commOpen `VEuc  1 s 1 commOpen ]
+"59
+[v _newRequest newRequest `VEuc  1 s 1 newRequest ]
+"41 /Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+[v _MyPriority MyPriority `uc  1 s 1 MyPriority ]
+"43
+[v _currentState currentState `E1598  1 s 1 currentState ]
+"45
+[v _newStatusAvailable newStatusAvailable `VEuc  1 s 1 newStatusAvailable ]
+"46
+[v _newResponseAvailable newResponseAvailable `VEuc  1 s 1 newResponseAvailable ]
+"48
+[v _flag2 flag2 `VEuc  1 s 1 flag2 ]
+"49
+[v _flag3 flag3 `VEuc  1 s 1 flag3 ]
+"51
+[v _ReceivedData ReceivedData `VE[9]uc  1 s 9 ReceivedData ]
+"52
+[v _StatusArray StatusArray `VE[9]uc  1 s 9 StatusArray ]
+"54
+[v _RXFlag RXFlag `VEuc  1 s 1 RXFlag ]
+"55
+[v _hasHeartbeat hasHeartbeat `uc  1 s 1 hasHeartbeat ]
+"56
+[v _FieldAddr FieldAddr `ui  1 s 2 FieldAddr ]
+"9 /Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.h
+[v _checksum checksum `uc  1 e 1 0 ]
+"21 /Users/drewbell/Desktop/Repos/REF_SW/main.c
+[v _main main `(v  1 e 1 0 ]
+{
+"22
+[v main@ErrorType ErrorType `E1642  1 a 1 30 ]
+"68
+} 0
+"11 /Users/drewbell/Desktop/Repos/REF_SW/sci.c
+[v _USART_Init USART_Init `(v  1 e 1 0 ]
+{
+"40
+} 0
+"224 /Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+[v _ES_Run ES_Run `(E1595  1 e 1 0 ]
+{
+"226
+[v ES_Run@HighestPrior HighestPrior `uc  1 a 1 28 ]
+[s S46 ES_Event_t 3 `E1 1 EventType 1 0 `ui 1 EventParam 2 1 ]
+"227
+[v ES_Run@ThisEvent ThisEvent `S46  1 s 3 ThisEvent ]
+"264
+} 0
+"23 /Users/drewbell/Desktop/Repos/REF_SW/ES_Events.h
+[s S46 ES_Event_t 3 `E1 1 EventType 1 0 `ui 1 EventParam 2 1 ]
+"131 /Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+[v _RunUARTRXService RunUARTRXService `(S46  1 e 3 0 ]
+{
+"152
+[v RunUARTRXService@i i `uc  1 a 1 16 ]
+"147
+[v RunUARTRXService@FieldAddressLSB FieldAddressLSB `uc  1 a 1 15 ]
+"146
+[v RunUARTRXService@FieldAddressMSB FieldAddressMSB `uc  1 a 1 14 ]
+"133
+[v RunUARTRXService@ReturnEvent ReturnEvent `S46  1 a 3 11 ]
+"131
+[v RunUARTRXService@ThisEvent ThisEvent `S46  1 p 3 4 ]
+"176
+} 0
+"205 /Users/drewbell/Desktop/Repos/REF_SW/ES_Timers.c
+[v _ES_Timer_InitTimer ES_Timer_InitTimer `(E1482  1 e 1 0 ]
+{
+[v ES_Timer_InitTimer@Num Num `uc  1 a 1 wreg ]
+[v ES_Timer_InitTimer@Num Num `uc  1 a 1 wreg ]
+[v ES_Timer_InitTimer@NewTime NewTime `ui  1 p 2 0 ]
+"212
+[v ES_Timer_InitTimer@Num Num `uc  1 a 1 3 ]
+"217
+} 0
+"23 /Users/drewbell/Desktop/Repos/REF_SW/ES_Events.h
+[s S46 ES_Event_t 3 `E1 1 EventType 1 0 `ui 1 EventParam 2 1 ]
+"162 /Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+[v _RunSPIService RunSPIService `(S46  1 e 3 0 ]
+{
+"163
+[v RunSPIService@ReturnEvent ReturnEvent `S46  1 a 3 3 ]
+"162
+[v RunSPIService@ThisEvent ThisEvent `S46  1 p 3 0 ]
+"167
+} 0
+"78 /Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+[v _IsTimerPending IsTimerPending `(uc  1 e 1 0 ]
+{
+"84
+} 0
+"259 /Users/drewbell/Desktop/Repos/REF_SW/ES_Timers.c
+[v _ES_Timer_RTI_Resp ES_Timer_RTI_Resp `(v  1 e 1 0 ]
+{
+"260
+[v ES_Timer_RTI_Resp@NeedsProcessing NeedsProcessing `uc  1 s 1 NeedsProcessing ]
+"261
+[v ES_Timer_RTI_Resp@NextTimer2Process NextTimer2Process `uc  1 s 1 NextTimer2Process ]
+[s S46 ES_Event_t 3 `E1 1 EventType 1 0 `ui 1 EventParam 2 1 ]
+"262
+[v ES_Timer_RTI_Resp@NewEvent NewEvent `S46  1 s 3 NewEvent ]
+"285
+} 0
+"110 /Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+[v _PostUARTRXService PostUARTRXService `(uc  1 e 1 0 ]
+{
+[s S46 ES_Event_t 3 `E1 1 EventType 1 0 `ui 1 EventParam 2 1 ]
+[v PostUARTRXService@ThisEvent ThisEvent `S46  1 p 3 18 ]
+"112
+} 0
+"78 /Users/drewbell/Desktop/Repos/REF_SW/ES_LookupTables.c
+[v _ES_GetMSBitSet ES_GetMSBitSet `(uc  1 e 1 0 ]
+{
+[v ES_GetMSBitSet@Val2Check Val2Check `uc  1 a 1 wreg ]
+"80
+[v ES_GetMSBitSet@LoopCntr LoopCntr `c  1 a 1 6 ]
+"81
+[v ES_GetMSBitSet@Nybble2Test Nybble2Test `uc  1 a 1 5 ]
+"82
+[v ES_GetMSBitSet@ReturnVal ReturnVal `uc  1 a 1 4 ]
+"78
+[v ES_GetMSBitSet@Val2Check Val2Check `uc  1 a 1 wreg ]
+"82
+[v ES_GetMSBitSet@Val2Check Val2Check `uc  1 a 1 3 ]
+"99
+} 0
+"125 /Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+[v _ES_DeQueue ES_DeQueue `(uc  1 e 1 0 ]
+{
+[s S46 ES_Event_t 3 `E1 1 EventType 1 0 `ui 1 EventParam 2 1 ]
+[v ES_DeQueue@pBlock pBlock `*.4S46  1 a 1 wreg ]
+[s S257 . 3 `uc 1 QueueSize 1 0 `uc 1 CurrentIndex 1 1 `uc 1 NumEntries 1 2 ]
+"128
+[v ES_DeQueue@pThisQueue pThisQueue `*.4S257  1 a 1 13 ]
+"129
+[v ES_DeQueue@NumLeft NumLeft `uc  1 a 1 11 ]
+"127
+[v ES_DeQueue@saveCrit saveCrit `uc  1 a 1 10 ]
+"125
+[v ES_DeQueue@pBlock pBlock `*.4S46  1 a 1 wreg ]
+[v ES_DeQueue@pReturnEvent pReturnEvent `*.4S46  1 p 1 4 ]
+"131
+"125
+[v ES_DeQueue@pBlock pBlock `*.4S46  1 a 1 12 ]
+"149
+} 0
+"396 /Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+[v _CheckUARTRXEvent CheckUARTRXEvent `(uc  1 e 1 0 ]
+{
+[s S46 ES_Event_t 3 `E1 1 EventType 1 0 `ui 1 EventParam 2 1 ]
+"400
+[v CheckUARTRXEvent@CommEvent CommEvent `S46  1 a 3 19 ]
+"409
+} 0
+"290 /Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+[v _CheckSSEvent CheckSSEvent `(uc  1 e 1 0 ]
+{
+"292
+[v CheckSSEvent@thisSS thisSS `uc  1 a 1 2 ]
+"293
+[v CheckSSEvent@returnVal returnVal `uc  1 a 1 1 ]
+"291
+[v CheckSSEvent@lastSS lastSS `uc  1 s 1 lastSS ]
+"305
+} 0
+"189 /Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+[v _ES_Initialize ES_Initialize `(E1595  1 e 1 0 ]
+{
+"190
+[v ES_Initialize@i i `uc  1 a 1 25 ]
+"204
+} 0
+"78 /Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+[v _InitSPIService InitSPIService `(uc  1 e 1 0 ]
+{
+[s S46 ES_Event_t 3 `E1 1 EventType 1 0 `ui 1 EventParam 2 1 ]
+"79
+[v InitSPIService@ThisEvent ThisEvent `S46  1 a 3 20 ]
+"78
+[v InitSPIService@Priority Priority `uc  1 p 1 18 ]
+"126
+} 0
+"79 /Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+[v _InitUARTRXService InitUARTRXService `(uc  1 e 1 0 ]
+{
+[s S46 ES_Event_t 3 `E1 1 EventType 1 0 `ui 1 EventParam 2 1 ]
+"80
+[v InitUARTRXService@ThisEvent ThisEvent `S46  1 a 3 20 ]
+"79
+[v InitUARTRXService@Priority Priority `uc  1 p 1 18 ]
+"91
+} 0
+"313 /Users/drewbell/Desktop/Repos/REF_SW/ES_Framework.c
+[v _ES_PostToService ES_PostToService `(uc  1 e 1 0 ]
+{
+[v ES_PostToService@WhichService WhichService `uc  1 a 1 wreg ]
+[v ES_PostToService@WhichService WhichService `uc  1 a 1 wreg ]
+[s S46 ES_Event_t 3 `E1 1 EventType 1 0 `ui 1 EventParam 2 1 ]
+[v ES_PostToService@TheEvent TheEvent `S46  1 p 3 13 ]
+"316
+[v ES_PostToService@WhichService WhichService `uc  1 a 1 17 ]
+"321
+} 0
+"83 /Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+[v _ES_EnQueueFIFO ES_EnQueueFIFO `(uc  1 e 1 0 ]
+{
+[s S46 ES_Event_t 3 `E1 1 EventType 1 0 `ui 1 EventParam 2 1 ]
+[v ES_EnQueueFIFO@pBlock pBlock `*.4S46  1 a 1 wreg ]
+[s S257 . 3 `uc 1 QueueSize 1 0 `uc 1 CurrentIndex 1 1 `uc 1 NumEntries 1 2 ]
+"87
+[v ES_EnQueueFIFO@pThisQueue pThisQueue `*.4S257  1 a 1 12 ]
+"86
+[v ES_EnQueueFIFO@InsertionPoint InsertionPoint `uc  1 a 1 10 ]
+"85
+[v ES_EnQueueFIFO@saveCrit saveCrit `uc  1 a 1 9 ]
+"83
+[v ES_EnQueueFIFO@pBlock pBlock `*.4S46  1 a 1 wreg ]
+[v ES_EnQueueFIFO@Event2Add Event2Add `S46  1 p 3 4 ]
+"88
+"83
+[v ES_EnQueueFIFO@pBlock pBlock `*.4S46  1 a 1 11 ]
+"106
+} 0
+"4 /Applications/microchip/xc8/v1.45/sources/common/Umul8.c
+[v ___bmul __bmul `(uc  1 e 1 0 ]
+{
+[v ___bmul@multiplier multiplier `uc  1 a 1 wreg ]
+"6
+[v ___bmul@product product `uc  1 a 1 2 ]
+"4
+[v ___bmul@multiplier multiplier `uc  1 a 1 wreg ]
+[v ___bmul@multiplicand multiplicand `uc  1 p 1 0 ]
+"6
+[v ___bmul@multiplier multiplier `uc  1 a 1 3 ]
+"51
+} 0
+"25 /Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+[v _ES_Sys_Timer_Init ES_Sys_Timer_Init `(v  1 e 1 0 ]
+{
+"51
+} 0
+"56 /Users/drewbell/Desktop/Repos/REF_SW/ES_Queue.c
+[v _ES_InitQueue ES_InitQueue `(uc  1 e 1 0 ]
+{
+[s S46 ES_Event_t 3 `E1 1 EventType 1 0 `ui 1 EventParam 2 1 ]
+[v ES_InitQueue@pBlock pBlock `*.4S46  1 a 1 wreg ]
+[s S257 . 3 `uc 1 QueueSize 1 0 `uc 1 CurrentIndex 1 1 `uc 1 NumEntries 1 2 ]
+"58
+[v ES_InitQueue@pThisQueue pThisQueue `*.4S257  1 a 1 3 ]
+"56
+[v ES_InitQueue@pBlock pBlock `*.4S46  1 a 1 wreg ]
+[v ES_InitQueue@BlockSize BlockSize `uc  1 p 1 0 ]
+"60
+"56
+[v ES_InitQueue@pBlock pBlock `*.4S46  1 a 1 2 ]
+"66
+} 0
+"53 /Users/drewbell/Desktop/Repos/REF_SW/ES_Port.c
+[v _ISR ISR `II(v  1 e 1 0 ]
+{
+"76
+} 0
+"310 /Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+[v _UARTRXIntResponse UARTRXIntResponse `T(v  1 e 1 0 ]
+{
+"315
+[v UARTRXIntResponse@newByte newByte `uc  1 a 1 3 ]
+"311
+[v UARTRXIntResponse@currentByteIndex currentByteIndex `uc  1 s 1 currentByteIndex ]
+"312
+[v UARTRXIntResponse@bodyByteCount bodyByteCount `uc  1 s 1 bodyByteCount ]
+"381
+} 0
+"427
+[v _ClearReceivedDataArray ClearReceivedDataArray `(v  1 s 1 ClearReceivedDataArray ]
+{
+"428
+[v ClearReceivedDataArray@i i `uc  1 a 1 1 ]
+"432
+} 0
+"183 /Users/drewbell/Desktop/Repos/REF_SW/SPI_SM.c
+[v _SPIIntResponse SPIIntResponse `T(v  1 e 1 0 ]
+{
+"185
+[v SPIIntResponse@readByte readByte `uc  1 a 1 1 ]
+"253
+} 0
+"208 /Users/drewbell/Desktop/Repos/REF_SW/UART_RX_SM.c
+[v _RX_newStatusReady RX_newStatusReady `T(uc  1 e 1 0 ]
+{
+"210
+} 0
+"225
+[v _RX_getStatusBuffer RX_getStatusBuffer `(*.4VEuc  1 e 1 0 ]
+{
+"227
+} 0
