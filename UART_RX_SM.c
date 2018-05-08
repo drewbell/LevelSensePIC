@@ -24,7 +24,6 @@
 #include "ES_Configure.h"
 #include "ES_Framework.h"
 #include "UART_RX_SM.h"
-#include "SPI_SM.h"
 #include "COMMDEFS.h"
 
 /*----------------------------- Module Defines ----------------------------*/
@@ -42,7 +41,6 @@ static uint8_t MyPriority;
 
 static UART_RX_State_t currentState;
 
-static volatile boolean newStatusAvailable = False;
 static volatile boolean newResponseAvailable = False;
 
 static volatile boolean flag2 = False;

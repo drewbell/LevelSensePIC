@@ -9,6 +9,7 @@ ES_Port.h  \
 ES_CheckEvents.h  \
 ES_Events.h  \
 ES_General.h  \
+LevelSensor.h  \
 stdint.h  \
 HardcodedMacros.h  \
 BITDEFS.H  \

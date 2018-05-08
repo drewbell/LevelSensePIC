@@ -1,5 +1,5 @@
 
-# 1 "SPI_SM.c"
+# 1 "LevelSensor.c"
 
 # 150 "ES_Configure.h"
 typedef enum {
@@ -2106,214 +2106,29 @@ ES_Return_t ES_Run( void );
 boolean ES_PostAll( ES_Event ThisEvent );
 boolean ES_PostToService( uint8_t WhichService, ES_Event ThisEvent);
 
-# 9 "UART_RX_SM.h"
-uint8_t checksum;
+# 8 "LevelSensor.h"
+boolean InitLevelSensor(void);
+uint8_t takeLevelReading(void);
+uint8_t getLastLevelReading(void);
 
-typedef enum {
-WaitFor7E, WaitForMSB, WaitForLSB,
-SuckUpOverhead, SuckUpData, WaitForCkSum
-} UART_RX_State_t;
+# 39 "LevelSensor.c"
+static uint8_t lastReading = 0;
 
+# 61
+boolean InitlevelSensor(void) {
 
-
-boolean InitUARTRXService(uint8_t Priority);
-boolean PostUARTRXService(ES_Event ThisEvent);
-ES_Event RunUARTRXService(ES_Event ThisEvent);
-
-boolean RX_hasHeartbeat(void);
-
-inline boolean RX_newStatusReady(void);
-
-inline boolean getFlag2(void);
-inline boolean getFlag3(void);
-
-volatile uint8_t * RX_getStatusBuffer(void);
-volatile uint8_t * RX_getResponseBuffer(void);
-uint16_t RX_getFieldAddr(void);
-
-inline void UARTRXIntResponse(void);
-boolean CheckUARTRXEvent(void);
-
-# 6 "SPI_SM.h"
-typedef enum {
-Waiting4Command, Waiting4Dummy1, Waiting4Dummy2,
-Waiting4Dummy3
-} SPI_State_t;
-
-boolean InitSPIService(uint8_t Priority);
-boolean PostSPIService(ES_Event ThisEvent);
-ES_Event RunSPIService(ES_Event ThisEvent);
-
-boolean CheckSPIEvent(void);
-boolean CheckSSEvent(void);
-
-inline void SPIIntResponse(void);
-
-boolean SPI_getCommOpen(void);
-
-# 51 "SPI_SM.c"
-static uint8_t MyPriority;
-static SPI_State_t currentState;
-static volatile uint8_t responseBytes[2] = {0xFF, 0xFF};
-
-static volatile uint8_t *SPIBuffer;
-static volatile uint8_t *StatusResponseStore;
-
-static volatile boolean commOpen = ((boolean) 0);
-static volatile boolean newRequest = ((boolean) 0);
-
-# 78
-boolean InitSPIService(uint8_t Priority) {
-ES_Event ThisEvent;
-
-MyPriority = Priority;
-
-
-GIE = 0;
-
-
-
-SSPSTAT = 0b00000000;
-
-# 96
-TRISC7 = 0;
-TRISB4 = 1;
-TRISB6 = 1;
-TRISC6 = 1;
-
-
-ANSELH &= (~0x00000001 & ~0x00000002 & ~0x00000004);
-
-
-SSPBUF = 0x00;
-
-
-
-
-SSPCON = 0b00110100;
-
-
-currentState = Waiting4Command;
-
-SSPIE = 1;
-PEIE = 1;
-GIE = 1;
-
-
-ThisEvent.EventType = ES_INIT;
-if (ES_PostToService(MyPriority, ThisEvent) == ((boolean) !((boolean) 0))) {
+TRISC = 0xFF;
+ANSEL = 0;
 return ((boolean) !((boolean) 0));
-} else {
-return ((boolean) 0);
-}
 }
 
-# 143
-boolean PostSPIService(ES_Event ThisEvent) {
-return ES_PostToService(MyPriority, ThisEvent);
+# 87
+uint8_t takeLevelReading(void){
+lastReading = PORTC;
+return lastReading;
 }
 
-# 162
-ES_Event RunSPIService(ES_Event ThisEvent) {
-ES_Event ReturnEvent;
-ReturnEvent.EventType = ES_NO_EVENT;
-ThisEvent;
-return ReturnEvent;
+# 110
+uint8_t getLastLevelReading(void){
+return lastReading;
 }
-
-# 183
-inline void SPIIntResponse(void)
-{
-uint8_t readByte;
-
-if (BF == 1)
-{
-
-readByte = SSPBUF;
-
-
-switch (currentState)
-{
-case Waiting4Command:
-
-SSPBUF = 0xFF;
-
-if (RX_newStatusReady() != ((boolean) !((boolean) 0)))
-{
-
-
-responseBytes[0] = 0xFF;
-responseBytes[1] = 0xFF;
-}
-
-else
-{
-
-
-StatusResponseStore = RX_getStatusBuffer();
-
-if (readByte == (0x3F))
-{
-
-
-responseBytes[0] = StatusResponseStore[0];
-responseBytes[1] = StatusResponseStore[0 + 1];
-}
-
-else if (readByte == (0xC3))
-{
-
-
-responseBytes[0] = StatusResponseStore[0+2];
-responseBytes[1] = StatusResponseStore[0+2 + 1];
-}
-else {
-responseBytes[0] = 0xFF;
-responseBytes[1] = 0xFF;
-}
-}
-SPIBuffer = &responseBytes;
-currentState = Waiting4Dummy1;
-break;
-case Waiting4Dummy1:
-SSPBUF = SPIBuffer[0];
-currentState = Waiting4Dummy2;
-break;
-case Waiting4Dummy2:
-SSPBUF = SPIBuffer[1];
-currentState = Waiting4Dummy3;
-break;
-case Waiting4Dummy3:
-SSPBUF = 0x00;
-currentState = Waiting4Command;
-break;
-default:
-break;
-}
-SSPIF = 0;
-}
-}
-
-# 271
-boolean SPI_getCommOpen(void) {
-return commOpen;
-}
-
-# 290
-boolean CheckSSEvent(void) {
-static uint8_t lastSS = 0;
-uint8_t thisSS;
-boolean returnVal = ((boolean) 0);
-
-thisSS = RC6;
-if (thisSS != lastSS && thisSS)
-{
-
-currentState = Waiting4Command;
-returnVal = ((boolean) !((boolean) 0));
-}
-
-lastSS = thisSS;
-return returnVal;
-}
-

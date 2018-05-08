@@ -2,6 +2,15 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/Users/drewbell/Desktop/Repos/LevelSensor/UART_RX_SM.h</file>
+            <file>file:/Users/drewbell/Desktop/Repos/LevelSensor/UART_TX_SM.h</file>
+            <file>file:/Users/drewbell/Desktop/Repos/LevelSensor/LevelSensor.c</file>
+            <file>file:/Users/drewbell/Desktop/Repos/LevelSensor/Bin_Const.h</file>
+            <file>file:/Users/drewbell/Desktop/Repos/LevelSensor/sci.c</file>
+            <file>file:/Users/drewbell/Desktop/Repos/LevelSensor/main.c</file>
+            <file>file:/Users/drewbell/Desktop/Repos/LevelSensor/UART_RX_SM.c</file>
+            <file>file:/Users/drewbell/Desktop/Repos/LevelSensor/UART_TX_SM.c</file>
+        </group>
     </open-files>
 </project-private>

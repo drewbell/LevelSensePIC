@@ -17,6 +17,7 @@
 #include "ES_Framework.h"
 #include "ES_Timers.h"
 #include "sci.h"
+#include "LevelSensor.h"
 
 void main(void) {
     ES_Return_t ErrorType;
@@ -28,21 +29,18 @@ void main(void) {
     OSCCON = 0b01110000;
 
     USART_Init(); // Initialize the UART modules
+    InitLevelSensor();
 
+    /*
     // Set up RC3 (display LED)
     TRISC3 = 0;
     ANS7 = 0;
     RC3 = 0; // Initialize low
+     */
     
-    // Set up RC4 (Radio Enable)
-    TRISC4 = 0;
-    RC4 = 0;
 
     // now initialize the Events and Services Framework and start it running
     ErrorType = ES_Initialize(ES_Timer_RATE_1MS);
-
-    // Enable Radio
-    RC4 = 1;
     
     // Start the Framework
     if (ErrorType == Success) {

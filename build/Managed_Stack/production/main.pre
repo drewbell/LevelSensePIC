@@ -2188,29 +2188,23 @@ boolean USART_IsRxReady(void);
 boolean USART_SendByte(unsigned char Byte2Send);
 unsigned char USART_GetRxByte(void);
 
-# 21 "main.c"
+# 8 "LevelSensor.h"
+boolean InitLevelSensor(void);
+uint8_t takeLevelReading(void);
+uint8_t getLastLevelReading(void);
+
+# 22 "main.c"
 void main(void) {
 ES_Return_t ErrorType;
 
-# 28
+# 29
 OSCCON = 0b01110000;
 
 USART_Init();
+InitLevelSensor();
 
-
-TRISC3 = 0;
-ANS7 = 0;
-RC3 = 0;
-
-
-TRISC4 = 0;
-RC4 = 0;
-
-
+# 43
 ErrorType = ES_Initialize(ES_Timer_RATE_1MS);
-
-
-RC4 = 1;
 
 
 if (ErrorType == Success) {
