@@ -30,12 +30,12 @@ ifeq ($(TYPE_IMAGE), DEBUG_RUN)
 IMAGE_TYPE=debug
 OUTPUT_SUFFIX=elf
 DEBUGGABLE_SUFFIX=elf
-FINAL_IMAGE=dist/${CND_CONF}/${IMAGE_TYPE}/REF_SW.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+FINAL_IMAGE=dist/${CND_CONF}/${IMAGE_TYPE}/LevelSensor.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 else
 IMAGE_TYPE=production
 OUTPUT_SUFFIX=hex
 DEBUGGABLE_SUFFIX=elf
-FINAL_IMAGE=dist/${CND_CONF}/${IMAGE_TYPE}/REF_SW.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+FINAL_IMAGE=dist/${CND_CONF}/${IMAGE_TYPE}/LevelSensor.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 endif
 
 ifeq ($(COMPARE_BUILD), true)
@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=ES_CheckEvents.c ES_Framework.c ES_LookupTables.c ES_Port.c ES_PostList.c ES_Queue.c ES_Timers.c sci.c EventCheckers.c main.c UART_RX_SM.c SPI_SM.c
+SOURCEFILES_QUOTED_IF_SPACED=ES_CheckEvents.c ES_Framework.c ES_LookupTables.c ES_Port.c ES_PostList.c ES_Queue.c ES_Timers.c sci.c EventCheckers.c main.c UART_RX_SM.c UART_TX_SM.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/ES_CheckEvents.p1 ${OBJECTDIR}/ES_Framework.p1 ${OBJECTDIR}/ES_LookupTables.p1 ${OBJECTDIR}/ES_Port.p1 ${OBJECTDIR}/ES_PostList.p1 ${OBJECTDIR}/ES_Queue.p1 ${OBJECTDIR}/ES_Timers.p1 ${OBJECTDIR}/sci.p1 ${OBJECTDIR}/EventCheckers.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/UART_RX_SM.p1 ${OBJECTDIR}/SPI_SM.p1
-POSSIBLE_DEPFILES=${OBJECTDIR}/ES_CheckEvents.p1.d ${OBJECTDIR}/ES_Framework.p1.d ${OBJECTDIR}/ES_LookupTables.p1.d ${OBJECTDIR}/ES_Port.p1.d ${OBJECTDIR}/ES_PostList.p1.d ${OBJECTDIR}/ES_Queue.p1.d ${OBJECTDIR}/ES_Timers.p1.d ${OBJECTDIR}/sci.p1.d ${OBJECTDIR}/EventCheckers.p1.d ${OBJECTDIR}/main.p1.d ${OBJECTDIR}/UART_RX_SM.p1.d ${OBJECTDIR}/SPI_SM.p1.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/ES_CheckEvents.p1 ${OBJECTDIR}/ES_Framework.p1 ${OBJECTDIR}/ES_LookupTables.p1 ${OBJECTDIR}/ES_Port.p1 ${OBJECTDIR}/ES_PostList.p1 ${OBJECTDIR}/ES_Queue.p1 ${OBJECTDIR}/ES_Timers.p1 ${OBJECTDIR}/sci.p1 ${OBJECTDIR}/EventCheckers.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/UART_RX_SM.p1 ${OBJECTDIR}/UART_TX_SM.p1
+POSSIBLE_DEPFILES=${OBJECTDIR}/ES_CheckEvents.p1.d ${OBJECTDIR}/ES_Framework.p1.d ${OBJECTDIR}/ES_LookupTables.p1.d ${OBJECTDIR}/ES_Port.p1.d ${OBJECTDIR}/ES_PostList.p1.d ${OBJECTDIR}/ES_Queue.p1.d ${OBJECTDIR}/ES_Timers.p1.d ${OBJECTDIR}/sci.p1.d ${OBJECTDIR}/EventCheckers.p1.d ${OBJECTDIR}/main.p1.d ${OBJECTDIR}/UART_RX_SM.p1.d ${OBJECTDIR}/UART_TX_SM.p1.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/ES_CheckEvents.p1 ${OBJECTDIR}/ES_Framework.p1 ${OBJECTDIR}/ES_LookupTables.p1 ${OBJECTDIR}/ES_Port.p1 ${OBJECTDIR}/ES_PostList.p1 ${OBJECTDIR}/ES_Queue.p1 ${OBJECTDIR}/ES_Timers.p1 ${OBJECTDIR}/sci.p1 ${OBJECTDIR}/EventCheckers.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/UART_RX_SM.p1 ${OBJECTDIR}/SPI_SM.p1
+OBJECTFILES=${OBJECTDIR}/ES_CheckEvents.p1 ${OBJECTDIR}/ES_Framework.p1 ${OBJECTDIR}/ES_LookupTables.p1 ${OBJECTDIR}/ES_Port.p1 ${OBJECTDIR}/ES_PostList.p1 ${OBJECTDIR}/ES_Queue.p1 ${OBJECTDIR}/ES_Timers.p1 ${OBJECTDIR}/sci.p1 ${OBJECTDIR}/EventCheckers.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/UART_RX_SM.p1 ${OBJECTDIR}/UART_TX_SM.p1
 
 # Source Files
-SOURCEFILES=ES_CheckEvents.c ES_Framework.c ES_LookupTables.c ES_Port.c ES_PostList.c ES_Queue.c ES_Timers.c sci.c EventCheckers.c main.c UART_RX_SM.c SPI_SM.c
+SOURCEFILES=ES_CheckEvents.c ES_Framework.c ES_LookupTables.c ES_Port.c ES_PostList.c ES_Queue.c ES_Timers.c sci.c EventCheckers.c main.c UART_RX_SM.c UART_TX_SM.c
 
 
 CFLAGS=
@@ -87,7 +87,7 @@ FIXDEPS=fixDeps
 ifneq ($(INFORMATION_MESSAGE), )
 	@echo $(INFORMATION_MESSAGE)
 endif
-	${MAKE}  -f nbproject/Makefile-Managed_Stack.mk dist/${CND_CONF}/${IMAGE_TYPE}/REF_SW.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+	${MAKE}  -f nbproject/Makefile-Managed_Stack.mk dist/${CND_CONF}/${IMAGE_TYPE}/LevelSensor.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 
 MP_PROCESSOR_OPTION=16F690
 # ------------------------------------------------------------------------------------
@@ -181,13 +181,13 @@ ${OBJECTDIR}/UART_RX_SM.p1: UART_RX_SM.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/UART_RX_SM.d ${OBJECTDIR}/UART_RX_SM.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/UART_RX_SM.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/SPI_SM.p1: SPI_SM.c  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/UART_TX_SM.p1: UART_TX_SM.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/SPI_SM.p1.d 
-	@${RM} ${OBJECTDIR}/SPI_SM.p1 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  -D__DEBUG=1 --debugger=pickit3  --double=24 --float=24 --opt=+asm,+asmfile,-speed,+space,-debug,-local --addrqual=ignore --mode=std -P -N255 --warn=0 --asmlist -DXPRJ_Managed_Stack=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-osccal,-resetbits,-download,+stackcall,+clib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/SPI_SM.p1  SPI_SM.c 
-	@-${MV} ${OBJECTDIR}/SPI_SM.d ${OBJECTDIR}/SPI_SM.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/SPI_SM.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	@${RM} ${OBJECTDIR}/UART_TX_SM.p1.d 
+	@${RM} ${OBJECTDIR}/UART_TX_SM.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  -D__DEBUG=1 --debugger=pickit3  --double=24 --float=24 --opt=+asm,+asmfile,-speed,+space,-debug,-local --addrqual=ignore --mode=std -P -N255 --warn=0 --asmlist -DXPRJ_Managed_Stack=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-osccal,-resetbits,-download,+stackcall,+clib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/UART_TX_SM.p1  UART_TX_SM.c 
+	@-${MV} ${OBJECTDIR}/UART_TX_SM.d ${OBJECTDIR}/UART_TX_SM.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/UART_TX_SM.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 else
 ${OBJECTDIR}/ES_CheckEvents.p1: ES_CheckEvents.c  nbproject/Makefile-${CND_CONF}.mk
@@ -278,13 +278,13 @@ ${OBJECTDIR}/UART_RX_SM.p1: UART_RX_SM.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/UART_RX_SM.d ${OBJECTDIR}/UART_RX_SM.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/UART_RX_SM.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/SPI_SM.p1: SPI_SM.c  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/UART_TX_SM.p1: UART_TX_SM.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/SPI_SM.p1.d 
-	@${RM} ${OBJECTDIR}/SPI_SM.p1 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=24 --float=24 --opt=+asm,+asmfile,-speed,+space,-debug,-local --addrqual=ignore --mode=std -P -N255 --warn=0 --asmlist -DXPRJ_Managed_Stack=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-osccal,-resetbits,-download,+stackcall,+clib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/SPI_SM.p1  SPI_SM.c 
-	@-${MV} ${OBJECTDIR}/SPI_SM.d ${OBJECTDIR}/SPI_SM.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/SPI_SM.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	@${RM} ${OBJECTDIR}/UART_TX_SM.p1.d 
+	@${RM} ${OBJECTDIR}/UART_TX_SM.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=24 --float=24 --opt=+asm,+asmfile,-speed,+space,-debug,-local --addrqual=ignore --mode=std -P -N255 --warn=0 --asmlist -DXPRJ_Managed_Stack=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-osccal,-resetbits,-download,+stackcall,+clib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/UART_TX_SM.p1  UART_TX_SM.c 
+	@-${MV} ${OBJECTDIR}/UART_TX_SM.d ${OBJECTDIR}/UART_TX_SM.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/UART_TX_SM.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 endif
 
@@ -297,15 +297,15 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: link
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-dist/${CND_CONF}/${IMAGE_TYPE}/REF_SW.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk    
+dist/${CND_CONF}/${IMAGE_TYPE}/LevelSensor.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk    
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
-	${MP_CC} $(MP_EXTRA_LD_PRE) --chip=$(MP_PROCESSOR_OPTION) -G -mdist/${CND_CONF}/${IMAGE_TYPE}/REF_SW.${IMAGE_TYPE}.map  -D__DEBUG=1 --debugger=pickit3  --double=24 --float=24 --opt=+asm,+asmfile,-speed,+space,-debug,-local --addrqual=ignore --mode=std -P -N255 --warn=0 --asmlist -DXPRJ_Managed_Stack=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-osccal,-resetbits,-download,+stackcall,+clib --output=-mcof,+elf:multilocs --stack=compiled:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"     --rom=default,-f00-ffe --ram=default,-0-0,-70-70,-80-80,-f0-f0,-100-100,-165-170,-180-180,-1f0-1f0  $(COMPARISON_BUILD) --memorysummary dist/${CND_CONF}/${IMAGE_TYPE}/memoryfile.xml -odist/${CND_CONF}/${IMAGE_TYPE}/REF_SW.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}     
-	@${RM} dist/${CND_CONF}/${IMAGE_TYPE}/REF_SW.${IMAGE_TYPE}.hex 
+	${MP_CC} $(MP_EXTRA_LD_PRE) --chip=$(MP_PROCESSOR_OPTION) -G -mdist/${CND_CONF}/${IMAGE_TYPE}/LevelSensor.${IMAGE_TYPE}.map  -D__DEBUG=1 --debugger=pickit3  --double=24 --float=24 --opt=+asm,+asmfile,-speed,+space,-debug,-local --addrqual=ignore --mode=std -P -N255 --warn=0 --asmlist -DXPRJ_Managed_Stack=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-osccal,-resetbits,-download,+stackcall,+clib --output=-mcof,+elf:multilocs --stack=compiled:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"     --rom=default,-f00-ffe --ram=default,-0-0,-70-70,-80-80,-f0-f0,-100-100,-165-170,-180-180,-1f0-1f0  $(COMPARISON_BUILD) --memorysummary dist/${CND_CONF}/${IMAGE_TYPE}/memoryfile.xml -odist/${CND_CONF}/${IMAGE_TYPE}/LevelSensor.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}     
+	@${RM} dist/${CND_CONF}/${IMAGE_TYPE}/LevelSensor.${IMAGE_TYPE}.hex 
 	
 else
-dist/${CND_CONF}/${IMAGE_TYPE}/REF_SW.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
+dist/${CND_CONF}/${IMAGE_TYPE}/LevelSensor.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
-	${MP_CC} $(MP_EXTRA_LD_PRE) --chip=$(MP_PROCESSOR_OPTION) -G -mdist/${CND_CONF}/${IMAGE_TYPE}/REF_SW.${IMAGE_TYPE}.map  --double=24 --float=24 --opt=+asm,+asmfile,-speed,+space,-debug,-local --addrqual=ignore --mode=std -P -N255 --warn=0 --asmlist -DXPRJ_Managed_Stack=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-osccal,-resetbits,-download,+stackcall,+clib --output=-mcof,+elf:multilocs --stack=compiled:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"     $(COMPARISON_BUILD) --memorysummary dist/${CND_CONF}/${IMAGE_TYPE}/memoryfile.xml -odist/${CND_CONF}/${IMAGE_TYPE}/REF_SW.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}     
+	${MP_CC} $(MP_EXTRA_LD_PRE) --chip=$(MP_PROCESSOR_OPTION) -G -mdist/${CND_CONF}/${IMAGE_TYPE}/LevelSensor.${IMAGE_TYPE}.map  --double=24 --float=24 --opt=+asm,+asmfile,-speed,+space,-debug,-local --addrqual=ignore --mode=std -P -N255 --warn=0 --asmlist -DXPRJ_Managed_Stack=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-osccal,-resetbits,-download,+stackcall,+clib --output=-mcof,+elf:multilocs --stack=compiled:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"     $(COMPARISON_BUILD) --memorysummary dist/${CND_CONF}/${IMAGE_TYPE}/memoryfile.xml -odist/${CND_CONF}/${IMAGE_TYPE}/LevelSensor.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}     
 	
 endif
 

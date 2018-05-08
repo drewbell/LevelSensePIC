@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=REF_SW
+PROJECTNAME=LevelSensor
 
 # Active Configuration
 DEFAULTCONF=Managed_Stack

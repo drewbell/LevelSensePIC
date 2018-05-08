@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>218B_Robot_PIC</name>
+            <name>LevelSensor</name>
             <creation-uuid>3c2ddf03-5f03-4fcd-9976-3a0f626556f8</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>
