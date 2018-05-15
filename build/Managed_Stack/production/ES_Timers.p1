@@ -1,12 +1,14 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "99 ES_Timers.c
-[c E1510 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 .. ]
-[n E1510 . ES_NO_EVENT ES_ERROR ES_INIT ES_NEW_KEY ES_TIMEOUT ES_LOCK ES_UNLOCK ES_RX_NEW_PACKET ES_RX_BROADCAST ES_RX_RESPONSE ES_RX_TXSTAT ES_TX_NEW_ADDR ES_TX_SEND_COMPLETE ES_TX_REQUEST_SEND ES_TX_STATUS ES_TOGGLE_LED  ]
+[c E1510 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 .. ]
+[n E1510 . ES_NO_EVENT ES_ERROR ES_INIT ES_NEW_KEY ES_TIMEOUT ES_LOCK ES_UNLOCK ES_RX_NEW_PACKET ES_RX_BROADCAST ES_RX_RESPONSE ES_RX_TXSTAT ES_TX_NEW_ADDR ES_TX_SEND_COMPLETE ES_TX_REQUEST_SEND ES_TX_STATUS ES_TOGGLE_LED ES_FUELED ES_EMPTY ES_FUEL_QUERY ES_BAD_QUERY  ]
 "23 ES_Events.h
 [s S131 `E1510 1 `ui 1 ]
 [n S131 ES_Event_t EventType EventParam ]
 "19 UART_RX_SM.h
 [v _PostUARTRXService `(uc ~T0 @X0 0 ef1`S131 ]
+"16 LevelSensor.h
+[v _PostLevelSensorService `(uc ~T0 @X0 0 ef1`S131 ]
 "129 ES_Timers.c
 [c E1482 -1 1 0 0 .. ]
 [n E1482 . ES_Timer_ERR ES_Timer_ACTIVE ES_Timer_OK ES_Timer_NOT_ACTIVE  ]
@@ -1410,8 +1412,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ES_Configure.h: 164: ES_TX_SEND_COMPLETE,
 [; ;ES_Configure.h: 165: ES_TX_REQUEST_SEND,
 [; ;ES_Configure.h: 166: ES_TX_STATUS,
-[; ;ES_Configure.h: 167: ES_TOGGLE_LED
-[; ;ES_Configure.h: 168: } ES_EventTyp_t;
+[; ;ES_Configure.h: 167: ES_TOGGLE_LED,
+[; ;ES_Configure.h: 168: ES_FUELED,
+[; ;ES_Configure.h: 169: ES_EMPTY,
+[; ;ES_Configure.h: 170: ES_FUEL_QUERY,
+[; ;ES_Configure.h: 171: ES_BAD_QUERY
+[; ;ES_Configure.h: 172: } ES_EventTyp_t;
 [; ;ES_CheckEvents.h: 21: typedef boolean CheckFunc( void );
 [; ;ES_CheckEvents.h: 23: typedef CheckFunc (*pCheckFunc);
 [; ;ES_CheckEvents.h: 25: boolean ES_CheckUserEvents( void );
@@ -1469,6 +1475,35 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ES_Framework.h: 35: ES_Return_t ES_Run( void );
 [; ;ES_Framework.h: 36: boolean ES_PostAll( ES_Event ThisEvent );
 [; ;ES_Framework.h: 37: boolean ES_PostToService( uint8_t WhichService, ES_Event ThisEvent);
+[; ;LevelSensor.h: 10: typedef enum {
+[; ;LevelSensor.h: 11: InitLevelState, TankEmpty, TankFueled
+[; ;LevelSensor.h: 12: } LevelSensorState_t;
+[; ;LevelSensor.h: 15: boolean InitLevelSensorService(uint8_t Priority);
+[; ;LevelSensor.h: 16: boolean PostLevelSensorService(ES_Event ThisEvent);
+[; ;LevelSensor.h: 17: ES_Event RunLevelSensorService(ES_Event ThisEvent);
+[; ;LevelSensor.h: 18: LevelSensorState_t QueryLevelSensorState(void);
+[; ;LevelSensor.h: 22: uint8_t readFuelLevel(void);
+[; ;LevelSensor.h: 23: uint8_t getLastLevelReading(void);
+[; ;UART_TX_SM.h: 10: typedef enum {
+[; ;UART_TX_SM.h: 11: InitPTXState, TX_Idle, TX_SendMSG, TX_WaitStatus
+[; ;UART_TX_SM.h: 12: } UART_TX_State_t;
+[; ;UART_TX_SM.h: 14: typedef enum {
+[; ;UART_TX_SM.h: 15: TX_ERR_TIMEOUT,
+[; ;UART_TX_SM.h: 16: TX_ERR_CCA,
+[; ;UART_TX_SM.h: 17: TX_ERR_NO_ADDR
+[; ;UART_TX_SM.h: 18: } UART_TX_Error_t;
+[; ;UART_TX_SM.h: 22: boolean InitUARTTXService(uint8_t Priority);
+[; ;UART_TX_SM.h: 23: boolean PostUARTTXService(ES_Event ThisEvent);
+[; ;UART_TX_SM.h: 24: ES_Event RunUARTTXService(ES_Event ThisEvent);
+[; ;UART_TX_SM.h: 25: UART_TX_State_t QueryUARTTXService(void);
+[; ;UART_TX_SM.h: 27: boolean TX_clearXBeePacket(void);
+[; ;UART_TX_SM.h: 28: boolean TX_appendXBeePacket(uint8_t newByte);
+[; ;UART_TX_SM.h: 29: uint8_t TX_getChecksum(void);
+[; ;UART_TX_SM.h: 30: uint8_t TX_getXBeePacket(uint8_t _index);
+[; ;UART_TX_SM.h: 31: uint8_t TX_getLength(void);
+[; ;UART_TX_SM.h: 33: uint8_t *TX_getSuperPACAddr(void);
+[; ;UART_TX_SM.h: 35: boolean CheckUARTTXEvent(void);
+[; ;UART_TX_SM.h: 37: inline void UARTTXIntResponse(void);
 "9 UART_RX_SM.h
 [v _checksum `uc ~T0 @X0 1 e ]
 [; ;UART_RX_SM.h: 9: uint8_t checksum;
@@ -1488,17 +1523,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;UART_RX_SM.h: 31: uint16_t RX_getFieldAddr(void);
 [; ;UART_RX_SM.h: 33: inline void UARTRXIntResponse(void);
 [; ;UART_RX_SM.h: 34: boolean CheckUARTRXEvent(void);
-[; ;SPI_SM.h: 6: typedef enum {
-[; ;SPI_SM.h: 7: Waiting4Command, Waiting4Dummy1, Waiting4Dummy2,
-[; ;SPI_SM.h: 8: Waiting4Dummy3
-[; ;SPI_SM.h: 9: } SPI_State_t;
-[; ;SPI_SM.h: 11: boolean InitSPIService(uint8_t Priority);
-[; ;SPI_SM.h: 12: boolean PostSPIService(ES_Event ThisEvent);
-[; ;SPI_SM.h: 13: ES_Event RunSPIService(ES_Event ThisEvent);
-[; ;SPI_SM.h: 15: boolean CheckSPIEvent(void);
-[; ;SPI_SM.h: 16: boolean CheckSSEvent(void);
-[; ;SPI_SM.h: 18: inline void SPIIntResponse(void);
-[; ;SPI_SM.h: 20: boolean SPI_getCommOpen(void);
 [; ;ES_LookupTables.h: 38: extern uint8_t const BitNum2SetMask[];
 [; ;ES_LookupTables.h: 47: extern uint8_t const Nybble2MSBitNum[15];
 [; ;ES_LookupTables.h: 63: uint8_t ES_GetMSBitSet( uint8_t Val2Check);
@@ -1542,35 +1566,35 @@ Version 3.2 HI-TECH Software Intermediate Code
 "97
 [v _time `Vui ~T0 @X0 1 s ]
 [; ;ES_Timers.c: 97: static volatile uint16_t time;
-[v F1563 `(uc ~T0 @X0 1 tf1`S131 ]
+[v F1567 `(uc ~T0 @X0 1 tf1`S131 ]
 "23 ES_PostList.h
-[v _pPostFunc `*F1563 ~T0 @X0 1 t ]
+[v _pPostFunc `*F1567 ~T0 @X0 1 t ]
 "99 ES_Timers.c
-[v _Timer2PostFunc `C*F1563 ~T0 @X0 * -> # `uc `ui -> -> 8 `i `ui s ]
+[v _Timer2PostFunc `C*F1567 ~T0 @X0 * -> # `uc `ui -> -> 8 `i `ui s ]
 [i _Timer2PostFunc
 :U ..
 "100
 &U _PostUARTRXService
 "101
--> -> 0 `i `*F1563
+&U _PostLevelSensorService
 "102
--> -> 0 `i `*F1563
+&U _PostLevelSensorService
 "103
--> -> 0 `i `*F1563
+-> -> 0 `i `*F1567
 "104
--> -> 0 `i `*F1563
+-> -> 0 `i `*F1567
 "105
--> -> 0 `i `*F1563
+-> -> 0 `i `*F1567
 "106
--> -> 0 `i `*F1563
+-> -> 0 `i `*F1567
 "107
--> -> 0 `i `*F1563
+-> -> 0 `i `*F1567
 ..
 ]
 [; ;ES_Timers.c: 99: static pPostFunc const Timer2PostFunc[sizeof(Tflag_t)*8] =
 [; ;ES_Timers.c: 100: { PostUARTRXService,
-[; ;ES_Timers.c: 101: ((pPostFunc)0),
-[; ;ES_Timers.c: 102: ((pPostFunc)0),
+[; ;ES_Timers.c: 101: PostLevelSensorService,
+[; ;ES_Timers.c: 102: PostLevelSensorService,
 [; ;ES_Timers.c: 103: ((pPostFunc)0),
 [; ;ES_Timers.c: 104: ((pPostFunc)0),
 [; ;ES_Timers.c: 105: ((pPostFunc)0),
@@ -1592,7 +1616,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ES_Timers.c: 133: (Timer2PostFunc[Num] == ((pPostFunc)0)) ||
 [; ;ES_Timers.c: 134: (NewTime == 0) )
 "134
-[e $ ! || || >= -> _Num `ui / -> # _TMR_TimerArray `ui -> # *U + &U _TMR_TimerArray * -> -> -> 0 `i `ui `ux -> -> # *U &U _TMR_TimerArray `ui `ux `ui == *U + &U _Timer2PostFunc * -> _Num `ux -> -> # *U &U _Timer2PostFunc `ui `ux -> -> -> 0 `i `*F1563 `C*F1563 == _NewTime -> -> 0 `i `ui 133  ]
+[e $ ! || || >= -> _Num `ui / -> # _TMR_TimerArray `ui -> # *U + &U _TMR_TimerArray * -> -> -> 0 `i `ui `ux -> -> # *U &U _TMR_TimerArray `ui `ux `ui == *U + &U _Timer2PostFunc * -> _Num `ux -> -> # *U &U _Timer2PostFunc `ui `ux -> -> -> 0 `i `*F1567 `C*F1567 == _NewTime -> -> 0 `i `ui 133  ]
 [; ;ES_Timers.c: 135: return ES_Timer_ERR;
 "135
 [e ) . `E1482 0 ]
@@ -1686,7 +1710,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ES_Timers.c: 210: (Timer2PostFunc[Num] == ((pPostFunc)0)) ||
 [; ;ES_Timers.c: 212: (NewTime == 0) )
 "212
-[e $ ! || || >= -> _Num `ui / -> # _TMR_TimerArray `ui -> # *U + &U _TMR_TimerArray * -> -> -> 0 `i `ui `ux -> -> # *U &U _TMR_TimerArray `ui `ux `ui == *U + &U _Timer2PostFunc * -> _Num `ux -> -> # *U &U _Timer2PostFunc `ui `ux -> -> -> 0 `i `*F1563 `C*F1563 == _NewTime -> -> 0 `i `ui 139  ]
+[e $ ! || || >= -> _Num `ui / -> # _TMR_TimerArray `ui -> # *U + &U _TMR_TimerArray * -> -> -> 0 `i `ui `ux -> -> # *U &U _TMR_TimerArray `ui `ux `ui == *U + &U _Timer2PostFunc * -> _Num `ux -> -> # *U &U _Timer2PostFunc `ui `ux -> -> -> 0 `i `*F1567 `C*F1567 == _NewTime -> -> 0 `i `ui 139  ]
 [; ;ES_Timers.c: 213: return ES_Timer_ERR;
 "213
 [e ) . `E1482 0 ]
@@ -1729,11 +1753,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U _ES_Timer_RTI_Resp ]
 [f ]
 "260
-[v F1686 `uc ~T0 @X0 1 s NeedsProcessing ]
+[v F1722 `uc ~T0 @X0 1 s NeedsProcessing ]
 "261
-[v F1687 `uc ~T0 @X0 1 s NextTimer2Process ]
+[v F1723 `uc ~T0 @X0 1 s NextTimer2Process ]
 "262
-[v F1688 `S131 ~T0 @X0 1 s NewEvent ]
+[v F1724 `S131 ~T0 @X0 1 s NewEvent ]
 [; ;ES_Timers.c: 260: static Tflag_t NeedsProcessing;
 [; ;ES_Timers.c: 261: static uint8_t NextTimer2Process;
 [; ;ES_Timers.c: 262: static ES_Event NewEvent;
@@ -1746,41 +1770,41 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;ES_Timers.c: 267: NeedsProcessing = TMR_ActiveFlags;
 "267
-[e = F1686 _TMR_ActiveFlags ]
+[e = F1722 _TMR_ActiveFlags ]
 [; ;ES_Timers.c: 268: do {
 "268
 [e :U 145 ]
 {
 [; ;ES_Timers.c: 270: NextTimer2Process = ES_GetMSBitSet(NeedsProcessing);
 "270
-[e = F1687 ( _ES_GetMSBitSet (1 F1686 ]
+[e = F1723 ( _ES_GetMSBitSet (1 F1722 ]
 [; ;ES_Timers.c: 272: if (--TMR_TimerArray[NextTimer2Process] == 0) {
 "272
-[e $ ! == =- *U + &U _TMR_TimerArray * -> F1687 `ux -> -> # *U &U _TMR_TimerArray `ui `ux -> -> 1 `i `ui -> -> 0 `i `ui 146  ]
+[e $ ! == =- *U + &U _TMR_TimerArray * -> F1723 `ux -> -> # *U &U _TMR_TimerArray `ui `ux -> -> 1 `i `ui -> -> 0 `i `ui 146  ]
 {
 [; ;ES_Timers.c: 273: NewEvent.EventType = ES_TIMEOUT;
 "273
-[e = . F1688 0 . `E1510 4 ]
+[e = . F1724 0 . `E1510 4 ]
 [; ;ES_Timers.c: 274: NewEvent.EventParam = NextTimer2Process;
 "274
-[e = . F1688 1 -> F1687 `ui ]
+[e = . F1724 1 -> F1723 `ui ]
 [; ;ES_Timers.c: 276: Timer2PostFunc[NextTimer2Process](NewEvent);
 "276
-[e ( *U *U + &U _Timer2PostFunc * -> F1687 `ux -> -> # *U &U _Timer2PostFunc `ui `ux (1 F1688 ]
+[e ( *U *U + &U _Timer2PostFunc * -> F1723 `ux -> -> # *U &U _Timer2PostFunc `ui `ux (1 F1724 ]
 [; ;ES_Timers.c: 278: TMR_ActiveFlags &= ~BitNum2SetMask[NextTimer2Process];
 "278
-[e =& _TMR_ActiveFlags -> ~ -> *U + &U _BitNum2SetMask * -> F1687 `ux -> -> # *U &U _BitNum2SetMask `ui `ux `i `uc ]
+[e =& _TMR_ActiveFlags -> ~ -> *U + &U _BitNum2SetMask * -> F1723 `ux -> -> # *U &U _BitNum2SetMask `ui `ux `i `uc ]
 "279
 }
 [e :U 146 ]
 [; ;ES_Timers.c: 279: }
 [; ;ES_Timers.c: 281: NeedsProcessing &= ~BitNum2SetMask[NextTimer2Process];
 "281
-[e =& F1686 -> ~ -> *U + &U _BitNum2SetMask * -> F1687 `ux -> -> # *U &U _BitNum2SetMask `ui `ux `i `uc ]
+[e =& F1722 -> ~ -> *U + &U _BitNum2SetMask * -> F1723 `ux -> -> # *U &U _BitNum2SetMask `ui `ux `i `uc ]
 "282
 }
 [; ;ES_Timers.c: 282: } while (NeedsProcessing != 0);
-[e $ != -> F1686 `i -> 0 `i 145  ]
+[e $ != -> F1722 `i -> 0 `i 145  ]
 [e :U 144 ]
 "284
 }

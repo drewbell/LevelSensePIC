@@ -19,7 +19,11 @@ ES_TX_NEW_ADDR,
 ES_TX_SEND_COMPLETE,
 ES_TX_REQUEST_SEND,
 ES_TX_STATUS,
-ES_TOGGLE_LED
+ES_TOGGLE_LED,
+ES_FUELED,
+ES_EMPTY,
+ES_FUEL_QUERY,
+ES_BAD_QUERY
 } ES_EventTyp_t;
 
 # 72 "stdint.h"
@@ -2133,6 +2137,22 @@ uint16_t RX_getFieldAddr(void);
 
 inline void UARTRXIntResponse(void);
 boolean CheckUARTRXEvent(void);
+
+# 10 "LevelSensor.h"
+typedef enum {
+InitLevelState, TankEmpty, TankFueled
+} LevelSensorState_t;
+
+
+boolean InitLevelSensorService(uint8_t Priority);
+boolean PostLevelSensorService(ES_Event ThisEvent);
+ES_Event RunLevelSensorService(ES_Event ThisEvent);
+LevelSensorState_t QueryLevelSensorState(void);
+
+
+
+uint8_t readFuelLevel(void);
+uint8_t getLastLevelReading(void);
 
 # 23
 

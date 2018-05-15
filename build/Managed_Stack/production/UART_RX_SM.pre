@@ -19,7 +19,11 @@ ES_TX_NEW_ADDR,
 ES_TX_SEND_COMPLETE,
 ES_TX_REQUEST_SEND,
 ES_TX_STATUS,
-ES_TOGGLE_LED
+ES_TOGGLE_LED,
+ES_FUELED,
+ES_EMPTY,
+ES_FUEL_QUERY,
+ES_BAD_QUERY
 } ES_EventTyp_t;
 
 # 26 "/Applications/microchip/xc8/v1.45/include/htc.h"
@@ -2189,7 +2193,7 @@ if (ReceivedData[0] == 0x81)
 
 if (ReceivedData[4] & (0x00000004 | 0x00000002))
 {
-newStatusAvailable = ((boolean) 0);
+
 
 uint8_t FieldAddressMSB = ReceivedData[4];
 uint8_t FieldAddressLSB = ReceivedData[4];
@@ -2202,7 +2206,7 @@ for (uint8_t i = 0; i < 2 + 2; i++)
 StatusArray[i] = ReceivedData[4+1 + i];
 }
 
-newStatusAvailable = ((boolean) !((boolean) 0));
+
 
 ES_Timer_InitTimer(0, 76);
 hasHeartbeat = ((boolean) !((boolean) 0));
@@ -2228,39 +2232,34 @@ boolean RX_hasHeartbeat(void) {
 return hasHeartbeat;
 }
 
-# 206
-inline boolean RX_newStatusReady(void) {
-return newStatusAvailable;
-}
-
-# 223
+# 207
 volatile uint8_t * RX_getStatusBuffer(void) {
 return &StatusArray;
 }
 
-# 240
+# 224
 volatile uint8_t * RX_getResponseBuffer(void) {
 return &ReceivedData;
 }
 
-# 257
+# 241
 uint16_t RX_getFieldAddr(void){
 return FieldAddr;
 }
 
-# 273
+# 257
 inline boolean getFlag2(void)
 {
 return flag2;
 }
 
-# 291
+# 275
 inline boolean getFlag3(void)
 {
 return flag3;
 }
 
-# 308
+# 292
 inline void UARTRXIntResponse(void) {
 static uint8_t currentByteIndex;
 static uint8_t bodyByteCount;
@@ -2334,7 +2333,7 @@ break;
 }
 }
 
-# 394
+# 378
 boolean CheckUARTRXEvent(void) {
 if (RXFlag)
 {
@@ -2350,7 +2349,7 @@ return ((boolean) !((boolean) 0));
 return ((boolean) 0);
 }
 
-# 425
+# 409
 static void ClearReceivedDataArray(void) {
 for (uint8_t i = 0; i < 9; i++)
 {

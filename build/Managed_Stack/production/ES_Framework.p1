@@ -1,31 +1,35 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[v F1742 `(uc ~T0 @X0 1 tf1`uc ]
+[v F1778 `(uc ~T0 @X0 1 tf1`uc ]
 "66 ES_Framework.c
-[c E1 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 .. ]
-[n E1 . ES_NO_EVENT ES_ERROR ES_INIT ES_NEW_KEY ES_TIMEOUT ES_LOCK ES_UNLOCK ES_RX_NEW_PACKET ES_RX_BROADCAST ES_RX_RESPONSE ES_RX_TXSTAT ES_TX_NEW_ADDR ES_TX_SEND_COMPLETE ES_TX_REQUEST_SEND ES_TX_STATUS ES_TOGGLE_LED  ]
+[c E1 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 .. ]
+[n E1 . ES_NO_EVENT ES_ERROR ES_INIT ES_NEW_KEY ES_TIMEOUT ES_LOCK ES_UNLOCK ES_RX_NEW_PACKET ES_RX_BROADCAST ES_RX_RESPONSE ES_RX_TXSTAT ES_TX_NEW_ADDR ES_TX_SEND_COMPLETE ES_TX_REQUEST_SEND ES_TX_STATUS ES_TOGGLE_LED ES_FUELED ES_EMPTY ES_FUEL_QUERY ES_BAD_QUERY  ]
 "23 ES_Events.h
 [s S1 `E1 1 `ui 1 ]
 [n S1 ES_Event_t EventType EventParam ]
-[v F1744 `(S1 ~T0 @X0 1 tf1`S1 ]
+[v F1780 `(S1 ~T0 @X0 1 tf1`S1 ]
 "45 ES_Framework.c
-[s S133 `*F1742 1 `*F1744 1 ]
+[s S133 `*F1778 1 `*F1780 1 ]
 [n S133 . InitFunc RunFunc ]
+"15 LevelSensor.h
+[v _InitLevelSensorService `(uc ~T0 @X0 0 ef1`uc ]
+"17
+[v _RunLevelSensorService `(S1 ~T0 @X0 0 ef1`S1 ]
+"22 UART_TX_SM.h
+[v _InitUARTTXService `(uc ~T0 @X0 0 ef1`uc ]
+"24
+[v _RunUARTTXService `(S1 ~T0 @X0 0 ef1`S1 ]
 "18 UART_RX_SM.h
 [v _InitUARTRXService `(uc ~T0 @X0 0 ef1`uc ]
 "20
 [v _RunUARTRXService `(S1 ~T0 @X0 0 ef1`S1 ]
-"11 SPI_SM.h
-[v _InitSPIService `(uc ~T0 @X0 0 ef1`uc ]
-"13
-[v _RunSPIService `(S1 ~T0 @X0 0 ef1`S1 ]
 "50 ES_Framework.c
 [s S134 `*S1 1 `uc 1 ]
 [n S134 . pMem Size ]
 "189
-[c E93 0 1 2 3 4 5 6 .. ]
-[n E93 . ES_Timer_RATE_OFF ES_Timer_RATE_1MS ES_Timer_RATE_2MS ES_Timer_RATE_4MS ES_Timer_RATE_8MS ES_Timer_RATE_16MS ES_Timer_RATE_32MS  ]
-[c E1595 0 1 2 3 4 5 .. ]
-[n E1595 . Success FailedPost FailedRun FailedPointer FailedIndex FailedInit  ]
+[c E97 0 1 2 3 4 5 6 .. ]
+[n E97 . ES_Timer_RATE_OFF ES_Timer_RATE_1MS ES_Timer_RATE_2MS ES_Timer_RATE_4MS ES_Timer_RATE_8MS ES_Timer_RATE_16MS ES_Timer_RATE_32MS  ]
+[c E1599 0 1 2 3 4 5 .. ]
+[n E1599 . Success FailedPost FailedRun FailedPointer FailedIndex FailedInit  ]
 "26 ES_Port.h
 [v _ES_Sys_Timer_Init `(v ~T0 @X0 0 ef ]
 "24 ES_Queue.h
@@ -40,8 +44,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _ES_Timer_RTI_Resp `(v ~T0 @X0 0 ef ]
 "25 ES_Port.h
 [v _IsTimerPending `(uc ~T0 @X0 0 ef ]
-"16 SPI_SM.h
-[v _CheckSSEvent `(uc ~T0 @X0 0 ef ]
 "34 UART_RX_SM.h
 [v _CheckUARTRXEvent `(uc ~T0 @X0 0 ef ]
 "25 ES_Queue.h
@@ -62,8 +64,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ES_Configure.h: 164: ES_TX_SEND_COMPLETE,
 [; ;ES_Configure.h: 165: ES_TX_REQUEST_SEND,
 [; ;ES_Configure.h: 166: ES_TX_STATUS,
-[; ;ES_Configure.h: 167: ES_TOGGLE_LED
-[; ;ES_Configure.h: 168: } ES_EventTyp_t;
+[; ;ES_Configure.h: 167: ES_TOGGLE_LED,
+[; ;ES_Configure.h: 168: ES_FUELED,
+[; ;ES_Configure.h: 169: ES_EMPTY,
+[; ;ES_Configure.h: 170: ES_FUEL_QUERY,
+[; ;ES_Configure.h: 171: ES_BAD_QUERY
+[; ;ES_Configure.h: 172: } ES_EventTyp_t;
 [; ;ES_Types.h: 4: typedef unsigned char boolean;
 [; ;ES_Types.h: 11: typedef signed char int8_t;
 [; ;ES_Types.h: 14: typedef signed int int16_t;
@@ -1538,6 +1544,35 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdio.h: 190: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
 [; ;stdio.h: 194: extern int sprintf(char *, const char *, ...);
 [; ;stdio.h: 195: extern int printf(const char *, ...);
+[; ;LevelSensor.h: 10: typedef enum {
+[; ;LevelSensor.h: 11: InitLevelState, TankEmpty, TankFueled
+[; ;LevelSensor.h: 12: } LevelSensorState_t;
+[; ;LevelSensor.h: 15: boolean InitLevelSensorService(uint8_t Priority);
+[; ;LevelSensor.h: 16: boolean PostLevelSensorService(ES_Event ThisEvent);
+[; ;LevelSensor.h: 17: ES_Event RunLevelSensorService(ES_Event ThisEvent);
+[; ;LevelSensor.h: 18: LevelSensorState_t QueryLevelSensorState(void);
+[; ;LevelSensor.h: 22: uint8_t readFuelLevel(void);
+[; ;LevelSensor.h: 23: uint8_t getLastLevelReading(void);
+[; ;UART_TX_SM.h: 10: typedef enum {
+[; ;UART_TX_SM.h: 11: InitPTXState, TX_Idle, TX_SendMSG, TX_WaitStatus
+[; ;UART_TX_SM.h: 12: } UART_TX_State_t;
+[; ;UART_TX_SM.h: 14: typedef enum {
+[; ;UART_TX_SM.h: 15: TX_ERR_TIMEOUT,
+[; ;UART_TX_SM.h: 16: TX_ERR_CCA,
+[; ;UART_TX_SM.h: 17: TX_ERR_NO_ADDR
+[; ;UART_TX_SM.h: 18: } UART_TX_Error_t;
+[; ;UART_TX_SM.h: 22: boolean InitUARTTXService(uint8_t Priority);
+[; ;UART_TX_SM.h: 23: boolean PostUARTTXService(ES_Event ThisEvent);
+[; ;UART_TX_SM.h: 24: ES_Event RunUARTTXService(ES_Event ThisEvent);
+[; ;UART_TX_SM.h: 25: UART_TX_State_t QueryUARTTXService(void);
+[; ;UART_TX_SM.h: 27: boolean TX_clearXBeePacket(void);
+[; ;UART_TX_SM.h: 28: boolean TX_appendXBeePacket(uint8_t newByte);
+[; ;UART_TX_SM.h: 29: uint8_t TX_getChecksum(void);
+[; ;UART_TX_SM.h: 30: uint8_t TX_getXBeePacket(uint8_t _index);
+[; ;UART_TX_SM.h: 31: uint8_t TX_getLength(void);
+[; ;UART_TX_SM.h: 33: uint8_t *TX_getSuperPACAddr(void);
+[; ;UART_TX_SM.h: 35: boolean CheckUARTTXEvent(void);
+[; ;UART_TX_SM.h: 37: inline void UARTTXIntResponse(void);
 "9 UART_RX_SM.h
 [v _checksum `uc ~T0 @X0 1 e ]
 [; ;UART_RX_SM.h: 9: uint8_t checksum;
@@ -1557,17 +1592,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;UART_RX_SM.h: 31: uint16_t RX_getFieldAddr(void);
 [; ;UART_RX_SM.h: 33: inline void UARTRXIntResponse(void);
 [; ;UART_RX_SM.h: 34: boolean CheckUARTRXEvent(void);
-[; ;SPI_SM.h: 6: typedef enum {
-[; ;SPI_SM.h: 7: Waiting4Command, Waiting4Dummy1, Waiting4Dummy2,
-[; ;SPI_SM.h: 8: Waiting4Dummy3
-[; ;SPI_SM.h: 9: } SPI_State_t;
-[; ;SPI_SM.h: 11: boolean InitSPIService(uint8_t Priority);
-[; ;SPI_SM.h: 12: boolean PostSPIService(ES_Event ThisEvent);
-[; ;SPI_SM.h: 13: ES_Event RunSPIService(ES_Event ThisEvent);
-[; ;SPI_SM.h: 15: boolean CheckSPIEvent(void);
-[; ;SPI_SM.h: 16: boolean CheckSSEvent(void);
-[; ;SPI_SM.h: 18: inline void SPIIntResponse(void);
-[; ;SPI_SM.h: 20: boolean SPI_getCommOpen(void);
 [; ;ES_Framework.c: 37: typedef boolean InitFunc_t(uint8_t Priority);
 [; ;ES_Framework.c: 38: typedef ES_Event RunFunc_t(ES_Event ThisEvent);
 [; ;ES_Framework.c: 40: typedef InitFunc_t * pInitFunc;
@@ -1587,20 +1611,27 @@ Version 3.2 HI-TECH Software Intermediate Code
 :U ..
 :U ..
 "67
-&U _InitUARTRXService
-&U _RunUARTRXService
+&U _InitLevelSensorService
+&U _RunLevelSensorService
 ..
 :U ..
 "70
-&U _InitSPIService
-&U _RunSPIService
+&U _InitUARTTXService
+&U _RunUARTTXService
+..
+:U ..
+"74
+&U _InitUARTRXService
+&U _RunUARTRXService
 ..
 ..
 ]
 [; ;ES_Framework.c: 66: static ES_ServDesc_t const ServDescList[] = {
-[; ;ES_Framework.c: 67: {InitUARTRXService, RunUARTRXService}
+[; ;ES_Framework.c: 67: {InitLevelSensorService, RunLevelSensorService}
 [; ;ES_Framework.c: 69: ,
-[; ;ES_Framework.c: 70: {InitSPIService, RunSPIService}
+[; ;ES_Framework.c: 70: {InitUARTTXService, RunUARTTXService}
+[; ;ES_Framework.c: 73: ,
+[; ;ES_Framework.c: 74: {InitUARTRXService, RunUARTRXService}
 [; ;ES_Framework.c: 97: };
 "108
 [v _Queue0 `S1 ~T0 @X0 + -> 3 `i -> 1 `i s ]
@@ -1608,8 +1639,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 "110
 [v _Queue1 `S1 ~T0 @X0 + -> 3 `i -> 1 `i s ]
 [; ;ES_Framework.c: 110: static ES_Event Queue1[3 + 1];
+"113
+[v _Queue2 `S1 ~T0 @X0 + -> 3 `i -> 1 `i s ]
+[; ;ES_Framework.c: 113: static ES_Event Queue2[3 + 1];
 "134
-[v _EventQueues `CS134 ~T0 @X0 -> 2 `i s ]
+[v _EventQueues `CS134 ~T0 @X0 -> 3 `i s ]
 [i _EventQueues
 :U ..
 :U ..
@@ -1622,22 +1656,29 @@ Version 3.2 HI-TECH Software Intermediate Code
 &U _Queue1
 -> / -> # _Queue1 `ui -> # *U + &U _Queue1 * -> -> -> 0 `i `ui `ux -> -> # *U &U _Queue1 `ui `ux `ui `uc
 ..
+:U ..
+"142
+&U _Queue2
+-> / -> # _Queue2 `ui -> # *U + &U _Queue2 * -> -> -> 0 `i `ui `ux -> -> # *U &U _Queue2 `ui `ux `ui `uc
+..
 ..
 ]
-[; ;ES_Framework.c: 134: static ES_QueueDesc_t const EventQueues[2] = {
+[; ;ES_Framework.c: 134: static ES_QueueDesc_t const EventQueues[3] = {
 [; ;ES_Framework.c: 135: { Queue0, (sizeof(Queue0)/sizeof(Queue0[0]))}
 [; ;ES_Framework.c: 137: ,
 [; ;ES_Framework.c: 138: { Queue1, (sizeof(Queue1)/sizeof(Queue1[0]))}
+[; ;ES_Framework.c: 141: ,
+[; ;ES_Framework.c: 142: { Queue2, (sizeof(Queue2)/sizeof(Queue2[0]))}
 [; ;ES_Framework.c: 164: };
 "169
 [v _Ready `uc ~T0 @X0 1 e ]
 [; ;ES_Framework.c: 169: uint8_t Ready;
 "189
-[v _ES_Initialize `(E1595 ~T0 @X0 1 ef1`E93 ]
+[v _ES_Initialize `(E1599 ~T0 @X0 1 ef1`E97 ]
 {
 [; ;ES_Framework.c: 189: ES_Return_t ES_Initialize(TimerRate_t NewRate) {
 [e :U _ES_Initialize ]
-[v _NewRate `E93 ~T0 @X0 1 r1 ]
+[v _NewRate `E97 ~T0 @X0 1 r1 ]
 [f ]
 "190
 [v _i `uc ~T0 @X0 1 a ]
@@ -1654,16 +1695,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 136 ]
 {
 [; ;ES_Framework.c: 194: if ((ServDescList[i].InitFunc == (pInitFunc) 0) ||
-[v F1737 `(uc ~T0 @X0 1 tf1`uc ]
-[v F1763 `*F1742 ~T0 @X0 1 t ]
-[v F1739 `(S1 ~T0 @X0 1 tf1`S1 ]
-[v F1765 `*F1744 ~T0 @X0 1 t ]
+[v F1773 `(uc ~T0 @X0 1 tf1`uc ]
+[v F1802 `*F1778 ~T0 @X0 1 t ]
+[v F1775 `(S1 ~T0 @X0 1 tf1`S1 ]
+[v F1804 `*F1780 ~T0 @X0 1 t ]
 [; ;ES_Framework.c: 195: (ServDescList[i].RunFunc == (pRunFunc) 0))
 "195
-[e $ ! || == . *U + &U _ServDescList * -> _i `ux -> -> # *U &U _ServDescList `ui `ux 0 -> -> -> 0 `i `*F1737 `C*F1742 == . *U + &U _ServDescList * -> _i `ux -> -> # *U &U _ServDescList `ui `ux 1 -> -> -> 0 `i `*F1739 `C*F1744 139  ]
+[e $ ! || == . *U + &U _ServDescList * -> _i `ux -> -> # *U &U _ServDescList `ui `ux 0 -> -> -> 0 `i `*F1773 `C*F1778 == . *U + &U _ServDescList * -> _i `ux -> -> # *U &U _ServDescList `ui `ux 1 -> -> -> 0 `i `*F1775 `C*F1780 139  ]
 [; ;ES_Framework.c: 196: return FailedPointer;
 "196
-[e ) . `E1595 3 ]
+[e ) . `E1599 3 ]
 [e $UE 135  ]
 [e :U 139 ]
 [; ;ES_Framework.c: 198: ES_InitQueue(EventQueues[i].pMem, EventQueues[i].Size);
@@ -1674,7 +1715,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $ ! != -> ( *U . *U + &U _ServDescList * -> _i `ux -> -> # *U &U _ServDescList `ui `ux 0 (1 _i `i -> -> -> ! != -> -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i `i `uc `i 140  ]
 [; ;ES_Framework.c: 201: return FailedInit;
 "201
-[e ) . `E1595 5 ]
+[e ) . `E1599 5 ]
 [e $UE 135  ]
 [e :U 140 ]
 "202
@@ -1688,14 +1729,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ES_Framework.c: 202: }
 [; ;ES_Framework.c: 203: return Success;
 "203
-[e ) . `E1595 0 ]
+[e ) . `E1599 0 ]
 [e $UE 135  ]
 [; ;ES_Framework.c: 204: }
 "204
 [e :UE 135 ]
 }
 "224
-[v _ES_Run `(E1595 ~T0 @X0 1 ef ]
+[v _ES_Run `(E1599 ~T0 @X0 1 ef ]
 {
 [; ;ES_Framework.c: 224: ES_Return_t ES_Run(void) {
 [e :U _ES_Run ]
@@ -1703,7 +1744,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "226
 [v _HighestPrior `uc ~T0 @X0 1 a ]
 "227
-[v F1773 `S1 ~T0 @X0 1 s ThisEvent ]
+[v F1812 `S1 ~T0 @X0 1 s ThisEvent ]
 [; ;ES_Framework.c: 226: uint8_t HighestPrior;
 [; ;ES_Framework.c: 227: static ES_Event ThisEvent;
 [; ;ES_Framework.c: 229: while (1) {
@@ -1720,7 +1761,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _HighestPrior ( _ES_GetMSBitSet (1 _Ready ]
 [; ;ES_Framework.c: 235: if (ES_DeQueue(EventQueues[HighestPrior].pMem, &ThisEvent) == 0) {
 "235
-[e $ ! == -> ( _ES_DeQueue (2 , -> . *U + &U _EventQueues * -> _HighestPrior `ux -> -> # *U &U _EventQueues `ui `ux 0 `*S1 &U F1773 `i -> 0 `i 148  ]
+[e $ ! == -> ( _ES_DeQueue (2 , -> . *U + &U _EventQueues * -> _HighestPrior `ux -> -> # *U &U _EventQueues `ui `ux 0 `*S1 &U F1812 `i -> 0 `i 148  ]
 {
 [; ;ES_Framework.c: 236: Ready &= ~BitNum2SetMask[HighestPrior];
 "236
@@ -1736,10 +1777,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ES_Framework.c: 244: case 0:
 "244
 [e :U 151 ]
-[; ;ES_Framework.c: 245: if (RunUARTRXService(ThisEvent).EventType != ES_NO_EVENT) return FailedRun;
+[; ;ES_Framework.c: 245: if (RunLevelSensorService(ThisEvent).EventType != ES_NO_EVENT) return FailedRun;
 "245
-[e $ ! != -> . ( _RunUARTRXService (1 F1773 0 `i -> . `E1 0 `i 152  ]
-[e ) . `E1595 2 ]
+[e $ ! != -> . ( _RunLevelSensorService (1 F1812 0 `i -> . `E1 0 `i 152  ]
+[e ) . `E1599 2 ]
 [e $UE 141  ]
 [e :U 152 ]
 [; ;ES_Framework.c: 246: break;
@@ -1748,10 +1789,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ES_Framework.c: 247: case 1:
 "247
 [e :U 153 ]
-[; ;ES_Framework.c: 248: if (RunSPIService(ThisEvent).EventType != ES_NO_EVENT) return FailedRun;
+[; ;ES_Framework.c: 248: if (RunUARTTXService(ThisEvent).EventType != ES_NO_EVENT) return FailedRun;
 "248
-[e $ ! != -> . ( _RunSPIService (1 F1773 0 `i -> . `E1 0 `i 154  ]
-[e ) . `E1595 2 ]
+[e $ ! != -> . ( _RunUARTTXService (1 F1812 0 `i -> . `E1 0 `i 154  ]
+[e ) . `E1599 2 ]
 [e $UE 141  ]
 [e :U 154 ]
 [; ;ES_Framework.c: 249: break;
@@ -1786,9 +1827,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 "254
 [e $ > -> ( _IsTimerPending ..  `i -> 0 `i 156  ]
 [e :U 157 ]
-[; ;ES_Framework.c: 259: CheckSSEvent();
-"259
-[e ( _CheckSSEvent ..  ]
 [; ;ES_Framework.c: 260: CheckUARTRXEvent();
 "260
 [e ( _CheckUARTRXEvent ..  ]
@@ -1801,7 +1839,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ES_Framework.c: 262: }
 [; ;ES_Framework.c: 263: return 0;
 "263
-[e ) -> -> 0 `i `E1595 ]
+[e ) -> -> 0 `i `E1599 ]
 [e $UE 141  ]
 [; ;ES_Framework.c: 264: }
 "264

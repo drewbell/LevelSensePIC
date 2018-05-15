@@ -29,7 +29,6 @@ void main(void) {
     OSCCON = 0b01110000;
 
     USART_Init(); // Initialize the UART modules
-    InitLevelSensor();
 
     /*
     // Set up RC3 (display LED)

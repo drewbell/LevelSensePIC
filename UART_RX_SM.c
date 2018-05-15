@@ -139,7 +139,7 @@ ES_Event RunUARTRXService(ES_Event ThisEvent)
                 //newStatusAvailable = True; //reactivate ready state
                 if (ReceivedData[OPTIONS_INDEX] & BROADCAST_MASK)  // If we had received a broadcast message: used for status and score in 2018 field
                 {
-                    newStatusAvailable = False; //deactivate ready state
+                    //newStatusAvailable = False; //deactivate ready state
                     //store the field address
                     uint8_t FieldAddressMSB = ReceivedData[OPTIONS_INDEX];
                     uint8_t FieldAddressLSB = ReceivedData[OPTIONS_INDEX];
@@ -152,7 +152,7 @@ ES_Event RunUARTRXService(ES_Event ThisEvent)
                         StatusArray[i] = ReceivedData[DATA_INDEX + i];
                     }
                     
-                    newStatusAvailable = True; //reactivate ready state
+                    //newStatusAvailable = True; //reactivate ready state
                     
                     ES_Timer_InitTimer(HEARTBEAT_TIMER, ONE_SEC); // Restart heartbeat timer
                     hasHeartbeat = True; // Set heartbeat status
@@ -190,22 +190,6 @@ boolean RX_hasHeartbeat(void) {
     return hasHeartbeat;
 }
 
-/****************************************************************************
- Function
-    RX_newStatusReady
-
- Parameters
-    none
-
- Returns
- boolean
-
- Description
-   
- ****************************************************************************/
-inline boolean RX_newStatusReady(void) {
-    return newStatusAvailable;
-}
 
 /****************************************************************************
  Function

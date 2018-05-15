@@ -19,7 +19,11 @@ ES_TX_NEW_ADDR,
 ES_TX_SEND_COMPLETE,
 ES_TX_REQUEST_SEND,
 ES_TX_STATUS,
-ES_TOGGLE_LED
+ES_TOGGLE_LED,
+ES_FUELED,
+ES_EMPTY,
+ES_FUEL_QUERY,
+ES_BAD_QUERY
 } ES_EventTyp_t;
 
 # 26 "/Applications/microchip/xc8/v1.45/include/htc.h"
@@ -2106,29 +2110,234 @@ ES_Return_t ES_Run( void );
 boolean ES_PostAll( ES_Event ThisEvent );
 boolean ES_PostToService( uint8_t WhichService, ES_Event ThisEvent);
 
-# 8 "LevelSensor.h"
-boolean InitLevelSensor(void);
-uint8_t takeLevelReading(void);
+# 10 "LevelSensor.h"
+typedef enum {
+InitLevelState, TankEmpty, TankFueled
+} LevelSensorState_t;
+
+
+boolean InitLevelSensorService(uint8_t Priority);
+boolean PostLevelSensorService(ES_Event ThisEvent);
+ES_Event RunLevelSensorService(ES_Event ThisEvent);
+LevelSensorState_t QueryLevelSensorState(void);
+
+
+
+uint8_t readFuelLevel(void);
 uint8_t getLastLevelReading(void);
 
-# 39 "LevelSensor.c"
-static uint8_t lastReading = 0;
+# 9 "UART_RX_SM.h"
+uint8_t checksum;
 
-# 61
-boolean InitlevelSensor(void) {
+typedef enum {
+WaitFor7E, WaitForMSB, WaitForLSB,
+SuckUpOverhead, SuckUpData, WaitForCkSum
+} UART_RX_State_t;
+
+
+
+boolean InitUARTRXService(uint8_t Priority);
+boolean PostUARTRXService(ES_Event ThisEvent);
+ES_Event RunUARTRXService(ES_Event ThisEvent);
+
+boolean RX_hasHeartbeat(void);
+
+inline boolean RX_newStatusReady(void);
+
+inline boolean getFlag2(void);
+inline boolean getFlag3(void);
+
+volatile uint8_t * RX_getStatusBuffer(void);
+volatile uint8_t * RX_getResponseBuffer(void);
+uint16_t RX_getFieldAddr(void);
+
+inline void UARTRXIntResponse(void);
+boolean CheckUARTRXEvent(void);
+
+# 10 "UART_TX_SM.h"
+typedef enum {
+InitPTXState, TX_Idle, TX_SendMSG, TX_WaitStatus
+} UART_TX_State_t;
+
+typedef enum {
+TX_ERR_TIMEOUT,
+TX_ERR_CCA,
+TX_ERR_NO_ADDR
+} UART_TX_Error_t;
+
+
+
+boolean InitUARTTXService(uint8_t Priority);
+boolean PostUARTTXService(ES_Event ThisEvent);
+ES_Event RunUARTTXService(ES_Event ThisEvent);
+UART_TX_State_t QueryUARTTXService(void);
+
+boolean TX_clearXBeePacket(void);
+boolean TX_appendXBeePacket(uint8_t newByte);
+uint8_t TX_getChecksum(void);
+uint8_t TX_getXBeePacket(uint8_t _index);
+uint8_t TX_getLength(void);
+
+uint8_t *TX_getSuperPACAddr(void);
+
+boolean CheckUARTTXEvent(void);
+
+inline void UARTTXIntResponse(void);
+
+# 45 "LevelSensor.c"
+uint8_t get3GarbageBits(void);
+uint8_t constructFuelByte(void);
+
+
+
+static uint8_t MyPriority;
+static uint8_t fuelLevel = 0;
+static uint8_t rawFuelReading = 0;
+
+
+static LevelSensorState_t CurrentState;
+
+# 77
+boolean InitLevelSensorService(uint8_t Priority) {
+ES_Event ThisEvent;
+
+MyPriority = Priority;
+
 
 TRISC = 0xFF;
 ANSEL = 0;
+
+fuelLevel = readFuelLevel();
+CurrentState = InitLevelState;
+
+
+ThisEvent.EventType = ES_INIT;
+if (ES_PostToService(MyPriority, ThisEvent) == ((boolean) !((boolean) 0))) {
 return ((boolean) !((boolean) 0));
+} else {
+return ((boolean) 0);
+}
 }
 
-# 87
-uint8_t takeLevelReading(void){
-lastReading = PORTC;
-return lastReading;
+# 115
+boolean PostLevelSensorService(ES_Event ThisEvent) {
+return ES_PostToService(MyPriority, ThisEvent);
 }
 
-# 110
+# 137
+ES_Event RunLevelSensorService(ES_Event ThisEvent) {
+ES_Event ReturnEvent;
+ReturnEvent.EventType = ES_NO_EVENT;
+
+switch (CurrentState) {
+case InitLevelState:
+if (ThisEvent.EventType == ES_INIT)
+{
+if(fuelLevel = readFuelLevel())
+CurrentState = TankFueled;
+else{
+CurrentState = TankEmpty;
+ES_Timer_InitTimer(1, 1000);
+}
+
+ES_Timer_InitTimer(2, 250);
+
+}
+break;
+case TankFueled:
+if (ThisEvent.EventType == ES_EMPTY) {
+ES_Timer_InitTimer(1, 1000);
+CurrentState = TankEmpty;
+}
+else if (ThisEvent.EventType == ES_FUELED) {
+CurrentState = TankFueled;
+}
+else if(ThisEvent.EventType == ES_FUEL_QUERY){
+
+ES_Event FuelEvent;
+FuelEvent.EventType = ES_TX_REQUEST_SEND;
+if(ThisEvent.EventParam == 0xAA)
+FuelEvent.EventParam = constructFuelByte();
+else
+FuelEvent.EventParam = (uint8_t) 0xAA;
+PostUARTTXService(FuelEvent);
+}
+else if(ThisEvent.EventType == ES_TIMEOUT && ThisEvent.EventParam ==
+2){
+readFuelLevel();
+if(!fuelLevel) CurrentState = TankEmpty;
+ES_Timer_InitTimer(2, 250);
+}
+break;
+
+case TankEmpty:
+if (ThisEvent.EventType == ES_FUELED) {
+CurrentState = TankFueled;
+}
+else if(ThisEvent.EventType == ES_TIMEOUT && ThisEvent.EventParam ==
+1){
+fuelLevel = readFuelLevel();
+uint8_t fuelMsg = constructFuelByte();
+
+}
+else if(ThisEvent.EventType == ES_TIMEOUT && ThisEvent.EventParam ==
+2){
+readFuelLevel();
+if(fuelLevel) CurrentState = TankFueled;
+ES_Timer_InitTimer(2, 250);
+}
+break;
+}
+return ReturnEvent;
+}
+
+# 220
+LevelSensorState_t QueryTemplateFSM ( void )
+{
+return(CurrentState);
+}
+
+# 249
+uint8_t readFuelLevel(void){
+rawFuelReading = PORTC;
+uint8_t level = 0;
+int buffer = rawFuelReading;
+
+
+for(uint8_t i = 0; i < 8; i++){
+if(buffer & 0x01) level++;
+buffer = buffer >> 1;
+}
+if(level > 0x08) level = 0x08;
+fuelLevel = level;
+return fuelLevel;
+}
+
+# 282
 uint8_t getLastLevelReading(void){
-return lastReading;
+return fuelLevel;
+}
+
+# 305
+uint8_t constructFuelByte(void){
+uint8_t fuelMsg = 0;
+if(fuelLevel){
+fuelMsg = fuelLevel - 1;
+fuelMsg |= 0x08;
+}
+else{
+
+fuelMsg = 0x07 & get3GarbageBits();
+}
+fuelMsg |= ((fuelMsg ^ 0xF0) << 4);
+}
+
+# 338
+uint8_t get3GarbageBits(void){
+uint8_t garbage = 0;
+char *p = 0x00;
+for(int i = 0; 1 < 16; i++){
+garbage ^= *(p + i);
+}
+return garbage;
 }

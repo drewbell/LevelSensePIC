@@ -31,16 +31,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _SSPIF `Vb ~T0 @X0 0 e@99 ]
 "3667
 [v _SSPIE `Vb ~T0 @X0 0 e@1123 ]
-[v F1615 `(v ~T0 @X0 1 tf ]
-"18 SPI_SM.h
-[v _SPIIntResponse `TF1615 ~T0 @X0 0 e ]
-"3627 /Applications/microchip/xc8/v1.45/include/pic16f690.h
+"3627
 [v _RCIF `Vb ~T0 @X0 0 e@101 ]
 "3625
 [v _RCIE `Vb ~T0 @X0 0 e@1125 ]
-[v F1652 `(v ~T0 @X0 1 tf ]
+[v F1653 `(v ~T0 @X0 1 tf ]
 "33 UART_RX_SM.h
-[v _UARTRXIntResponse `TF1652 ~T0 @X0 0 e ]
+[v _UARTRXIntResponse `TF1653 ~T0 @X0 0 e ]
 "253 /Applications/microchip/xc8/v1.45/include/pic16f690.h
 [v _PORTC `Vuc ~T0 @X0 0 e@7 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
@@ -1442,8 +1439,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ES_Configure.h: 164: ES_TX_SEND_COMPLETE,
 [; ;ES_Configure.h: 165: ES_TX_REQUEST_SEND,
 [; ;ES_Configure.h: 166: ES_TX_STATUS,
-[; ;ES_Configure.h: 167: ES_TOGGLE_LED
-[; ;ES_Configure.h: 168: } ES_EventTyp_t;
+[; ;ES_Configure.h: 167: ES_TOGGLE_LED,
+[; ;ES_Configure.h: 168: ES_FUELED,
+[; ;ES_Configure.h: 169: ES_EMPTY,
+[; ;ES_Configure.h: 170: ES_FUEL_QUERY,
+[; ;ES_Configure.h: 171: ES_BAD_QUERY
+[; ;ES_Configure.h: 172: } ES_EventTyp_t;
 [; ;stdint.h: 72: typedef signed char int8_t;
 [; ;stdint.h: 77: typedef unsigned char uint8_t;
 [; ;stdint.h: 82: typedef signed int int16_t;
@@ -1507,7 +1508,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;SPI_SM.h: 13: ES_Event RunSPIService(ES_Event ThisEvent);
 [; ;SPI_SM.h: 15: boolean CheckSPIEvent(void);
 [; ;SPI_SM.h: 16: boolean CheckSSEvent(void);
-[; ;SPI_SM.h: 18: inline void SPIIntResponse(void);
 [; ;SPI_SM.h: 20: boolean SPI_getCommOpen(void);
 "9 UART_RX_SM.h
 [v _checksum `uc ~T0 @X0 1 e ]
@@ -1611,9 +1611,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 132 ]
 }
 [v $root$_ISR `(v ~T0 @X0 0 e ]
-[v F1695 `(v ~T0 @X0 1 tf ]
+[v F1696 `(v ~T0 @X0 1 tf ]
 "53
-[v _ISR `IF1695 ~T0 @X0 1 e ]
+[v _ISR `IF1696 ~T0 @X0 1 e ]
 {
 [; ;ES_Port.c: 53: void interrupt ISR(void) {
 [e :U _ISR ]
@@ -1625,9 +1625,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 "56
 [e $ ! && _SSPIF _SSPIE 134  ]
 {
-[; ;ES_Port.c: 57: SPIIntResponse();
-"57
-[e ( _SPIIntResponse ..  ]
 "58
 }
 [e :U 134 ]

@@ -15,7 +15,7 @@ ES_Event RunSPIService(ES_Event ThisEvent);
 boolean CheckSPIEvent(void);
 boolean CheckSSEvent(void);
 
-inline void SPIIntResponse(void);
+//inline void SPIIntResponse(void);
 
 boolean SPI_getCommOpen(void);
 

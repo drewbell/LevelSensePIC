@@ -26,7 +26,7 @@
 /****************************************************************************/
 // This macro determines that number of services that are *actually* used in
 // a particular application. It will vary in value from 1 to MAX_NUM_SERVICES
-#define NUM_SERVICES 2
+#define NUM_SERVICES 3
 
 /****************************************************************************/
 // These are the definitions for Service 0, the lowest priority service
@@ -34,11 +34,11 @@
 // services are added in numeric sequence (1,2,3,...) with increasing 
 // priorities
 // the header file with the public function prototypes
-#define SERV_0_HEADER "UART_RX_SM.h"
+#define SERV_0_HEADER "LevelSensor.h"
 // the name of the Init function
-#define SERV_0_INIT InitUARTRXService
+#define SERV_0_INIT InitLevelSensorService
 // the name of the run function
-#define SERV_0_RUN RunUARTRXService
+#define SERV_0_RUN RunLevelSensorService
 // How big should this service's Queue be?
 #define SERV_0_QUEUE_SIZE 3
 
@@ -50,11 +50,11 @@
 // These are the definitions for Service 1
 #if NUM_SERVICES > 1
 // the header file with the public function prototypes
-#define SERV_1_HEADER "SPI_SM.h"
+#define SERV_1_HEADER "UART_TX_SM.h"
 // the name of the Init function
-#define SERV_1_INIT InitSPIService
+#define SERV_1_INIT InitUARTTXService
 // the name of the run function
-#define SERV_1_RUN RunSPIService
+#define SERV_1_RUN  RunUARTTXService
 // How big should this services Queue be?
 #define SERV_1_QUEUE_SIZE 3
 #endif
@@ -63,11 +63,11 @@
 // These are the definitions for Service 2
 #if NUM_SERVICES > 2
 // the header file with the public fuction prototypes
-#define SERV_2_HEADER "TestService.h"
+#define SERV_2_HEADER "UART_RX_SM.h"
 // the name of the Init function
-#define SERV_2_INIT TestServiceInit
+#define SERV_2_INIT InitUARTRXService
 // the name of the run function
-#define SERV_2_RUN TestServiceRun
+#define SERV_2_RUN RunUARTRXService
 // How big should this services Queue be?
 #define SERV_2_QUEUE_SIZE 3
 #endif
@@ -164,7 +164,11 @@ typedef enum {
     ES_TX_SEND_COMPLETE,
     ES_TX_REQUEST_SEND,
     ES_TX_STATUS,
-    ES_TOGGLE_LED
+    ES_TOGGLE_LED, 
+    ES_FUELED, 
+    ES_EMPTY, 
+    ES_FUEL_QUERY,      // valid fuel query with query byte 0xAA
+    ES_BAD_QUERY        // bad fuel query, query byte other than 0xAA
 } ES_EventTyp_t;
 
 /****************************************************************************/
@@ -211,8 +215,8 @@ typedef enum {
 // a timers, then you can use TIMER_UNUSED
 #define TIMER_UNUSED ((pPostFunc)0)
 #define TIMER0_RESP_FUNC PostUARTRXService
-#define TIMER1_RESP_FUNC TIMER_UNUSED
-#define TIMER2_RESP_FUNC TIMER_UNUSED
+#define TIMER1_RESP_FUNC PostLevelSensorService
+#define TIMER2_RESP_FUNC PostLevelSensorService
 #define TIMER3_RESP_FUNC TIMER_UNUSED
 #define TIMER4_RESP_FUNC TIMER_UNUSED
 #define TIMER5_RESP_FUNC TIMER_UNUSED
@@ -226,5 +230,7 @@ typedef enum {
 // the timer number matches where the timer event will be routed 
 
 #define HEARTBEAT_TIMER  0
+#define FUEL_EMPTY_TIMER 1
+#define FUEL_READ_TIMER 2
 
 #endif /* CONFIGURE_H */

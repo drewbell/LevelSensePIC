@@ -19,7 +19,11 @@ ES_TX_NEW_ADDR,
 ES_TX_SEND_COMPLETE,
 ES_TX_REQUEST_SEND,
 ES_TX_STATUS,
-ES_TOGGLE_LED
+ES_TOGGLE_LED,
+ES_FUELED,
+ES_EMPTY,
+ES_FUEL_QUERY,
+ES_BAD_QUERY
 } ES_EventTyp_t;
 
 # 26 "/Applications/microchip/xc8/v1.45/include/htc.h"
@@ -2141,44 +2145,16 @@ boolean CheckUARTTXEvent(void);
 
 inline void UARTTXIntResponse(void);
 
-# 6 "SPI_SM.h"
-typedef enum {
-Waiting4Command, Waiting4Dummy1, Waiting4Dummy2,
-Waiting4Dummy3
-} SPI_State_t;
-
-boolean InitSPIService(uint8_t Priority);
-boolean PostSPIService(ES_Event ThisEvent);
-ES_Event RunSPIService(ES_Event ThisEvent);
-
-boolean CheckSPIEvent(void);
-boolean CheckSSEvent(void);
-
-inline void SPIIntResponse(void);
-
-boolean SPI_getCommOpen(void);
-
-# 69 "UART_TX_SM.c"
+# 48 "UART_TX_SM.c"
 static uint8_t MyPriority;
-
 static UART_TX_State_t currentState;
-
-static uint8_t XBeePacket[10];
-static volatile uint8_t length;
-static volatile uint8_t index;
-
-static uint8_t superPACAddr[2] = {0, 0};
-static volatile boolean sendCompleteFlag = ((boolean) 0);
 static boolean TXError = ((boolean) 0);
 
-# 101
+# 72
 boolean InitUARTTXService(uint8_t Priority) {
 ES_Event ThisEvent;
 
 MyPriority = Priority;
-
-length = 0;
-index = 0;
 
 
 ThisEvent.EventType = ES_INIT;
@@ -2189,12 +2165,12 @@ return ((boolean) 0);
 }
 }
 
-# 135
+# 103
 boolean PostUARTTXService(ES_Event ThisEvent) {
 return ES_PostToService(MyPriority, ThisEvent);
 }
 
-# 156
+# 124
 ES_Event RunUARTTXService(ES_Event ThisEvent) {
 ES_Event ReturnEvent;
 ReturnEvent.EventType = ES_NO_EVENT;
@@ -2209,141 +2185,28 @@ break;
 case TX_Idle:
 if (ThisEvent.EventType == ES_TX_REQUEST_SEND) {
 
-if ((((superPACAddr[0] | superPACAddr[1]) == 0) ? ((boolean) 0) : ((boolean) !((boolean) 0)))) {
-
-TXError = ((boolean) 0);
-
-TX_clearXBeePacket();
-TX_appendXBeePacket(0x7E);
-TX_appendXBeePacket(0x00);
-TX_appendXBeePacket(0x06);
-TX_appendXBeePacket(0x01);
-TX_appendXBeePacket(0x01);
-TX_appendXBeePacket(superPACAddr[0]);
-TX_appendXBeePacket(superPACAddr[1]);
-TX_appendXBeePacket(0x00);
-TX_appendXBeePacket((uint8_t) ThisEvent.EventParam);
-TX_appendXBeePacket(TX_getChecksum());
-
-
+TXREG = ThisEvent.EventParam & 0xFF;
 currentState = TX_SendMSG;
 TXIE = 1;
-} else {
-TXError = ((boolean) !((boolean) 0));
-}
-} else if (ThisEvent.EventType == ES_TX_NEW_ADDR) {
-superPACAddr[0] = (ThisEvent.EventParam >> 8) & 0xFF;
-superPACAddr[1] = ThisEvent.EventParam & 0xFF;
-
-
-setRadioPing(((boolean) !((boolean) 0)));
 }
 break;
 
 case TX_SendMSG:
 if (ThisEvent.EventType == ES_TX_SEND_COMPLETE) {
-currentState = TX_WaitStatus;
-ES_Timer_InitTimer(TX_TIMER, (76 / 4));
-}
-break;
-
-case TX_WaitStatus:
-{
-
-if (ThisEvent.EventType == ES_TIMEOUT) {
-if (ThisEvent.EventParam == TX_TIMER) {
-
-do{ ES_Event LEDEvent; LEDEvent.EventType = ES_TOGGLE_LED; LEDEvent.EventParam = TX_ERR_TIMEOUT; FastPostPACSystemService(LEDEvent); index = 0; currentState = TX_SendMSG; TXIE = 1; }while(0);
-}
-} else if (ThisEvent.EventType == ES_TX_STATUS) {
-switch (ThisEvent.EventParam) {
-case 0:
 currentState = TX_Idle;
-break;
-case 1:
-case 2:
-case 3:
-do{ ES_Event LEDEvent; LEDEvent.EventType = ES_TOGGLE_LED; LEDEvent.EventParam = TX_ERR_TIMEOUT; FastPostPACSystemService(LEDEvent); index = 0; currentState = TX_SendMSG; TXIE = 1; }while(0);
-break;
-default:
-break;
-}
-}
 }
 break;
-
-
-}
-
-
-if (currentState == TX_Idle) {
-index = 0;
 }
 
 return ReturnEvent;
 }
 
-# 248
-boolean TX_clearXBeePacket(void) {
-if (currentState != TX_Idle) {
-return ((boolean) 0);
-} else {
-length = 0;
-return ((boolean) !((boolean) 0));
-}
-}
-
-boolean TX_appendXBeePacket(uint8_t newByte) {
-if ((length == 10) || (currentState != TX_Idle)) {
-return ((boolean) 0);
-} else {
-XBeePacket[length++] = newByte;
-return ((boolean) !((boolean) 0));
-}
-}
-
-uint8_t TX_getChecksum(void) {
-uint8_t chk = 0;
-uint8_t i;
-
-for (i = 3; i < length; i++) {
-chk += XBeePacket[i];
-}
-
-return 0xFF - chk;
-}
-
-uint8_t TX_getXBeePacket(uint8_t _index) {
-return XBeePacket[_index];
-}
-
-uint8_t TX_getLength(void) {
-return length;
-}
-
-uint8_t *TX_getSuperPACAddr(void){
-return &superPACAddr;
-}
-
+# 158
 inline void UARTTXIntResponse(void) {
-if (index >= length) {
-sendCompleteFlag = ((boolean) !((boolean) 0));
 TXIE = 0;
-} else {
-TXREG = XBeePacket[index++];
-}
-}
-
-boolean CheckUARTTXEvent(void) {
-if (sendCompleteFlag) {
 ES_Event TXEvent;
 TXEvent.EventType = ES_TX_SEND_COMPLETE;
 TXEvent.EventParam = 0;
 ES_PostToService(MyPriority, TXEvent);
-
-sendCompleteFlag = ((boolean) 0);
-return ((boolean) !((boolean) 0));
-}
-return ((boolean) 0);
 }
 

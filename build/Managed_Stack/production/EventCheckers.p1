@@ -1398,8 +1398,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ES_Configure.h: 164: ES_TX_SEND_COMPLETE,
 [; ;ES_Configure.h: 165: ES_TX_REQUEST_SEND,
 [; ;ES_Configure.h: 166: ES_TX_STATUS,
-[; ;ES_Configure.h: 167: ES_TOGGLE_LED
-[; ;ES_Configure.h: 168: } ES_EventTyp_t;
+[; ;ES_Configure.h: 167: ES_TOGGLE_LED,
+[; ;ES_Configure.h: 168: ES_FUELED,
+[; ;ES_Configure.h: 169: ES_EMPTY,
+[; ;ES_Configure.h: 170: ES_FUEL_QUERY,
+[; ;ES_Configure.h: 171: ES_BAD_QUERY
+[; ;ES_Configure.h: 172: } ES_EventTyp_t;
 [; ;stdint.h: 72: typedef signed char int8_t;
 [; ;stdint.h: 77: typedef unsigned char uint8_t;
 [; ;stdint.h: 82: typedef signed int int16_t;
@@ -1473,3 +1477,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;UART_RX_SM.h: 31: uint16_t RX_getFieldAddr(void);
 [; ;UART_RX_SM.h: 33: inline void UARTRXIntResponse(void);
 [; ;UART_RX_SM.h: 34: boolean CheckUARTRXEvent(void);
+[; ;LevelSensor.h: 10: typedef enum {
+[; ;LevelSensor.h: 11: InitLevelState, TankEmpty, TankFueled
+[; ;LevelSensor.h: 12: } LevelSensorState_t;
+[; ;LevelSensor.h: 15: boolean InitLevelSensorService(uint8_t Priority);
+[; ;LevelSensor.h: 16: boolean PostLevelSensorService(ES_Event ThisEvent);
+[; ;LevelSensor.h: 17: ES_Event RunLevelSensorService(ES_Event ThisEvent);
+[; ;LevelSensor.h: 18: LevelSensorState_t QueryLevelSensorState(void);
+[; ;LevelSensor.h: 22: uint8_t readFuelLevel(void);
+[; ;LevelSensor.h: 23: uint8_t getLastLevelReading(void);

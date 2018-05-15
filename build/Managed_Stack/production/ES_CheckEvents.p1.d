@@ -11,6 +11,7 @@ UART_RX_SM.h  \
 ES_CheckEvents.h  \
 ES_Events.h  \
 ES_General.h  \
+LevelSensor.h  \
 stdint.h  \
 HardcodedMacros.h  \
 BITDEFS.H  \

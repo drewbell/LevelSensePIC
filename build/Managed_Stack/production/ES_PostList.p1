@@ -15,8 +15,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ES_Configure.h: 164: ES_TX_SEND_COMPLETE,
 [; ;ES_Configure.h: 165: ES_TX_REQUEST_SEND,
 [; ;ES_Configure.h: 166: ES_TX_STATUS,
-[; ;ES_Configure.h: 167: ES_TOGGLE_LED
-[; ;ES_Configure.h: 168: } ES_EventTyp_t;
+[; ;ES_Configure.h: 167: ES_TOGGLE_LED,
+[; ;ES_Configure.h: 168: ES_FUELED,
+[; ;ES_Configure.h: 169: ES_EMPTY,
+[; ;ES_Configure.h: 170: ES_FUEL_QUERY,
+[; ;ES_Configure.h: 171: ES_BAD_QUERY
+[; ;ES_Configure.h: 172: } ES_EventTyp_t;
 [; ;ES_Types.h: 4: typedef unsigned char boolean;
 [; ;ES_Types.h: 11: typedef signed char int8_t;
 [; ;ES_Types.h: 14: typedef signed int int16_t;
@@ -1454,6 +1458,35 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ES_Framework.h: 35: ES_Return_t ES_Run( void );
 [; ;ES_Framework.h: 36: boolean ES_PostAll( ES_Event ThisEvent );
 [; ;ES_Framework.h: 37: boolean ES_PostToService( uint8_t WhichService, ES_Event ThisEvent);
+[; ;LevelSensor.h: 10: typedef enum {
+[; ;LevelSensor.h: 11: InitLevelState, TankEmpty, TankFueled
+[; ;LevelSensor.h: 12: } LevelSensorState_t;
+[; ;LevelSensor.h: 15: boolean InitLevelSensorService(uint8_t Priority);
+[; ;LevelSensor.h: 16: boolean PostLevelSensorService(ES_Event ThisEvent);
+[; ;LevelSensor.h: 17: ES_Event RunLevelSensorService(ES_Event ThisEvent);
+[; ;LevelSensor.h: 18: LevelSensorState_t QueryLevelSensorState(void);
+[; ;LevelSensor.h: 22: uint8_t readFuelLevel(void);
+[; ;LevelSensor.h: 23: uint8_t getLastLevelReading(void);
+[; ;UART_TX_SM.h: 10: typedef enum {
+[; ;UART_TX_SM.h: 11: InitPTXState, TX_Idle, TX_SendMSG, TX_WaitStatus
+[; ;UART_TX_SM.h: 12: } UART_TX_State_t;
+[; ;UART_TX_SM.h: 14: typedef enum {
+[; ;UART_TX_SM.h: 15: TX_ERR_TIMEOUT,
+[; ;UART_TX_SM.h: 16: TX_ERR_CCA,
+[; ;UART_TX_SM.h: 17: TX_ERR_NO_ADDR
+[; ;UART_TX_SM.h: 18: } UART_TX_Error_t;
+[; ;UART_TX_SM.h: 22: boolean InitUARTTXService(uint8_t Priority);
+[; ;UART_TX_SM.h: 23: boolean PostUARTTXService(ES_Event ThisEvent);
+[; ;UART_TX_SM.h: 24: ES_Event RunUARTTXService(ES_Event ThisEvent);
+[; ;UART_TX_SM.h: 25: UART_TX_State_t QueryUARTTXService(void);
+[; ;UART_TX_SM.h: 27: boolean TX_clearXBeePacket(void);
+[; ;UART_TX_SM.h: 28: boolean TX_appendXBeePacket(uint8_t newByte);
+[; ;UART_TX_SM.h: 29: uint8_t TX_getChecksum(void);
+[; ;UART_TX_SM.h: 30: uint8_t TX_getXBeePacket(uint8_t _index);
+[; ;UART_TX_SM.h: 31: uint8_t TX_getLength(void);
+[; ;UART_TX_SM.h: 33: uint8_t *TX_getSuperPACAddr(void);
+[; ;UART_TX_SM.h: 35: boolean CheckUARTTXEvent(void);
+[; ;UART_TX_SM.h: 37: inline void UARTTXIntResponse(void);
 "9 UART_RX_SM.h
 [v _checksum `uc ~T0 @X0 1 e ]
 [; ;UART_RX_SM.h: 9: uint8_t checksum;
@@ -1473,15 +1506,4 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;UART_RX_SM.h: 31: uint16_t RX_getFieldAddr(void);
 [; ;UART_RX_SM.h: 33: inline void UARTRXIntResponse(void);
 [; ;UART_RX_SM.h: 34: boolean CheckUARTRXEvent(void);
-[; ;SPI_SM.h: 6: typedef enum {
-[; ;SPI_SM.h: 7: Waiting4Command, Waiting4Dummy1, Waiting4Dummy2,
-[; ;SPI_SM.h: 8: Waiting4Dummy3
-[; ;SPI_SM.h: 9: } SPI_State_t;
-[; ;SPI_SM.h: 11: boolean InitSPIService(uint8_t Priority);
-[; ;SPI_SM.h: 12: boolean PostSPIService(ES_Event ThisEvent);
-[; ;SPI_SM.h: 13: ES_Event RunSPIService(ES_Event ThisEvent);
-[; ;SPI_SM.h: 15: boolean CheckSPIEvent(void);
-[; ;SPI_SM.h: 16: boolean CheckSSEvent(void);
-[; ;SPI_SM.h: 18: inline void SPIIntResponse(void);
-[; ;SPI_SM.h: 20: boolean SPI_getCommOpen(void);
 [; ;ES_PostList.c: 23: static boolean PostToList( PostFunc_t *const*FuncList, unsigned char ListSize, ES_Event NewEvent);

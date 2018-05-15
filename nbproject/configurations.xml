@@ -21,7 +21,6 @@
       <itemPath>EventCheckers.h</itemPath>
       <itemPath>sci.h</itemPath>
       <itemPath>stdint.h</itemPath>
-      <itemPath>SPI_SM.h</itemPath>
       <itemPath>UART_RX_SM.h</itemPath>
       <itemPath>HardcodedMacros.h</itemPath>
       <itemPath>COMMDEFS.h</itemPath>
@@ -736,7 +735,7 @@
         <targetDevice>PIC16F690</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>PICkit3PlatformTool</platformTool>
+        <platformTool>Simulator</platformTool>
         <languageToolchain>XC8</languageToolchain>
         <languageToolchainVersion>1.45</languageToolchainVersion>
         <platform>4</platform>

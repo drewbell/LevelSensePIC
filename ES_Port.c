@@ -54,7 +54,7 @@ void interrupt ISR(void) {
     RC5 = 1; // Raise line for heartbeat / interrupt timing
 
     if (SSPIF && SSPIE) {
-        SPIIntResponse();
+        //SPIIntResponse();
     }
 
     if (RCIF && RCIE) {

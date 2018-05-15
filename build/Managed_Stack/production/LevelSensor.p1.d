@@ -6,7 +6,10 @@ ES_PostList.h  \
 ES_Types.h  \
 ES_Framework.h  \
 ES_Port.h  \
+UART_RX_SM.h  \
 ES_CheckEvents.h  \
+UART_TX_SM.h  \
+COMMDEFS.h  \
 ES_Events.h  \
 ES_General.h  \
 LevelSensor.h  \

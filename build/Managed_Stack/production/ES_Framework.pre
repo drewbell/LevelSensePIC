@@ -19,7 +19,11 @@ ES_TX_NEW_ADDR,
 ES_TX_SEND_COMPLETE,
 ES_TX_REQUEST_SEND,
 ES_TX_STATUS,
-ES_TOGGLE_LED
+ES_TOGGLE_LED,
+ES_FUELED,
+ES_EMPTY,
+ES_FUEL_QUERY,
+ES_BAD_QUERY
 } ES_EventTyp_t;
 
 # 4 "ES_Types.h"
@@ -2185,6 +2189,62 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
 
+# 10 "LevelSensor.h"
+typedef enum {
+InitLevelState, TankEmpty, TankFueled
+} LevelSensorState_t;
+
+
+boolean InitLevelSensorService(uint8_t Priority);
+boolean PostLevelSensorService(ES_Event ThisEvent);
+ES_Event RunLevelSensorService(ES_Event ThisEvent);
+LevelSensorState_t QueryLevelSensorState(void);
+
+
+
+uint8_t readFuelLevel(void);
+uint8_t getLastLevelReading(void);
+
+
+
+
+
+
+# 10 "UART_TX_SM.h"
+typedef enum {
+InitPTXState, TX_Idle, TX_SendMSG, TX_WaitStatus
+} UART_TX_State_t;
+
+typedef enum {
+TX_ERR_TIMEOUT,
+TX_ERR_CCA,
+TX_ERR_NO_ADDR
+} UART_TX_Error_t;
+
+
+
+boolean InitUARTTXService(uint8_t Priority);
+boolean PostUARTTXService(ES_Event ThisEvent);
+ES_Event RunUARTTXService(ES_Event ThisEvent);
+UART_TX_State_t QueryUARTTXService(void);
+
+boolean TX_clearXBeePacket(void);
+boolean TX_appendXBeePacket(uint8_t newByte);
+uint8_t TX_getChecksum(void);
+uint8_t TX_getXBeePacket(uint8_t _index);
+uint8_t TX_getLength(void);
+
+uint8_t *TX_getSuperPACAddr(void);
+
+boolean CheckUARTTXEvent(void);
+
+inline void UARTTXIntResponse(void);
+
+
+
+
+
+
 # 9 "UART_RX_SM.h"
 uint8_t checksum;
 
@@ -2213,27 +2273,7 @@ uint16_t RX_getFieldAddr(void);
 inline void UARTRXIntResponse(void);
 boolean CheckUARTRXEvent(void);
 
-# 15
-
-
-# 6 "SPI_SM.h"
-typedef enum {
-Waiting4Command, Waiting4Dummy1, Waiting4Dummy2,
-Waiting4Dummy3
-} SPI_State_t;
-
-boolean InitSPIService(uint8_t Priority);
-boolean PostSPIService(ES_Event ThisEvent);
-ES_Event RunSPIService(ES_Event ThisEvent);
-
-boolean CheckSPIEvent(void);
-boolean CheckSSEvent(void);
-
-inline void SPIIntResponse(void);
-
-boolean SPI_getCommOpen(void);
-
-
+# 22
 
 
 # 37 "ES_Framework.c"
@@ -2260,10 +2300,14 @@ static boolean CheckSystemEvents(void);
 
 # 66
 static ES_ServDesc_t const ServDescList[] = {
-{InitUARTRXService, RunUARTRXService}
+{InitLevelSensorService, RunLevelSensorService}
 
 ,
-{InitSPIService, RunSPIService}
+{InitUARTTXService, RunUARTTXService}
+
+
+,
+{InitUARTRXService, RunUARTRXService}
 
 # 97
 };
@@ -2273,12 +2317,19 @@ static ES_Event Queue0[3 + 1];
 
 static ES_Event Queue1[3 + 1];
 
+
+static ES_Event Queue2[3 + 1];
+
 # 134
-static ES_QueueDesc_t const EventQueues[2] = {
+static ES_QueueDesc_t const EventQueues[3] = {
 { Queue0, (sizeof(Queue0)/sizeof(Queue0[0]))}
 
 ,
 { Queue1, (sizeof(Queue1)/sizeof(Queue1[0]))}
+
+
+,
+{ Queue2, (sizeof(Queue2)/sizeof(Queue2[0]))}
 
 # 164
 };
@@ -2325,10 +2376,10 @@ Ready &= ~BitNum2SetMask[HighestPrior];
 # 243
 switch (HighestPrior) {
 case 0:
-if (RunUARTRXService(ThisEvent).EventType != ES_NO_EVENT) return FailedRun;
+if (RunLevelSensorService(ThisEvent).EventType != ES_NO_EVENT) return FailedRun;
 break;
 case 1:
-if (RunSPIService(ThisEvent).EventType != ES_NO_EVENT) return FailedRun;
+if (RunUARTTXService(ThisEvent).EventType != ES_NO_EVENT) return FailedRun;
 break;
 }
 }
@@ -2339,7 +2390,7 @@ ES_Timer_RTI_Resp();
 
 
 
-CheckSSEvent();
+
 CheckUARTRXEvent();
 
 }

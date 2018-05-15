@@ -2001,7 +2001,11 @@ ES_TX_NEW_ADDR,
 ES_TX_SEND_COMPLETE,
 ES_TX_REQUEST_SEND,
 ES_TX_STATUS,
-ES_TOGGLE_LED
+ES_TOGGLE_LED,
+ES_FUELED,
+ES_EMPTY,
+ES_FUEL_QUERY,
+ES_BAD_QUERY
 } ES_EventTyp_t;
 
 # 4 "ES_Types.h"
@@ -2188,9 +2192,20 @@ boolean USART_IsRxReady(void);
 boolean USART_SendByte(unsigned char Byte2Send);
 unsigned char USART_GetRxByte(void);
 
-# 8 "LevelSensor.h"
-boolean InitLevelSensor(void);
-uint8_t takeLevelReading(void);
+# 10 "LevelSensor.h"
+typedef enum {
+InitLevelState, TankEmpty, TankFueled
+} LevelSensorState_t;
+
+
+boolean InitLevelSensorService(uint8_t Priority);
+boolean PostLevelSensorService(ES_Event ThisEvent);
+ES_Event RunLevelSensorService(ES_Event ThisEvent);
+LevelSensorState_t QueryLevelSensorState(void);
+
+
+
+uint8_t readFuelLevel(void);
 uint8_t getLastLevelReading(void);
 
 # 22 "main.c"
@@ -2201,9 +2216,8 @@ ES_Return_t ErrorType;
 OSCCON = 0b01110000;
 
 USART_Init();
-InitLevelSensor();
 
-# 43
+# 42
 ErrorType = ES_Initialize(ES_Timer_RATE_1MS);
 
 
