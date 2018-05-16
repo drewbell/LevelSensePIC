@@ -62,12 +62,12 @@
 /****************************************************************************/
 // These are the definitions for Service 2
 #if NUM_SERVICES > 2
-// the header file with the public fuction prototypes
+// the header file with the public function prototypes
 #define SERV_2_HEADER "UART_RX_SM.h"
 // the name of the Init function
 #define SERV_2_INIT InitUARTRXService
 // the name of the run function
-#define SERV_2_RUN RunUARTRXService
+#define SERV_2_RUN  RunUARTRXService
 // How big should this services Queue be?
 #define SERV_2_QUEUE_SIZE 3
 #endif
@@ -75,7 +75,7 @@
 /****************************************************************************/
 // These are the definitions for Service 3
 #if NUM_SERVICES > 3
-// the header file with the public fuction prototypes
+// the header file with the public function prototypes
 #define SERV_3_HEADER "TestService.h"
 // the name of the Init function
 #define SERV_3_INIT TestServiceInit
@@ -88,7 +88,7 @@
 /****************************************************************************/
 // These are the definitions for Service 4
 #if NUM_SERVICES > 4
-// the header file with the public fuction prototypes
+// the header file with the public function prototypes
 #define SERV_4_HEADER "TestService.h"
 // the name of the Init function
 #define SERV_4_INIT TestServiceInit
@@ -101,7 +101,7 @@
 /****************************************************************************/
 // These are the definitions for Service 5
 #if NUM_SERVICES > 5
-// the header file with the public fuction prototypes
+// the header file with the public function prototypes
 #define SERV_5_HEADER "TestService.h"
 // the name of the Init function
 #define SERV_5_INIT TestServiceInit
@@ -114,7 +114,7 @@
 /****************************************************************************/
 // These are the definitions for Service 6
 #if NUM_SERVICES > 6
-// the header file with the public fuction prototypes
+// the header file with the public function prototypes
 #define SERV_6_HEADER "TestService.h"
 // the name of the Init function
 #define SERV_6_INIT TestServiceInit
@@ -127,7 +127,7 @@
 /****************************************************************************/
 // These are the definitions for Service 7
 #if NUM_SERVICES > 7
-// the header file with the public fuction prototypes
+// the header file with the public function prototypes
 #define SERV_7_HEADER "TestService.h"
 // the name of the Init function
 #define SERV_7_INIT TestServiceInit

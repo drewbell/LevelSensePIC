@@ -2180,16 +2180,8 @@ boolean InitUARTRXService(uint8_t Priority);
 boolean PostUARTRXService(ES_Event ThisEvent);
 ES_Event RunUARTRXService(ES_Event ThisEvent);
 
-boolean RX_hasHeartbeat(void);
 
-inline boolean RX_newStatusReady(void);
-
-inline boolean getFlag2(void);
-inline boolean getFlag3(void);
-
-volatile uint8_t * RX_getStatusBuffer(void);
-volatile uint8_t * RX_getResponseBuffer(void);
-uint16_t RX_getFieldAddr(void);
+uint8_t RX_getResponse(void);
 
 inline void UARTRXIntResponse(void);
 boolean CheckUARTRXEvent(void);

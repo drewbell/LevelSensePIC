@@ -1514,15 +1514,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;UART_RX_SM.h: 18: boolean InitUARTRXService(uint8_t Priority);
 [; ;UART_RX_SM.h: 19: boolean PostUARTRXService(ES_Event ThisEvent);
 [; ;UART_RX_SM.h: 20: ES_Event RunUARTRXService(ES_Event ThisEvent);
-[; ;UART_RX_SM.h: 22: boolean RX_hasHeartbeat(void);
-[; ;UART_RX_SM.h: 24: inline boolean RX_newStatusReady(void);
-[; ;UART_RX_SM.h: 26: inline boolean getFlag2(void);
-[; ;UART_RX_SM.h: 27: inline boolean getFlag3(void);
-[; ;UART_RX_SM.h: 29: volatile uint8_t * RX_getStatusBuffer(void);
-[; ;UART_RX_SM.h: 30: volatile uint8_t * RX_getResponseBuffer(void);
-[; ;UART_RX_SM.h: 31: uint16_t RX_getFieldAddr(void);
-[; ;UART_RX_SM.h: 33: inline void UARTRXIntResponse(void);
-[; ;UART_RX_SM.h: 34: boolean CheckUARTRXEvent(void);
+[; ;UART_RX_SM.h: 23: uint8_t RX_getResponse(void);
+[; ;UART_RX_SM.h: 25: inline void UARTRXIntResponse(void);
+[; ;UART_RX_SM.h: 26: boolean CheckUARTRXEvent(void);
 [; ;ES_LookupTables.h: 38: extern uint8_t const BitNum2SetMask[];
 [; ;ES_LookupTables.h: 47: extern uint8_t const Nybble2MSBitNum[15];
 [; ;ES_LookupTables.h: 63: uint8_t ES_GetMSBitSet( uint8_t Val2Check);
@@ -1753,11 +1747,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U _ES_Timer_RTI_Resp ]
 [f ]
 "260
-[v F1722 `uc ~T0 @X0 1 s NeedsProcessing ]
+[v F1707 `uc ~T0 @X0 1 s NeedsProcessing ]
 "261
-[v F1723 `uc ~T0 @X0 1 s NextTimer2Process ]
+[v F1708 `uc ~T0 @X0 1 s NextTimer2Process ]
 "262
-[v F1724 `S131 ~T0 @X0 1 s NewEvent ]
+[v F1709 `S131 ~T0 @X0 1 s NewEvent ]
 [; ;ES_Timers.c: 260: static Tflag_t NeedsProcessing;
 [; ;ES_Timers.c: 261: static uint8_t NextTimer2Process;
 [; ;ES_Timers.c: 262: static ES_Event NewEvent;
@@ -1770,41 +1764,41 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;ES_Timers.c: 267: NeedsProcessing = TMR_ActiveFlags;
 "267
-[e = F1722 _TMR_ActiveFlags ]
+[e = F1707 _TMR_ActiveFlags ]
 [; ;ES_Timers.c: 268: do {
 "268
 [e :U 145 ]
 {
 [; ;ES_Timers.c: 270: NextTimer2Process = ES_GetMSBitSet(NeedsProcessing);
 "270
-[e = F1723 ( _ES_GetMSBitSet (1 F1722 ]
+[e = F1708 ( _ES_GetMSBitSet (1 F1707 ]
 [; ;ES_Timers.c: 272: if (--TMR_TimerArray[NextTimer2Process] == 0) {
 "272
-[e $ ! == =- *U + &U _TMR_TimerArray * -> F1723 `ux -> -> # *U &U _TMR_TimerArray `ui `ux -> -> 1 `i `ui -> -> 0 `i `ui 146  ]
+[e $ ! == =- *U + &U _TMR_TimerArray * -> F1708 `ux -> -> # *U &U _TMR_TimerArray `ui `ux -> -> 1 `i `ui -> -> 0 `i `ui 146  ]
 {
 [; ;ES_Timers.c: 273: NewEvent.EventType = ES_TIMEOUT;
 "273
-[e = . F1724 0 . `E1510 4 ]
+[e = . F1709 0 . `E1510 4 ]
 [; ;ES_Timers.c: 274: NewEvent.EventParam = NextTimer2Process;
 "274
-[e = . F1724 1 -> F1723 `ui ]
+[e = . F1709 1 -> F1708 `ui ]
 [; ;ES_Timers.c: 276: Timer2PostFunc[NextTimer2Process](NewEvent);
 "276
-[e ( *U *U + &U _Timer2PostFunc * -> F1723 `ux -> -> # *U &U _Timer2PostFunc `ui `ux (1 F1724 ]
+[e ( *U *U + &U _Timer2PostFunc * -> F1708 `ux -> -> # *U &U _Timer2PostFunc `ui `ux (1 F1709 ]
 [; ;ES_Timers.c: 278: TMR_ActiveFlags &= ~BitNum2SetMask[NextTimer2Process];
 "278
-[e =& _TMR_ActiveFlags -> ~ -> *U + &U _BitNum2SetMask * -> F1723 `ux -> -> # *U &U _BitNum2SetMask `ui `ux `i `uc ]
+[e =& _TMR_ActiveFlags -> ~ -> *U + &U _BitNum2SetMask * -> F1708 `ux -> -> # *U &U _BitNum2SetMask `ui `ux `i `uc ]
 "279
 }
 [e :U 146 ]
 [; ;ES_Timers.c: 279: }
 [; ;ES_Timers.c: 281: NeedsProcessing &= ~BitNum2SetMask[NextTimer2Process];
 "281
-[e =& F1722 -> ~ -> *U + &U _BitNum2SetMask * -> F1723 `ux -> -> # *U &U _BitNum2SetMask `ui `ux `i `uc ]
+[e =& F1707 -> ~ -> *U + &U _BitNum2SetMask * -> F1708 `ux -> -> # *U &U _BitNum2SetMask `ui `ux `i `uc ]
 "282
 }
 [; ;ES_Timers.c: 282: } while (NeedsProcessing != 0);
-[e $ != -> F1722 `i -> 0 `i 145  ]
+[e $ != -> F1707 `i -> 0 `i 145  ]
 [e :U 144 ]
 "284
 }

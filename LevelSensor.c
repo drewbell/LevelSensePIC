@@ -31,7 +31,7 @@
 
 /*----------------------------- Module Defines ----------------------------*/
 #define FUEL_EMPTY 0
-#define ONE_SEC 1000   // 1s = 1000ms
+#define ONE_SECOND 1000   // 1s = 1000ms
 #define QTR_SEC 250    // ms
 #define FUELED_BIT 0x08
 #define NUM_FUEL_PADS 0x08
@@ -50,8 +50,6 @@ uint8_t constructFuelByte(void);
 static uint8_t MyPriority;
 static uint8_t fuelLevel = 0;
 static uint8_t rawFuelReading = 0;
-
-
 static LevelSensorState_t CurrentState;
 
 /*------------------------------ Module Code ------------------------------*/
@@ -146,7 +144,7 @@ ES_Event RunLevelSensorService(ES_Event ThisEvent) {
                     CurrentState = TankFueled;
                 else{
                     CurrentState = TankEmpty; 
-                    ES_Timer_InitTimer(FUEL_EMPTY_TIMER, ONE_SEC);
+                    ES_Timer_InitTimer(FUEL_EMPTY_TIMER, ONE_SECOND);
                 }
                 // start a timer to read the fuel level
                 ES_Timer_InitTimer(FUEL_READ_TIMER, QTR_SEC);
@@ -155,7 +153,7 @@ ES_Event RunLevelSensorService(ES_Event ThisEvent) {
             break;
         case TankFueled:
             if (ThisEvent.EventType == ES_EMPTY) {
-                ES_Timer_InitTimer(FUEL_EMPTY_TIMER, ONE_SEC);
+                ES_Timer_InitTimer(FUEL_EMPTY_TIMER, ONE_SECOND);
                 CurrentState = TankEmpty;
             } 
             else if (ThisEvent.EventType == ES_FUELED) {
@@ -313,6 +311,7 @@ uint8_t constructFuelByte(void){
         fuelMsg = 0x07 & get3GarbageBits();     
     }
     fuelMsg |= ((fuelMsg ^ 0xF0) << 4);   //upper 4 bits are complement of lower 4
+    return fuelMsg;
 }
 
 
@@ -336,10 +335,10 @@ uint8_t constructFuelByte(void){
    Drew Bell, 05/14/18, 20:23
  ****************************************************************************/
 uint8_t get3GarbageBits(void){
-    uint8_t garbage = 0;
-    char *p = 0x00;     // pointer to the special function registers
-    for(int i = 0; 1 < 16; i++){
-        garbage ^= *(p + i);
-    }
+    uint8_t garbage = 0xbb;
+    //char *p = 0x00;     // pointer to the special function registers
+    //for(int i = 0; 1 < 16; i++){
+    //    garbage ^= *(p + i);
+    //}
     return garbage;  
 }

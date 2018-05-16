@@ -1,8 +1,8 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"55 LevelSensor.c
+"53 LevelSensor.c
 [c E1601 0 1 2 .. ]
 [n E1601 . InitLevelState TankEmpty TankFueled  ]
-"78
+"76
 [c E1 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 .. ]
 [n E1 . ES_NO_EVENT ES_ERROR ES_INIT ES_NEW_KEY ES_TIMEOUT ES_LOCK ES_UNLOCK ES_RX_NEW_PACKET ES_RX_BROADCAST ES_RX_RESPONSE ES_RX_TXSTAT ES_TX_NEW_ADDR ES_TX_SEND_COMPLETE ES_TX_REQUEST_SEND ES_TX_STATUS ES_TOGGLE_LED ES_FUELED ES_EMPTY ES_FUEL_QUERY ES_BAD_QUERY  ]
 "23 ES_Events.h
@@ -16,7 +16,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _readFuelLevel `(uc ~T0 @X0 0 ef ]
 "37 ES_Framework.h
 [v _ES_PostToService `(uc ~T0 @X0 0 ef2`uc`S131 ]
-"149 LevelSensor.c
+"147 LevelSensor.c
 [c E1504 -1 1 0 0 .. ]
 [n E1504 . ES_Timer_ERR ES_Timer_ACTIVE ES_Timer_OK ES_Timer_NOT_ACTIVE  ]
 "52 ES_Timers.h
@@ -1507,15 +1507,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;UART_RX_SM.h: 18: boolean InitUARTRXService(uint8_t Priority);
 [; ;UART_RX_SM.h: 19: boolean PostUARTRXService(ES_Event ThisEvent);
 [; ;UART_RX_SM.h: 20: ES_Event RunUARTRXService(ES_Event ThisEvent);
-[; ;UART_RX_SM.h: 22: boolean RX_hasHeartbeat(void);
-[; ;UART_RX_SM.h: 24: inline boolean RX_newStatusReady(void);
-[; ;UART_RX_SM.h: 26: inline boolean getFlag2(void);
-[; ;UART_RX_SM.h: 27: inline boolean getFlag3(void);
-[; ;UART_RX_SM.h: 29: volatile uint8_t * RX_getStatusBuffer(void);
-[; ;UART_RX_SM.h: 30: volatile uint8_t * RX_getResponseBuffer(void);
-[; ;UART_RX_SM.h: 31: uint16_t RX_getFieldAddr(void);
-[; ;UART_RX_SM.h: 33: inline void UARTRXIntResponse(void);
-[; ;UART_RX_SM.h: 34: boolean CheckUARTRXEvent(void);
+[; ;UART_RX_SM.h: 23: uint8_t RX_getResponse(void);
+[; ;UART_RX_SM.h: 25: inline void UARTRXIntResponse(void);
+[; ;UART_RX_SM.h: 26: boolean CheckUARTRXEvent(void);
 [; ;UART_TX_SM.h: 10: typedef enum {
 [; ;UART_TX_SM.h: 11: InitPTXState, TX_Idle, TX_SendMSG, TX_WaitStatus
 [; ;UART_TX_SM.h: 12: } UART_TX_State_t;
@@ -1553,338 +1547,338 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ]
 [; ;LevelSensor.c: 52: static uint8_t rawFuelReading = 0;
-"55
+"53
 [v _CurrentState `E1601 ~T0 @X0 1 s ]
-[; ;LevelSensor.c: 55: static LevelSensorState_t CurrentState;
-"77
+[; ;LevelSensor.c: 53: static LevelSensorState_t CurrentState;
+"75
 [v _InitLevelSensorService `(uc ~T0 @X0 1 ef1`uc ]
 {
-[; ;LevelSensor.c: 77: boolean InitLevelSensorService(uint8_t Priority) {
+[; ;LevelSensor.c: 75: boolean InitLevelSensorService(uint8_t Priority) {
 [e :U _InitLevelSensorService ]
 [v _Priority `uc ~T0 @X0 1 r1 ]
 [f ]
-"78
+"76
 [v _ThisEvent `S131 ~T0 @X0 1 a ]
-[; ;LevelSensor.c: 78: ES_Event ThisEvent;
-[; ;LevelSensor.c: 80: MyPriority = Priority;
-"80
+[; ;LevelSensor.c: 76: ES_Event ThisEvent;
+[; ;LevelSensor.c: 78: MyPriority = Priority;
+"78
 [e = _MyPriority _Priority ]
-[; ;LevelSensor.c: 83: TRISC = 0xFF;
-"83
+[; ;LevelSensor.c: 81: TRISC = 0xFF;
+"81
 [e = _TRISC -> -> 255 `i `uc ]
-[; ;LevelSensor.c: 84: ANSEL = 0;
-"84
+[; ;LevelSensor.c: 82: ANSEL = 0;
+"82
 [e = _ANSEL -> -> 0 `i `uc ]
-[; ;LevelSensor.c: 86: fuelLevel = readFuelLevel();
-"86
+[; ;LevelSensor.c: 84: fuelLevel = readFuelLevel();
+"84
 [e = _fuelLevel ( _readFuelLevel ..  ]
-[; ;LevelSensor.c: 87: CurrentState = InitLevelState;
-"87
+[; ;LevelSensor.c: 85: CurrentState = InitLevelState;
+"85
 [e = _CurrentState . `E1601 0 ]
-[; ;LevelSensor.c: 90: ThisEvent.EventType = ES_INIT;
-"90
+[; ;LevelSensor.c: 88: ThisEvent.EventType = ES_INIT;
+"88
 [e = . _ThisEvent 0 . `E1 2 ]
-[; ;LevelSensor.c: 91: if (ES_PostToService(MyPriority, ThisEvent) == ((boolean) !((boolean) 0))) {
-"91
+[; ;LevelSensor.c: 89: if (ES_PostToService(MyPriority, ThisEvent) == ((boolean) !((boolean) 0))) {
+"89
 [e $ ! == -> ( _ES_PostToService (2 , _MyPriority _ThisEvent `i -> -> -> ! != -> -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i `i `uc `i 133  ]
 {
-[; ;LevelSensor.c: 92: return ((boolean) !((boolean) 0));
-"92
+[; ;LevelSensor.c: 90: return ((boolean) !((boolean) 0));
+"90
 [e ) -> -> ! != -> -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i `i `uc ]
 [e $UE 132  ]
-"93
+"91
 }
-[; ;LevelSensor.c: 93: } else {
+[; ;LevelSensor.c: 91: } else {
 [e $U 134  ]
 [e :U 133 ]
 {
-[; ;LevelSensor.c: 94: return ((boolean) 0);
-"94
+[; ;LevelSensor.c: 92: return ((boolean) 0);
+"92
 [e ) -> -> 0 `i `uc ]
 [e $UE 132  ]
-"95
+"93
 }
 [e :U 134 ]
-[; ;LevelSensor.c: 95: }
-[; ;LevelSensor.c: 96: }
-"96
+[; ;LevelSensor.c: 93: }
+[; ;LevelSensor.c: 94: }
+"94
 [e :UE 132 ]
 }
-"115
+"113
 [v _PostLevelSensorService `(uc ~T0 @X0 1 ef1`S131 ]
 {
-[; ;LevelSensor.c: 115: boolean PostLevelSensorService(ES_Event ThisEvent) {
+[; ;LevelSensor.c: 113: boolean PostLevelSensorService(ES_Event ThisEvent) {
 [e :U _PostLevelSensorService ]
 [v _ThisEvent `S131 ~T0 @X0 1 r1 ]
 [f ]
-[; ;LevelSensor.c: 116: return ES_PostToService(MyPriority, ThisEvent);
-"116
+[; ;LevelSensor.c: 114: return ES_PostToService(MyPriority, ThisEvent);
+"114
 [e ) ( _ES_PostToService (2 , _MyPriority _ThisEvent ]
 [e $UE 135  ]
-[; ;LevelSensor.c: 117: }
-"117
+[; ;LevelSensor.c: 115: }
+"115
 [e :UE 135 ]
 }
-"137
+"135
 [v _RunLevelSensorService `(S131 ~T0 @X0 1 ef1`S131 ]
 {
-[; ;LevelSensor.c: 137: ES_Event RunLevelSensorService(ES_Event ThisEvent) {
+[; ;LevelSensor.c: 135: ES_Event RunLevelSensorService(ES_Event ThisEvent) {
 [e :U _RunLevelSensorService ]
 [v _ThisEvent `S131 ~T0 @X0 1 r1 ]
 [f ]
-"138
+"136
 [v _ReturnEvent `S131 ~T0 @X0 1 a ]
-[; ;LevelSensor.c: 138: ES_Event ReturnEvent;
-[; ;LevelSensor.c: 139: ReturnEvent.EventType = ES_NO_EVENT;
-"139
+[; ;LevelSensor.c: 136: ES_Event ReturnEvent;
+[; ;LevelSensor.c: 137: ReturnEvent.EventType = ES_NO_EVENT;
+"137
 [e = . _ReturnEvent 0 . `E1 0 ]
-[; ;LevelSensor.c: 141: switch (CurrentState) {
-"141
+[; ;LevelSensor.c: 139: switch (CurrentState) {
+"139
 [e $U 138  ]
 {
-[; ;LevelSensor.c: 142: case InitLevelState:
-"142
+[; ;LevelSensor.c: 140: case InitLevelState:
+"140
 [e :U 139 ]
-[; ;LevelSensor.c: 143: if (ThisEvent.EventType == ES_INIT)
-"143
+[; ;LevelSensor.c: 141: if (ThisEvent.EventType == ES_INIT)
+"141
 [e $ ! == -> . _ThisEvent 0 `i -> . `E1 2 `i 140  ]
-[; ;LevelSensor.c: 144: {
-"144
+[; ;LevelSensor.c: 142: {
+"142
 {
-[; ;LevelSensor.c: 145: if(fuelLevel = readFuelLevel())
-"145
+[; ;LevelSensor.c: 143: if(fuelLevel = readFuelLevel())
+"143
 [e $ ! != -> = _fuelLevel ( _readFuelLevel ..  `i -> -> -> 0 `i `uc `i 141  ]
-[; ;LevelSensor.c: 146: CurrentState = TankFueled;
-"146
+[; ;LevelSensor.c: 144: CurrentState = TankFueled;
+"144
 [e = _CurrentState . `E1601 2 ]
 [e $U 142  ]
-"147
+"145
 [e :U 141 ]
-[; ;LevelSensor.c: 147: else{
+[; ;LevelSensor.c: 145: else{
 {
-[; ;LevelSensor.c: 148: CurrentState = TankEmpty;
-"148
+[; ;LevelSensor.c: 146: CurrentState = TankEmpty;
+"146
 [e = _CurrentState . `E1601 1 ]
-[; ;LevelSensor.c: 149: ES_Timer_InitTimer(1, 1000);
-"149
+[; ;LevelSensor.c: 147: ES_Timer_InitTimer(1, 1000);
+"147
 [e ( _ES_Timer_InitTimer (2 , -> -> 1 `i `uc -> -> 1000 `i `ui ]
-"150
+"148
 }
 [e :U 142 ]
-[; ;LevelSensor.c: 150: }
-[; ;LevelSensor.c: 152: ES_Timer_InitTimer(2, 250);
-"152
+[; ;LevelSensor.c: 148: }
+[; ;LevelSensor.c: 150: ES_Timer_InitTimer(2, 250);
+"150
 [e ( _ES_Timer_InitTimer (2 , -> -> 2 `i `uc -> -> 250 `i `ui ]
-"154
+"152
 }
 [e :U 140 ]
-[; ;LevelSensor.c: 154: }
-[; ;LevelSensor.c: 155: break;
-"155
+[; ;LevelSensor.c: 152: }
+[; ;LevelSensor.c: 153: break;
+"153
 [e $U 137  ]
-[; ;LevelSensor.c: 156: case TankFueled:
-"156
+[; ;LevelSensor.c: 154: case TankFueled:
+"154
 [e :U 143 ]
-[; ;LevelSensor.c: 157: if (ThisEvent.EventType == ES_EMPTY) {
-"157
+[; ;LevelSensor.c: 155: if (ThisEvent.EventType == ES_EMPTY) {
+"155
 [e $ ! == -> . _ThisEvent 0 `i -> . `E1 17 `i 144  ]
 {
-[; ;LevelSensor.c: 158: ES_Timer_InitTimer(1, 1000);
-"158
+[; ;LevelSensor.c: 156: ES_Timer_InitTimer(1, 1000);
+"156
 [e ( _ES_Timer_InitTimer (2 , -> -> 1 `i `uc -> -> 1000 `i `ui ]
-[; ;LevelSensor.c: 159: CurrentState = TankEmpty;
-"159
+[; ;LevelSensor.c: 157: CurrentState = TankEmpty;
+"157
 [e = _CurrentState . `E1601 1 ]
-"160
+"158
 }
-[; ;LevelSensor.c: 160: }
+[; ;LevelSensor.c: 158: }
 [e $U 145  ]
-"161
+"159
 [e :U 144 ]
-[; ;LevelSensor.c: 161: else if (ThisEvent.EventType == ES_FUELED) {
+[; ;LevelSensor.c: 159: else if (ThisEvent.EventType == ES_FUELED) {
 [e $ ! == -> . _ThisEvent 0 `i -> . `E1 16 `i 146  ]
 {
-[; ;LevelSensor.c: 162: CurrentState = TankFueled;
-"162
+[; ;LevelSensor.c: 160: CurrentState = TankFueled;
+"160
 [e = _CurrentState . `E1601 2 ]
-"163
+"161
 }
-[; ;LevelSensor.c: 163: }
+[; ;LevelSensor.c: 161: }
 [e $U 147  ]
-"164
+"162
 [e :U 146 ]
-[; ;LevelSensor.c: 164: else if(ThisEvent.EventType == ES_FUEL_QUERY){
+[; ;LevelSensor.c: 162: else if(ThisEvent.EventType == ES_FUEL_QUERY){
 [e $ ! == -> . _ThisEvent 0 `i -> . `E1 18 `i 148  ]
 {
-"166
+"164
 [v _FuelEvent `S131 ~T0 @X0 1 a ]
-[; ;LevelSensor.c: 166: ES_Event FuelEvent;
-[; ;LevelSensor.c: 167: FuelEvent.EventType = ES_TX_REQUEST_SEND;
-"167
+[; ;LevelSensor.c: 164: ES_Event FuelEvent;
+[; ;LevelSensor.c: 165: FuelEvent.EventType = ES_TX_REQUEST_SEND;
+"165
 [e = . _FuelEvent 0 . `E1 13 ]
-[; ;LevelSensor.c: 168: if(ThisEvent.EventParam == 0xAA)
-"168
+[; ;LevelSensor.c: 166: if(ThisEvent.EventParam == 0xAA)
+"166
 [e $ ! == . _ThisEvent 1 -> -> 170 `i `ui 149  ]
-[; ;LevelSensor.c: 169: FuelEvent.EventParam = constructFuelByte();
-"169
+[; ;LevelSensor.c: 167: FuelEvent.EventParam = constructFuelByte();
+"167
 [e = . _FuelEvent 1 -> ( _constructFuelByte ..  `ui ]
 [e $U 150  ]
-"170
+"168
 [e :U 149 ]
-[; ;LevelSensor.c: 170: else
-[; ;LevelSensor.c: 171: FuelEvent.EventParam = (uint8_t) 0xAA;
-"171
+[; ;LevelSensor.c: 168: else
+[; ;LevelSensor.c: 169: FuelEvent.EventParam = (uint8_t) 0xAA;
+"169
 [e = . _FuelEvent 1 -> -> -> 170 `i `uc `ui ]
 [e :U 150 ]
-[; ;LevelSensor.c: 172: PostUARTTXService(FuelEvent);
-"172
+[; ;LevelSensor.c: 170: PostUARTTXService(FuelEvent);
+"170
 [e ( _PostUARTTXService (1 _FuelEvent ]
-"173
+"171
 }
-[; ;LevelSensor.c: 173: }
+[; ;LevelSensor.c: 171: }
 [e $U 151  ]
-"174
+"172
 [e :U 148 ]
-[; ;LevelSensor.c: 174: else if(ThisEvent.EventType == ES_TIMEOUT && ThisEvent.EventParam ==
-[; ;LevelSensor.c: 175: 2){
-"175
+[; ;LevelSensor.c: 172: else if(ThisEvent.EventType == ES_TIMEOUT && ThisEvent.EventParam ==
+[; ;LevelSensor.c: 173: 2){
+"173
 [e $ ! && == -> . _ThisEvent 0 `i -> . `E1 4 `i == . _ThisEvent 1 -> -> 2 `i `ui 152  ]
 {
-[; ;LevelSensor.c: 176: readFuelLevel();
-"176
+[; ;LevelSensor.c: 174: readFuelLevel();
+"174
 [e ( _readFuelLevel ..  ]
-[; ;LevelSensor.c: 177: if(!fuelLevel) CurrentState = TankEmpty;
-"177
+[; ;LevelSensor.c: 175: if(!fuelLevel) CurrentState = TankEmpty;
+"175
 [e $ ! ! != -> _fuelLevel `i -> -> -> 0 `i `uc `i 153  ]
 [e = _CurrentState . `E1601 1 ]
 [e :U 153 ]
-[; ;LevelSensor.c: 178: ES_Timer_InitTimer(2, 250);
-"178
+[; ;LevelSensor.c: 176: ES_Timer_InitTimer(2, 250);
+"176
 [e ( _ES_Timer_InitTimer (2 , -> -> 2 `i `uc -> -> 250 `i `ui ]
-"179
+"177
 }
 [e :U 152 ]
-"180
+"178
 [e :U 151 ]
 [e :U 147 ]
 [e :U 145 ]
-[; ;LevelSensor.c: 179: }
-[; ;LevelSensor.c: 180: break;
+[; ;LevelSensor.c: 177: }
+[; ;LevelSensor.c: 178: break;
 [e $U 137  ]
-[; ;LevelSensor.c: 182: case TankEmpty:
-"182
+[; ;LevelSensor.c: 180: case TankEmpty:
+"180
 [e :U 154 ]
-[; ;LevelSensor.c: 183: if (ThisEvent.EventType == ES_FUELED) {
-"183
+[; ;LevelSensor.c: 181: if (ThisEvent.EventType == ES_FUELED) {
+"181
 [e $ ! == -> . _ThisEvent 0 `i -> . `E1 16 `i 155  ]
 {
-[; ;LevelSensor.c: 184: CurrentState = TankFueled;
-"184
+[; ;LevelSensor.c: 182: CurrentState = TankFueled;
+"182
 [e = _CurrentState . `E1601 2 ]
-"185
+"183
 }
-[; ;LevelSensor.c: 185: }
+[; ;LevelSensor.c: 183: }
 [e $U 156  ]
-"186
+"184
 [e :U 155 ]
-[; ;LevelSensor.c: 186: else if(ThisEvent.EventType == ES_TIMEOUT && ThisEvent.EventParam ==
-[; ;LevelSensor.c: 187: 1){
-"187
+[; ;LevelSensor.c: 184: else if(ThisEvent.EventType == ES_TIMEOUT && ThisEvent.EventParam ==
+[; ;LevelSensor.c: 185: 1){
+"185
 [e $ ! && == -> . _ThisEvent 0 `i -> . `E1 4 `i == . _ThisEvent 1 -> -> 1 `i `ui 157  ]
 {
-[; ;LevelSensor.c: 188: fuelLevel = readFuelLevel();
-"188
+[; ;LevelSensor.c: 186: fuelLevel = readFuelLevel();
+"186
 [e = _fuelLevel ( _readFuelLevel ..  ]
-"189
+"187
 [v _fuelMsg `uc ~T0 @X0 1 a ]
-[; ;LevelSensor.c: 189: uint8_t fuelMsg = constructFuelByte();
+[; ;LevelSensor.c: 187: uint8_t fuelMsg = constructFuelByte();
 [e = _fuelMsg ( _constructFuelByte ..  ]
-"191
+"189
 }
-[; ;LevelSensor.c: 191: }
+[; ;LevelSensor.c: 189: }
 [e $U 158  ]
-"192
+"190
 [e :U 157 ]
-[; ;LevelSensor.c: 192: else if(ThisEvent.EventType == ES_TIMEOUT && ThisEvent.EventParam ==
-[; ;LevelSensor.c: 193: 2){
-"193
+[; ;LevelSensor.c: 190: else if(ThisEvent.EventType == ES_TIMEOUT && ThisEvent.EventParam ==
+[; ;LevelSensor.c: 191: 2){
+"191
 [e $ ! && == -> . _ThisEvent 0 `i -> . `E1 4 `i == . _ThisEvent 1 -> -> 2 `i `ui 159  ]
 {
-[; ;LevelSensor.c: 194: readFuelLevel();
-"194
+[; ;LevelSensor.c: 192: readFuelLevel();
+"192
 [e ( _readFuelLevel ..  ]
-[; ;LevelSensor.c: 195: if(fuelLevel) CurrentState = TankFueled;
-"195
+[; ;LevelSensor.c: 193: if(fuelLevel) CurrentState = TankFueled;
+"193
 [e $ ! != -> _fuelLevel `i -> -> -> 0 `i `uc `i 160  ]
 [e = _CurrentState . `E1601 2 ]
 [e :U 160 ]
-[; ;LevelSensor.c: 196: ES_Timer_InitTimer(2, 250);
-"196
+[; ;LevelSensor.c: 194: ES_Timer_InitTimer(2, 250);
+"194
 [e ( _ES_Timer_InitTimer (2 , -> -> 2 `i `uc -> -> 250 `i `ui ]
-"197
+"195
 }
 [e :U 159 ]
-"198
+"196
 [e :U 158 ]
 [e :U 156 ]
-[; ;LevelSensor.c: 197: }
-[; ;LevelSensor.c: 198: break;
+[; ;LevelSensor.c: 195: }
+[; ;LevelSensor.c: 196: break;
 [e $U 137  ]
-"199
+"197
 }
-[; ;LevelSensor.c: 199: }
+[; ;LevelSensor.c: 197: }
 [e $U 137  ]
-"141
+"139
 [e :U 138 ]
 [e [\ _CurrentState , $ . `E1601 0 139
  , $ . `E1601 2 143
  , $ . `E1601 1 154
  137 ]
-"199
+"197
 [e :U 137 ]
-[; ;LevelSensor.c: 200: return ReturnEvent;
-"200
+[; ;LevelSensor.c: 198: return ReturnEvent;
+"198
 [e ) _ReturnEvent ]
 [e $UE 136  ]
-[; ;LevelSensor.c: 201: }
-"201
+[; ;LevelSensor.c: 199: }
+"199
 [e :UE 136 ]
 }
-"220
+"218
 [v _QueryTemplateFSM `(E1601 ~T0 @X0 1 ef ]
-"221
+"219
 {
-[; ;LevelSensor.c: 220: LevelSensorState_t QueryTemplateFSM ( void )
-[; ;LevelSensor.c: 221: {
+[; ;LevelSensor.c: 218: LevelSensorState_t QueryTemplateFSM ( void )
+[; ;LevelSensor.c: 219: {
 [e :U _QueryTemplateFSM ]
 [f ]
-[; ;LevelSensor.c: 222: return(CurrentState);
-"222
+[; ;LevelSensor.c: 220: return(CurrentState);
+"220
 [e ) _CurrentState ]
 [e $UE 161  ]
-[; ;LevelSensor.c: 223: }
-"223
+[; ;LevelSensor.c: 221: }
+"221
 [e :UE 161 ]
 }
-"249
+"247
 [v _readFuelLevel `(uc ~T0 @X0 1 ef ]
 {
-[; ;LevelSensor.c: 249: uint8_t readFuelLevel(void){
+[; ;LevelSensor.c: 247: uint8_t readFuelLevel(void){
 [e :U _readFuelLevel ]
 [f ]
-[; ;LevelSensor.c: 250: rawFuelReading = PORTC;
-"250
+[; ;LevelSensor.c: 248: rawFuelReading = PORTC;
+"248
 [e = _rawFuelReading _PORTC ]
-"251
+"249
 [v _level `uc ~T0 @X0 1 a ]
-[; ;LevelSensor.c: 251: uint8_t level = 0;
+[; ;LevelSensor.c: 249: uint8_t level = 0;
 [e = _level -> -> 0 `i `uc ]
-"252
+"250
 [v _buffer `i ~T0 @X0 1 a ]
-[; ;LevelSensor.c: 252: int buffer = rawFuelReading;
+[; ;LevelSensor.c: 250: int buffer = rawFuelReading;
 [e = _buffer -> _rawFuelReading `i ]
-[; ;LevelSensor.c: 255: for(uint8_t i = 0; i < 8; i++){
-"255
+[; ;LevelSensor.c: 253: for(uint8_t i = 0; i < 8; i++){
+"253
 {
 [v _i `uc ~T0 @X0 1 a ]
 [e = _i -> -> 0 `i `uc ]
@@ -1892,135 +1886,114 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 164  ]
 [e :U 163 ]
 {
-[; ;LevelSensor.c: 256: if(buffer & 0x01) level++;
-"256
+[; ;LevelSensor.c: 254: if(buffer & 0x01) level++;
+"254
 [e $ ! != & _buffer -> 1 `i -> 0 `i 166  ]
 [e ++ _level -> -> 1 `i `uc ]
 [e :U 166 ]
-[; ;LevelSensor.c: 257: buffer = buffer >> 1;
-"257
-[e = _buffer >> _buffer -> 1 `i ]
-"258
-}
+[; ;LevelSensor.c: 255: buffer = buffer >> 1;
 "255
+[e = _buffer >> _buffer -> 1 `i ]
+"256
+}
+"253
 [e ++ _i -> -> 1 `i `uc ]
 [e $ < -> _i `i -> 8 `i 163  ]
 [e :U 164 ]
-"258
+"256
 }
-[; ;LevelSensor.c: 258: }
-[; ;LevelSensor.c: 259: if(level > 0x08) level = 0x08;
-"259
+[; ;LevelSensor.c: 256: }
+[; ;LevelSensor.c: 257: if(level > 0x08) level = 0x08;
+"257
 [e $ ! > -> _level `i -> 8 `i 167  ]
 [e = _level -> -> 8 `i `uc ]
 [e :U 167 ]
-[; ;LevelSensor.c: 260: fuelLevel = level;
-"260
+[; ;LevelSensor.c: 258: fuelLevel = level;
+"258
 [e = _fuelLevel _level ]
-[; ;LevelSensor.c: 261: return fuelLevel;
-"261
+[; ;LevelSensor.c: 259: return fuelLevel;
+"259
 [e ) _fuelLevel ]
 [e $UE 162  ]
-[; ;LevelSensor.c: 262: }
-"262
+[; ;LevelSensor.c: 260: }
+"260
 [e :UE 162 ]
 }
-"282
+"280
 [v _getLastLevelReading `(uc ~T0 @X0 1 ef ]
 {
-[; ;LevelSensor.c: 282: uint8_t getLastLevelReading(void){
+[; ;LevelSensor.c: 280: uint8_t getLastLevelReading(void){
 [e :U _getLastLevelReading ]
 [f ]
-[; ;LevelSensor.c: 283: return fuelLevel;
-"283
+[; ;LevelSensor.c: 281: return fuelLevel;
+"281
 [e ) _fuelLevel ]
 [e $UE 168  ]
-[; ;LevelSensor.c: 284: }
-"284
+[; ;LevelSensor.c: 282: }
+"282
 [e :UE 168 ]
 }
-"305
+"303
 [v _constructFuelByte `(uc ~T0 @X0 1 ef ]
 {
-[; ;LevelSensor.c: 305: uint8_t constructFuelByte(void){
+[; ;LevelSensor.c: 303: uint8_t constructFuelByte(void){
 [e :U _constructFuelByte ]
 [f ]
-"306
+"304
 [v _fuelMsg `uc ~T0 @X0 1 a ]
-[; ;LevelSensor.c: 306: uint8_t fuelMsg = 0;
+[; ;LevelSensor.c: 304: uint8_t fuelMsg = 0;
 [e = _fuelMsg -> -> 0 `i `uc ]
-[; ;LevelSensor.c: 307: if(fuelLevel){
-"307
+[; ;LevelSensor.c: 305: if(fuelLevel){
+"305
 [e $ ! != -> _fuelLevel `i -> -> -> 0 `i `uc `i 170  ]
 {
-[; ;LevelSensor.c: 308: fuelMsg = fuelLevel - 1;
-"308
+[; ;LevelSensor.c: 306: fuelMsg = fuelLevel - 1;
+"306
 [e = _fuelMsg -> - -> _fuelLevel `i -> 1 `i `uc ]
-[; ;LevelSensor.c: 309: fuelMsg |= 0x08;
-"309
+[; ;LevelSensor.c: 307: fuelMsg |= 0x08;
+"307
 [e =| _fuelMsg -> -> 8 `i `uc ]
-"310
+"308
 }
-[; ;LevelSensor.c: 310: }
+[; ;LevelSensor.c: 308: }
 [e $U 171  ]
-"311
+"309
 [e :U 170 ]
-[; ;LevelSensor.c: 311: else{
+[; ;LevelSensor.c: 309: else{
 {
-[; ;LevelSensor.c: 313: fuelMsg = 0x07 & get3GarbageBits();
-"313
+[; ;LevelSensor.c: 311: fuelMsg = 0x07 & get3GarbageBits();
+"311
 [e = _fuelMsg -> & -> 7 `i -> ( _get3GarbageBits ..  `i `uc ]
-"314
+"312
 }
 [e :U 171 ]
-[; ;LevelSensor.c: 314: }
-[; ;LevelSensor.c: 315: fuelMsg |= ((fuelMsg ^ 0xF0) << 4);
-"315
+[; ;LevelSensor.c: 312: }
+[; ;LevelSensor.c: 313: fuelMsg |= ((fuelMsg ^ 0xF0) << 4);
+"313
 [e =| _fuelMsg -> << ^ -> _fuelMsg `i -> 240 `i -> 4 `i `uc ]
-[; ;LevelSensor.c: 316: }
-"316
+[; ;LevelSensor.c: 314: return fuelMsg;
+"314
+[e ) _fuelMsg ]
+[e $UE 169  ]
+[; ;LevelSensor.c: 315: }
+"315
 [e :UE 169 ]
 }
-"338
+"337
 [v _get3GarbageBits `(uc ~T0 @X0 1 ef ]
 {
-[; ;LevelSensor.c: 338: uint8_t get3GarbageBits(void){
+[; ;LevelSensor.c: 337: uint8_t get3GarbageBits(void){
 [e :U _get3GarbageBits ]
 [f ]
-"339
+"338
 [v _garbage `uc ~T0 @X0 1 a ]
-[; ;LevelSensor.c: 339: uint8_t garbage = 0;
-[e = _garbage -> -> 0 `i `uc ]
-"340
-[v _p `*uc ~T0 @X0 1 a ]
-[; ;LevelSensor.c: 340: char *p = 0x00;
-[e = _p -> -> 0 `i `*uc ]
-[; ;LevelSensor.c: 341: for(int i = 0; 1 < 16; i++){
-"341
-{
-[v _i `i ~T0 @X0 1 a ]
-[e = _i -> 0 `i ]
-[e $U 176  ]
-[e :U 173 ]
-{
-[; ;LevelSensor.c: 342: garbage ^= *(p + i);
-"342
-[e =^ _garbage *U + _p * -> _i `x -> -> # *U _p `i `x ]
+[; ;LevelSensor.c: 338: uint8_t garbage = 0xbb;
+[e = _garbage -> -> 187 `i `uc ]
+[; ;LevelSensor.c: 343: return garbage;
 "343
-}
-"341
-[e ++ _i -> 1 `i ]
-[e :U 176 ]
-[e $ < -> 1 `i -> 16 `i 173  ]
-[e :U 174 ]
-"343
-}
-[; ;LevelSensor.c: 343: }
-[; ;LevelSensor.c: 344: return garbage;
-"344
 [e ) _garbage ]
 [e $UE 172  ]
-[; ;LevelSensor.c: 345: }
-"345
+[; ;LevelSensor.c: 344: }
+"344
 [e :UE 172 ]
 }

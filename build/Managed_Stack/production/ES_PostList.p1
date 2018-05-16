@@ -1497,13 +1497,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;UART_RX_SM.h: 18: boolean InitUARTRXService(uint8_t Priority);
 [; ;UART_RX_SM.h: 19: boolean PostUARTRXService(ES_Event ThisEvent);
 [; ;UART_RX_SM.h: 20: ES_Event RunUARTRXService(ES_Event ThisEvent);
-[; ;UART_RX_SM.h: 22: boolean RX_hasHeartbeat(void);
-[; ;UART_RX_SM.h: 24: inline boolean RX_newStatusReady(void);
-[; ;UART_RX_SM.h: 26: inline boolean getFlag2(void);
-[; ;UART_RX_SM.h: 27: inline boolean getFlag3(void);
-[; ;UART_RX_SM.h: 29: volatile uint8_t * RX_getStatusBuffer(void);
-[; ;UART_RX_SM.h: 30: volatile uint8_t * RX_getResponseBuffer(void);
-[; ;UART_RX_SM.h: 31: uint16_t RX_getFieldAddr(void);
-[; ;UART_RX_SM.h: 33: inline void UARTRXIntResponse(void);
-[; ;UART_RX_SM.h: 34: boolean CheckUARTRXEvent(void);
+[; ;UART_RX_SM.h: 23: uint8_t RX_getResponse(void);
+[; ;UART_RX_SM.h: 25: inline void UARTRXIntResponse(void);
+[; ;UART_RX_SM.h: 26: boolean CheckUARTRXEvent(void);
 [; ;ES_PostList.c: 23: static boolean PostToList( PostFunc_t *const*FuncList, unsigned char ListSize, ES_Event NewEvent);

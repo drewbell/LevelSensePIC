@@ -2259,16 +2259,8 @@ boolean InitUARTRXService(uint8_t Priority);
 boolean PostUARTRXService(ES_Event ThisEvent);
 ES_Event RunUARTRXService(ES_Event ThisEvent);
 
-boolean RX_hasHeartbeat(void);
 
-inline boolean RX_newStatusReady(void);
-
-inline boolean getFlag2(void);
-inline boolean getFlag3(void);
-
-volatile uint8_t * RX_getStatusBuffer(void);
-volatile uint8_t * RX_getResponseBuffer(void);
-uint16_t RX_getFieldAddr(void);
+uint8_t RX_getResponse(void);
 
 inline void UARTRXIntResponse(void);
 boolean CheckUARTRXEvent(void);
@@ -2381,6 +2373,12 @@ break;
 case 1:
 if (RunUARTTXService(ThisEvent).EventType != ES_NO_EVENT) return FailedRun;
 break;
+case 2:
+if (RunUARTRXService(ThisEvent).EventType != ES_NO_EVENT) return FailedRun;
+break;
+default:
+while(1);
+break;
 }
 }
 
@@ -2397,7 +2395,7 @@ CheckUARTRXEvent();
 return 0;
 }
 
-# 280
+# 286
 boolean ES_PostAll(ES_Event ThisEvent) {
 
 unsigned char i;
@@ -2416,7 +2414,7 @@ return (((boolean) 0));
 }
 }
 
-# 313
+# 319
 boolean ES_PostToService(uint8_t WhichService, ES_Event TheEvent) {
 if ((WhichService < (sizeof(EventQueues)/sizeof(EventQueues[0]))) &&
 (ES_EnQueueFIFO(EventQueues[WhichService].pMem, TheEvent) ==
@@ -2427,10 +2425,10 @@ return ((boolean) !((boolean) 0));
 return ((boolean) 0);
 }
 
-# 343
+# 349
 static boolean CheckSystemEvents(void) {
 
-# 353
+# 359
 return ((boolean) 0);
 }
 

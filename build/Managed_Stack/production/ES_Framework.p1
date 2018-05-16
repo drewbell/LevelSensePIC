@@ -1,14 +1,14 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[v F1778 `(uc ~T0 @X0 1 tf1`uc ]
+[v F1763 `(uc ~T0 @X0 1 tf1`uc ]
 "66 ES_Framework.c
 [c E1 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 .. ]
 [n E1 . ES_NO_EVENT ES_ERROR ES_INIT ES_NEW_KEY ES_TIMEOUT ES_LOCK ES_UNLOCK ES_RX_NEW_PACKET ES_RX_BROADCAST ES_RX_RESPONSE ES_RX_TXSTAT ES_TX_NEW_ADDR ES_TX_SEND_COMPLETE ES_TX_REQUEST_SEND ES_TX_STATUS ES_TOGGLE_LED ES_FUELED ES_EMPTY ES_FUEL_QUERY ES_BAD_QUERY  ]
 "23 ES_Events.h
 [s S1 `E1 1 `ui 1 ]
 [n S1 ES_Event_t EventType EventParam ]
-[v F1780 `(S1 ~T0 @X0 1 tf1`S1 ]
+[v F1765 `(S1 ~T0 @X0 1 tf1`S1 ]
 "45 ES_Framework.c
-[s S133 `*F1778 1 `*F1780 1 ]
+[s S133 `*F1763 1 `*F1765 1 ]
 [n S133 . InitFunc RunFunc ]
 "15 LevelSensor.h
 [v _InitLevelSensorService `(uc ~T0 @X0 0 ef1`uc ]
@@ -44,7 +44,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _ES_Timer_RTI_Resp `(v ~T0 @X0 0 ef ]
 "25 ES_Port.h
 [v _IsTimerPending `(uc ~T0 @X0 0 ef ]
-"34 UART_RX_SM.h
+"26 UART_RX_SM.h
 [v _CheckUARTRXEvent `(uc ~T0 @X0 0 ef ]
 "25 ES_Queue.h
 [v _ES_EnQueueFIFO `(uc ~T0 @X0 0 ef2`*S1`S1 ]
@@ -1583,15 +1583,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;UART_RX_SM.h: 18: boolean InitUARTRXService(uint8_t Priority);
 [; ;UART_RX_SM.h: 19: boolean PostUARTRXService(ES_Event ThisEvent);
 [; ;UART_RX_SM.h: 20: ES_Event RunUARTRXService(ES_Event ThisEvent);
-[; ;UART_RX_SM.h: 22: boolean RX_hasHeartbeat(void);
-[; ;UART_RX_SM.h: 24: inline boolean RX_newStatusReady(void);
-[; ;UART_RX_SM.h: 26: inline boolean getFlag2(void);
-[; ;UART_RX_SM.h: 27: inline boolean getFlag3(void);
-[; ;UART_RX_SM.h: 29: volatile uint8_t * RX_getStatusBuffer(void);
-[; ;UART_RX_SM.h: 30: volatile uint8_t * RX_getResponseBuffer(void);
-[; ;UART_RX_SM.h: 31: uint16_t RX_getFieldAddr(void);
-[; ;UART_RX_SM.h: 33: inline void UARTRXIntResponse(void);
-[; ;UART_RX_SM.h: 34: boolean CheckUARTRXEvent(void);
+[; ;UART_RX_SM.h: 23: uint8_t RX_getResponse(void);
+[; ;UART_RX_SM.h: 25: inline void UARTRXIntResponse(void);
+[; ;UART_RX_SM.h: 26: boolean CheckUARTRXEvent(void);
 [; ;ES_Framework.c: 37: typedef boolean InitFunc_t(uint8_t Priority);
 [; ;ES_Framework.c: 38: typedef ES_Event RunFunc_t(ES_Event ThisEvent);
 [; ;ES_Framework.c: 40: typedef InitFunc_t * pInitFunc;
@@ -1695,13 +1689,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 136 ]
 {
 [; ;ES_Framework.c: 194: if ((ServDescList[i].InitFunc == (pInitFunc) 0) ||
-[v F1773 `(uc ~T0 @X0 1 tf1`uc ]
-[v F1802 `*F1778 ~T0 @X0 1 t ]
-[v F1775 `(S1 ~T0 @X0 1 tf1`S1 ]
-[v F1804 `*F1780 ~T0 @X0 1 t ]
+[v F1758 `(uc ~T0 @X0 1 tf1`uc ]
+[v F1787 `*F1763 ~T0 @X0 1 t ]
+[v F1760 `(S1 ~T0 @X0 1 tf1`S1 ]
+[v F1789 `*F1765 ~T0 @X0 1 t ]
 [; ;ES_Framework.c: 195: (ServDescList[i].RunFunc == (pRunFunc) 0))
 "195
-[e $ ! || == . *U + &U _ServDescList * -> _i `ux -> -> # *U &U _ServDescList `ui `ux 0 -> -> -> 0 `i `*F1773 `C*F1778 == . *U + &U _ServDescList * -> _i `ux -> -> # *U &U _ServDescList `ui `ux 1 -> -> -> 0 `i `*F1775 `C*F1780 139  ]
+[e $ ! || == . *U + &U _ServDescList * -> _i `ux -> -> # *U &U _ServDescList `ui `ux 0 -> -> -> 0 `i `*F1758 `C*F1763 == . *U + &U _ServDescList * -> _i `ux -> -> # *U &U _ServDescList `ui `ux 1 -> -> -> 0 `i `*F1760 `C*F1765 139  ]
 [; ;ES_Framework.c: 196: return FailedPointer;
 "196
 [e ) . `E1599 3 ]
@@ -1744,7 +1738,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "226
 [v _HighestPrior `uc ~T0 @X0 1 a ]
 "227
-[v F1812 `S1 ~T0 @X0 1 s ThisEvent ]
+[v F1797 `S1 ~T0 @X0 1 s ThisEvent ]
 [; ;ES_Framework.c: 226: uint8_t HighestPrior;
 [; ;ES_Framework.c: 227: static ES_Event ThisEvent;
 [; ;ES_Framework.c: 229: while (1) {
@@ -1761,7 +1755,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _HighestPrior ( _ES_GetMSBitSet (1 _Ready ]
 [; ;ES_Framework.c: 235: if (ES_DeQueue(EventQueues[HighestPrior].pMem, &ThisEvent) == 0) {
 "235
-[e $ ! == -> ( _ES_DeQueue (2 , -> . *U + &U _EventQueues * -> _HighestPrior `ux -> -> # *U &U _EventQueues `ui `ux 0 `*S1 &U F1812 `i -> 0 `i 148  ]
+[e $ ! == -> ( _ES_DeQueue (2 , -> . *U + &U _EventQueues * -> _HighestPrior `ux -> -> # *U &U _EventQueues `ui `ux 0 `*S1 &U F1797 `i -> 0 `i 148  ]
 {
 [; ;ES_Framework.c: 236: Ready &= ~BitNum2SetMask[HighestPrior];
 "236
@@ -1779,7 +1773,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 151 ]
 [; ;ES_Framework.c: 245: if (RunLevelSensorService(ThisEvent).EventType != ES_NO_EVENT) return FailedRun;
 "245
-[e $ ! != -> . ( _RunLevelSensorService (1 F1812 0 `i -> . `E1 0 `i 152  ]
+[e $ ! != -> . ( _RunLevelSensorService (1 F1797 0 `i -> . `E1 0 `i 152  ]
 [e ) . `E1599 2 ]
 [e $UE 141  ]
 [e :U 152 ]
@@ -1791,179 +1785,204 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 153 ]
 [; ;ES_Framework.c: 248: if (RunUARTTXService(ThisEvent).EventType != ES_NO_EVENT) return FailedRun;
 "248
-[e $ ! != -> . ( _RunUARTTXService (1 F1812 0 `i -> . `E1 0 `i 154  ]
+[e $ ! != -> . ( _RunUARTTXService (1 F1797 0 `i -> . `E1 0 `i 154  ]
 [e ) . `E1599 2 ]
 [e $UE 141  ]
 [e :U 154 ]
 [; ;ES_Framework.c: 249: break;
 "249
 [e $U 149  ]
+[; ;ES_Framework.c: 250: case 2:
 "250
+[e :U 155 ]
+[; ;ES_Framework.c: 251: if (RunUARTRXService(ThisEvent).EventType != ES_NO_EVENT) return FailedRun;
+"251
+[e $ ! != -> . ( _RunUARTRXService (1 F1797 0 `i -> . `E1 0 `i 156  ]
+[e ) . `E1599 2 ]
+[e $UE 141  ]
+[e :U 156 ]
+[; ;ES_Framework.c: 252: break;
+"252
+[e $U 149  ]
+[; ;ES_Framework.c: 253: default:
+"253
+[e :U 157 ]
+[; ;ES_Framework.c: 254: while(1);
+"254
+[e :U 159 ]
+[e :U 158 ]
+[e $U 159  ]
+[e :U 160 ]
+[; ;ES_Framework.c: 255: break;
+"255
+[e $U 149  ]
+"256
 }
-[; ;ES_Framework.c: 250: }
+[; ;ES_Framework.c: 256: }
 [e $U 149  ]
 "243
 [e :U 150 ]
 [e [\ _HighestPrior , $ -> -> 0 `i `uc 151
  , $ -> -> 1 `i `uc 153
- 149 ]
-"250
+ , $ -> -> 2 `i `uc 155
+ 157 ]
+"256
 [e :U 149 ]
-"251
+"257
 }
 [e :U 145 ]
 "233
 [e $ != -> _Ready `i -> 0 `i 146  ]
 [e :U 147 ]
-[; ;ES_Framework.c: 251: }
-[; ;ES_Framework.c: 254: while (IsTimerPending() > 0)
-"254
-[e $U 155  ]
-[e :U 156 ]
-[; ;ES_Framework.c: 255: ES_Timer_RTI_Resp();
-"255
-[e ( _ES_Timer_RTI_Resp ..  ]
-[e :U 155 ]
-"254
-[e $ > -> ( _IsTimerPending ..  `i -> 0 `i 156  ]
-[e :U 157 ]
-[; ;ES_Framework.c: 260: CheckUARTRXEvent();
+[; ;ES_Framework.c: 257: }
+[; ;ES_Framework.c: 260: while (IsTimerPending() > 0)
 "260
+[e $U 161  ]
+[e :U 162 ]
+[; ;ES_Framework.c: 261: ES_Timer_RTI_Resp();
+"261
+[e ( _ES_Timer_RTI_Resp ..  ]
+[e :U 161 ]
+"260
+[e $ > -> ( _IsTimerPending ..  `i -> 0 `i 162  ]
+[e :U 163 ]
+[; ;ES_Framework.c: 266: CheckUARTRXEvent();
+"266
 [e ( _CheckUARTRXEvent ..  ]
-"262
+"268
 }
 [e :U 142 ]
 "229
 [e $U 143  ]
 [e :U 144 ]
-[; ;ES_Framework.c: 262: }
-[; ;ES_Framework.c: 263: return 0;
-"263
+[; ;ES_Framework.c: 268: }
+[; ;ES_Framework.c: 269: return 0;
+"269
 [e ) -> -> 0 `i `E1599 ]
 [e $UE 141  ]
-[; ;ES_Framework.c: 264: }
-"264
+[; ;ES_Framework.c: 270: }
+"270
 [e :UE 141 ]
 }
-"280
+"286
 [v _ES_PostAll `(uc ~T0 @X0 1 ef1`S1 ]
 {
-[; ;ES_Framework.c: 280: boolean ES_PostAll(ES_Event ThisEvent) {
+[; ;ES_Framework.c: 286: boolean ES_PostAll(ES_Event ThisEvent) {
 [e :U _ES_PostAll ]
 [v _ThisEvent `S1 ~T0 @X0 1 r1 ]
 [f ]
-"282
+"288
 [v _i `uc ~T0 @X0 1 a ]
-[; ;ES_Framework.c: 282: unsigned char i;
-[; ;ES_Framework.c: 284: for (i = 0; i < (sizeof(EventQueues)/sizeof(EventQueues[0])); i++) {
-"284
+[; ;ES_Framework.c: 288: unsigned char i;
+[; ;ES_Framework.c: 290: for (i = 0; i < (sizeof(EventQueues)/sizeof(EventQueues[0])); i++) {
+"290
 {
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `ui / -> # _EventQueues `ui -> # *U + &U _EventQueues * -> -> -> 0 `i `ui `ux -> -> # *U &U _EventQueues `ui `ux `ui 159  ]
-[e $U 160  ]
-[e :U 159 ]
+[e $ < -> _i `ui / -> # _EventQueues `ui -> # *U + &U _EventQueues * -> -> -> 0 `i `ui `ux -> -> # *U &U _EventQueues `ui `ux `ui 165  ]
+[e $U 166  ]
+[e :U 165 ]
 {
-[; ;ES_Framework.c: 285: if (ES_EnQueueFIFO(EventQueues[i].pMem, ThisEvent) != ((boolean) !((boolean) 0))) {
-"285
-[e $ ! != -> ( _ES_EnQueueFIFO (2 , -> . *U + &U _EventQueues * -> _i `ux -> -> # *U &U _EventQueues `ui `ux 0 `*S1 _ThisEvent `i -> -> -> ! != -> -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i `i `uc `i 162  ]
-{
-[; ;ES_Framework.c: 286: break;
-"286
-[e $U 160  ]
-"287
-}
-[; ;ES_Framework.c: 287: } else {
-[e $U 163  ]
-[e :U 162 ]
-{
-[; ;ES_Framework.c: 288: Ready |= BitNum2SetMask[i];
-"288
-[e =| _Ready *U + &U _BitNum2SetMask * -> _i `ux -> -> # *U &U _BitNum2SetMask `ui `ux ]
-"289
-}
-[e :U 163 ]
-"290
-}
-"284
-[e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `ui / -> # _EventQueues `ui -> # *U + &U _EventQueues * -> -> -> 0 `i `ui `ux -> -> # *U &U _EventQueues `ui `ux `ui 159  ]
-[e :U 160 ]
-"290
-}
-[; ;ES_Framework.c: 289: }
-[; ;ES_Framework.c: 290: }
-[; ;ES_Framework.c: 291: if (i == (sizeof(EventQueues)/sizeof(EventQueues[0]))) {
+[; ;ES_Framework.c: 291: if (ES_EnQueueFIFO(EventQueues[i].pMem, ThisEvent) != ((boolean) !((boolean) 0))) {
 "291
-[e $ ! == -> _i `ui / -> # _EventQueues `ui -> # *U + &U _EventQueues * -> -> -> 0 `i `ui `ux -> -> # *U &U _EventQueues `ui `ux `ui 164  ]
+[e $ ! != -> ( _ES_EnQueueFIFO (2 , -> . *U + &U _EventQueues * -> _i `ux -> -> # *U &U _EventQueues `ui `ux 0 `*S1 _ThisEvent `i -> -> -> ! != -> -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i `i `uc `i 168  ]
 {
-[; ;ES_Framework.c: 292: return (((boolean) !((boolean) 0)));
+[; ;ES_Framework.c: 292: break;
 "292
-[e ) -> -> ! != -> -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i `i `uc ]
-[e $UE 158  ]
+[e $U 166  ]
 "293
 }
 [; ;ES_Framework.c: 293: } else {
-[e $U 165  ]
-[e :U 164 ]
+[e $U 169  ]
+[e :U 168 ]
 {
-[; ;ES_Framework.c: 294: return (((boolean) 0));
+[; ;ES_Framework.c: 294: Ready |= BitNum2SetMask[i];
 "294
-[e ) -> -> 0 `i `uc ]
-[e $UE 158  ]
+[e =| _Ready *U + &U _BitNum2SetMask * -> _i `ux -> -> # *U &U _BitNum2SetMask `ui `ux ]
 "295
 }
-[e :U 165 ]
+[e :U 169 ]
+"296
+}
+"290
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `ui / -> # _EventQueues `ui -> # *U + &U _EventQueues * -> -> -> 0 `i `ui `ux -> -> # *U &U _EventQueues `ui `ux `ui 165  ]
+[e :U 166 ]
+"296
+}
 [; ;ES_Framework.c: 295: }
 [; ;ES_Framework.c: 296: }
-"296
-[e :UE 158 ]
+[; ;ES_Framework.c: 297: if (i == (sizeof(EventQueues)/sizeof(EventQueues[0]))) {
+"297
+[e $ ! == -> _i `ui / -> # _EventQueues `ui -> # *U + &U _EventQueues * -> -> -> 0 `i `ui `ux -> -> # *U &U _EventQueues `ui `ux `ui 170  ]
+{
+[; ;ES_Framework.c: 298: return (((boolean) !((boolean) 0)));
+"298
+[e ) -> -> ! != -> -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i `i `uc ]
+[e $UE 164  ]
+"299
 }
-"313
+[; ;ES_Framework.c: 299: } else {
+[e $U 171  ]
+[e :U 170 ]
+{
+[; ;ES_Framework.c: 300: return (((boolean) 0));
+"300
+[e ) -> -> 0 `i `uc ]
+[e $UE 164  ]
+"301
+}
+[e :U 171 ]
+[; ;ES_Framework.c: 301: }
+[; ;ES_Framework.c: 302: }
+"302
+[e :UE 164 ]
+}
+"319
 [v _ES_PostToService `(uc ~T0 @X0 1 ef2`uc`S1 ]
 {
-[; ;ES_Framework.c: 313: boolean ES_PostToService(uint8_t WhichService, ES_Event TheEvent) {
+[; ;ES_Framework.c: 319: boolean ES_PostToService(uint8_t WhichService, ES_Event TheEvent) {
 [e :U _ES_PostToService ]
 [v _WhichService `uc ~T0 @X0 1 r1 ]
 [v _TheEvent `S1 ~T0 @X0 1 r2 ]
 [f ]
-[; ;ES_Framework.c: 314: if ((WhichService < (sizeof(EventQueues)/sizeof(EventQueues[0]))) &&
-[; ;ES_Framework.c: 315: (ES_EnQueueFIFO(EventQueues[WhichService].pMem, TheEvent) ==
-[; ;ES_Framework.c: 316: ((boolean) !((boolean) 0)))) {
-"316
-[e $ ! && < -> _WhichService `ui / -> # _EventQueues `ui -> # *U + &U _EventQueues * -> -> -> 0 `i `ui `ux -> -> # *U &U _EventQueues `ui `ux `ui == -> ( _ES_EnQueueFIFO (2 , -> . *U + &U _EventQueues * -> _WhichService `ux -> -> # *U &U _EventQueues `ui `ux 0 `*S1 _TheEvent `i -> -> -> ! != -> -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i `i `uc `i 167  ]
+[; ;ES_Framework.c: 320: if ((WhichService < (sizeof(EventQueues)/sizeof(EventQueues[0]))) &&
+[; ;ES_Framework.c: 321: (ES_EnQueueFIFO(EventQueues[WhichService].pMem, TheEvent) ==
+[; ;ES_Framework.c: 322: ((boolean) !((boolean) 0)))) {
+"322
+[e $ ! && < -> _WhichService `ui / -> # _EventQueues `ui -> # *U + &U _EventQueues * -> -> -> 0 `i `ui `ux -> -> # *U &U _EventQueues `ui `ux `ui == -> ( _ES_EnQueueFIFO (2 , -> . *U + &U _EventQueues * -> _WhichService `ux -> -> # *U &U _EventQueues `ui `ux 0 `*S1 _TheEvent `i -> -> -> ! != -> -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i `i `uc `i 173  ]
 {
-[; ;ES_Framework.c: 317: Ready |= BitNum2SetMask[WhichService];
-"317
+[; ;ES_Framework.c: 323: Ready |= BitNum2SetMask[WhichService];
+"323
 [e =| _Ready *U + &U _BitNum2SetMask * -> _WhichService `ux -> -> # *U &U _BitNum2SetMask `ui `ux ]
-[; ;ES_Framework.c: 318: return ((boolean) !((boolean) 0));
-"318
+[; ;ES_Framework.c: 324: return ((boolean) !((boolean) 0));
+"324
 [e ) -> -> ! != -> -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i `i `uc ]
-[e $UE 166  ]
-"319
+[e $UE 172  ]
+"325
 }
-[; ;ES_Framework.c: 319: } else
-[e $U 168  ]
-[e :U 167 ]
-[; ;ES_Framework.c: 320: return ((boolean) 0);
-"320
+[; ;ES_Framework.c: 325: } else
+[e $U 174  ]
+[e :U 173 ]
+[; ;ES_Framework.c: 326: return ((boolean) 0);
+"326
 [e ) -> -> 0 `i `uc ]
-[e $UE 166  ]
-[e :U 168 ]
-[; ;ES_Framework.c: 321: }
-"321
-[e :UE 166 ]
+[e $UE 172  ]
+[e :U 174 ]
+[; ;ES_Framework.c: 327: }
+"327
+[e :UE 172 ]
 }
-"343
+"349
 [v _CheckSystemEvents `(uc ~T0 @X0 1 sf ]
 {
-[; ;ES_Framework.c: 343: static boolean CheckSystemEvents(void) {
+[; ;ES_Framework.c: 349: static boolean CheckSystemEvents(void) {
 [e :U _CheckSystemEvents ]
 [f ]
-[; ;ES_Framework.c: 353: return ((boolean) 0);
-"353
+[; ;ES_Framework.c: 359: return ((boolean) 0);
+"359
 [e ) -> -> 0 `i `uc ]
-[e $UE 169  ]
-[; ;ES_Framework.c: 354: }
-"354
-[e :UE 169 ]
+[e $UE 175  ]
+[; ;ES_Framework.c: 360: }
+"360
+[e :UE 175 ]
 }

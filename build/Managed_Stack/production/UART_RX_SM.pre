@@ -2110,6 +2110,22 @@ ES_Return_t ES_Run( void );
 boolean ES_PostAll( ES_Event ThisEvent );
 boolean ES_PostToService( uint8_t WhichService, ES_Event ThisEvent);
 
+# 10 "LevelSensor.h"
+typedef enum {
+InitLevelState, TankEmpty, TankFueled
+} LevelSensorState_t;
+
+
+boolean InitLevelSensorService(uint8_t Priority);
+boolean PostLevelSensorService(ES_Event ThisEvent);
+ES_Event RunLevelSensorService(ES_Event ThisEvent);
+LevelSensorState_t QueryLevelSensorState(void);
+
+
+
+uint8_t readFuelLevel(void);
+uint8_t getLastLevelReading(void);
+
 # 9 "UART_RX_SM.h"
 uint8_t checksum;
 
@@ -2124,42 +2140,54 @@ boolean InitUARTRXService(uint8_t Priority);
 boolean PostUARTRXService(ES_Event ThisEvent);
 ES_Event RunUARTRXService(ES_Event ThisEvent);
 
-boolean RX_hasHeartbeat(void);
 
-inline boolean RX_newStatusReady(void);
-
-inline boolean getFlag2(void);
-inline boolean getFlag3(void);
-
-volatile uint8_t * RX_getStatusBuffer(void);
-volatile uint8_t * RX_getResponseBuffer(void);
-uint16_t RX_getFieldAddr(void);
+uint8_t RX_getResponse(void);
 
 inline void UARTRXIntResponse(void);
 boolean CheckUARTRXEvent(void);
 
-# 36 "UART_RX_SM.c"
-static void ClearReceivedDataArray(void);
+# 10 "UART_TX_SM.h"
+typedef enum {
+InitPTXState, TX_Idle, TX_SendMSG, TX_WaitStatus
+} UART_TX_State_t;
+
+typedef enum {
+TX_ERR_TIMEOUT,
+TX_ERR_CCA,
+TX_ERR_NO_ADDR
+} UART_TX_Error_t;
+
+
+
+boolean InitUARTTXService(uint8_t Priority);
+boolean PostUARTTXService(ES_Event ThisEvent);
+ES_Event RunUARTTXService(ES_Event ThisEvent);
+UART_TX_State_t QueryUARTTXService(void);
+
+boolean TX_clearXBeePacket(void);
+boolean TX_appendXBeePacket(uint8_t newByte);
+uint8_t TX_getChecksum(void);
+uint8_t TX_getXBeePacket(uint8_t _index);
+uint8_t TX_getLength(void);
+
+uint8_t *TX_getSuperPACAddr(void);
+
+boolean CheckUARTTXEvent(void);
+
+inline void UARTTXIntResponse(void);
+
+# 38 "UART_RX_SM.c"
+static void ClearReceivedData(void);
 
 
 
 static uint8_t MyPriority;
 
 static UART_RX_State_t currentState;
-
-static volatile boolean newResponseAvailable = ((boolean) 0);
-
-static volatile boolean flag2 = ((boolean) 0);
-static volatile boolean flag3 = ((boolean) 0);
-
-static volatile uint8_t ReceivedData [9];
-static volatile uint8_t StatusArray [9];
-
+static volatile uint8_t ReceivedData;
 static volatile boolean RXFlag = ((boolean) 0);
-static boolean hasHeartbeat = ((boolean) 0);
-static uint16_t FieldAddr = 0;
 
-# 77
+# 69
 boolean InitUARTRXService(uint8_t Priority) {
 ES_Event ThisEvent;
 
@@ -2174,51 +2202,26 @@ return ((boolean) 0);
 }
 }
 
-# 108
+# 100
 boolean PostUARTRXService(ES_Event ThisEvent) {
 return ES_PostToService(MyPriority, ThisEvent);
 }
 
-# 129
+# 121
 ES_Event RunUARTRXService(ES_Event ThisEvent)
 {
 ES_Event ReturnEvent;
 ReturnEvent.EventType = ES_NO_EVENT;
 
-switch (ThisEvent.EventType)
-{
+switch (ThisEvent.EventType){
 case ES_RX_NEW_PACKET:
-if (ReceivedData[0] == 0x81)
-{
 
-if (ReceivedData[4] & (0x00000004 | 0x00000002))
-{
-
-
-uint8_t FieldAddressMSB = ReceivedData[4];
-uint8_t FieldAddressLSB = ReceivedData[4];
-
-FieldAddr = (FieldAddressMSB<<8) | FieldAddressLSB;
+ES_Event UARTEvent;
+UARTEvent.EventType = ES_FUEL_QUERY;
+UARTEvent.EventParam = (int)ReceivedData;
+PostLevelSensorService(UARTEvent);
 
 
-for (uint8_t i = 0; i < 2 + 2; i++)
-{
-StatusArray[i] = ReceivedData[4+1 + i];
-}
-
-
-
-ES_Timer_InitTimer(0, 76);
-hasHeartbeat = ((boolean) !((boolean) 0));
-
-}
-}
-break;
-case ES_TIMEOUT:
-if (ThisEvent.EventParam == 0)
-{
-hasHeartbeat = ((boolean) 0);
-}
 break;
 default:
 break;
@@ -2227,113 +2230,20 @@ break;
 return ReturnEvent;
 }
 
-# 189
-boolean RX_hasHeartbeat(void) {
-return hasHeartbeat;
+# 157
+uint8_t RX_getResponse(void) {
+return ReceivedData;
 }
 
-# 207
-volatile uint8_t * RX_getStatusBuffer(void) {
-return &StatusArray;
-}
-
-# 224
-volatile uint8_t * RX_getResponseBuffer(void) {
-return &ReceivedData;
-}
-
-# 241
-uint16_t RX_getFieldAddr(void){
-return FieldAddr;
-}
-
-# 257
-inline boolean getFlag2(void)
-{
-return flag2;
-}
-
-# 275
-inline boolean getFlag3(void)
-{
-return flag3;
-}
-
-# 292
+# 174
 inline void UARTRXIntResponse(void) {
-static uint8_t currentByteIndex;
-static uint8_t bodyByteCount;
 
-
-uint8_t newByte = RCREG;
-
-switch (currentState) {
-case WaitFor7E:
-if (newByte == 0x7E)
-{
-ClearReceivedDataArray();
-currentState = WaitForMSB;
-}
-break;
-
-case WaitForMSB:
-if (newByte == 0)
-{
-currentState = WaitForLSB;
-}
-else
-{
-currentState = WaitFor7E;
-}
-break;
-
-case WaitForLSB:
-bodyByteCount = newByte;
-if (bodyByteCount > 9)
-{
-currentState = WaitFor7E;
-}
-else
-{
-currentByteIndex = 0;
-checksum = 0;
-
-currentState = SuckUpData;
-}
-break;
-
-case SuckUpData:
-if (currentByteIndex < 9)
-{
-ReceivedData[currentByteIndex] = newByte;
-++currentByteIndex;
-
-}
-else if (currentByteIndex == bodyByteCount)
-{
-currentByteIndex = 0;
-currentState = WaitForCkSum;
-}
-else
-{
-currentState = WaitFor7E;
-}
-checksum += newByte;
-break;
-
-case WaitForCkSum:
-if (0xFF == checksum)
-{
+uint8_t ReceivedData = RCREG;
 RXFlag = ((boolean) !((boolean) 0));
-}
-currentState = WaitFor7E;
-break;
-default:
-break;
-}
+
 }
 
-# 378
+# 194
 boolean CheckUARTRXEvent(void) {
 if (RXFlag)
 {
@@ -2341,7 +2251,7 @@ if (RXFlag)
 ES_Event CommEvent;
 CommEvent.EventType = ES_RX_NEW_PACKET;
 CommEvent.EventParam = 0;
-ES_PostToService(0, CommEvent);
+ES_PostToService(2, CommEvent);
 
 RXFlag = ((boolean) 0);
 return ((boolean) !((boolean) 0));
@@ -2349,11 +2259,8 @@ return ((boolean) !((boolean) 0));
 return ((boolean) 0);
 }
 
-# 409
-static void ClearReceivedDataArray(void) {
-for (uint8_t i = 0; i < 9; i++)
-{
-ReceivedData[i] = 0;
-}
+# 226
+static void ClearReceivedData(void) {
+ReceivedData = 0;
 }
 

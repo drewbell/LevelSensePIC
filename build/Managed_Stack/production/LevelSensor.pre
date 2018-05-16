@@ -2140,16 +2140,8 @@ boolean InitUARTRXService(uint8_t Priority);
 boolean PostUARTRXService(ES_Event ThisEvent);
 ES_Event RunUARTRXService(ES_Event ThisEvent);
 
-boolean RX_hasHeartbeat(void);
 
-inline boolean RX_newStatusReady(void);
-
-inline boolean getFlag2(void);
-inline boolean getFlag3(void);
-
-volatile uint8_t * RX_getStatusBuffer(void);
-volatile uint8_t * RX_getResponseBuffer(void);
-uint16_t RX_getFieldAddr(void);
+uint8_t RX_getResponse(void);
 
 inline void UARTRXIntResponse(void);
 boolean CheckUARTRXEvent(void);
@@ -2193,11 +2185,9 @@ uint8_t constructFuelByte(void);
 static uint8_t MyPriority;
 static uint8_t fuelLevel = 0;
 static uint8_t rawFuelReading = 0;
-
-
 static LevelSensorState_t CurrentState;
 
-# 77
+# 75
 boolean InitLevelSensorService(uint8_t Priority) {
 ES_Event ThisEvent;
 
@@ -2219,12 +2209,12 @@ return ((boolean) 0);
 }
 }
 
-# 115
+# 113
 boolean PostLevelSensorService(ES_Event ThisEvent) {
 return ES_PostToService(MyPriority, ThisEvent);
 }
 
-# 137
+# 135
 ES_Event RunLevelSensorService(ES_Event ThisEvent) {
 ES_Event ReturnEvent;
 ReturnEvent.EventType = ES_NO_EVENT;
@@ -2291,13 +2281,13 @@ break;
 return ReturnEvent;
 }
 
-# 220
+# 218
 LevelSensorState_t QueryTemplateFSM ( void )
 {
 return(CurrentState);
 }
 
-# 249
+# 247
 uint8_t readFuelLevel(void){
 rawFuelReading = PORTC;
 uint8_t level = 0;
@@ -2313,12 +2303,12 @@ fuelLevel = level;
 return fuelLevel;
 }
 
-# 282
+# 280
 uint8_t getLastLevelReading(void){
 return fuelLevel;
 }
 
-# 305
+# 303
 uint8_t constructFuelByte(void){
 uint8_t fuelMsg = 0;
 if(fuelLevel){
@@ -2330,14 +2320,15 @@ else{
 fuelMsg = 0x07 & get3GarbageBits();
 }
 fuelMsg |= ((fuelMsg ^ 0xF0) << 4);
+return fuelMsg;
 }
 
-# 338
+# 337
 uint8_t get3GarbageBits(void){
-uint8_t garbage = 0;
-char *p = 0x00;
-for(int i = 0; 1 < 16; i++){
-garbage ^= *(p + i);
-}
+uint8_t garbage = 0xbb;
+
+
+
+
 return garbage;
 }
