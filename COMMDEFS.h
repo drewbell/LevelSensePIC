@@ -11,6 +11,8 @@
 #ifdef	__cplusplus
 extern "C" {
 #endif
+    
+#define FUEL_LEVEL_QUERY 0xAA
 
 #define FRAME_BYTE 0x7E
 #define MSB        0

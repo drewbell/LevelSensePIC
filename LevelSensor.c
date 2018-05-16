@@ -81,7 +81,7 @@ boolean InitLevelSensorService(uint8_t Priority) {
     TRISC = 0xFF;      // set all as inputs
     ANSEL = 0;         // set all as digital
 
-    fuelLevel = readFuelLevel();     // set fuel level to empty
+    fuelLevel = 0;     // set fuel level to empty
     CurrentState = InitLevelState;
 
     // post the initial transition event
@@ -140,40 +140,28 @@ ES_Event RunLevelSensorService(ES_Event ThisEvent) {
         case InitLevelState: // If current state is initial Psedudo State
             if (ThisEvent.EventType == ES_INIT)// only respond to ES_Init
             { 
-                if(fuelLevel = readFuelLevel())
+                if(fuelLevel = readFuelLevel())     // read state and do test
                     CurrentState = TankFueled;
                 else{
                     CurrentState = TankEmpty; 
                     ES_Timer_InitTimer(FUEL_EMPTY_TIMER, ONE_SECOND);
                 }
-                // start a timer to read the fuel level
-                ES_Timer_InitTimer(FUEL_READ_TIMER, QTR_SEC);
-
             }
             break;
+            
         case TankFueled:
             if (ThisEvent.EventType == ES_EMPTY) {
-                ES_Timer_InitTimer(FUEL_EMPTY_TIMER, ONE_SECOND);
                 CurrentState = TankEmpty;
+                ES_Timer_InitTimer(FUEL_EMPTY_TIMER, ONE_SECOND);
             } 
             else if (ThisEvent.EventType == ES_FUELED) {
                 CurrentState = TankFueled;
             } 
             else if(ThisEvent.EventType == ES_FUEL_QUERY){
-                // transmit fuel Level
-                ES_Event FuelEvent; 
+                ES_Event FuelEvent;  // transmit fuel Level
                 FuelEvent.EventType = ES_TX_REQUEST_SEND;
-                if(ThisEvent.EventParam == FUEL_QUERY_COMMAND)
-                    FuelEvent.EventParam = constructFuelByte();
-                else
-                    FuelEvent.EventParam = BAD_FUEL_QUERY_MSG;
+                FuelEvent.EventParam = constructFuelByte();
                 PostUARTTXService(FuelEvent);
-            }
-            else if(ThisEvent.EventType == ES_TIMEOUT && ThisEvent.EventParam ==
-                    FUEL_READ_TIMER){
-                readFuelLevel();
-                if(!fuelLevel) CurrentState = TankEmpty;
-                ES_Timer_InitTimer(FUEL_READ_TIMER, QTR_SEC);
             }
             break;
 
@@ -183,15 +171,10 @@ ES_Event RunLevelSensorService(ES_Event ThisEvent) {
             }
             else if(ThisEvent.EventType == ES_TIMEOUT && ThisEvent.EventParam ==
                     FUEL_EMPTY_TIMER){
-                fuelLevel = readFuelLevel();
-                uint8_t fuelMsg = constructFuelByte();
-                // TODO transmit empty message
-            }
-            else if(ThisEvent.EventType == ES_TIMEOUT && ThisEvent.EventParam ==
-                    FUEL_READ_TIMER){
-                readFuelLevel();
-                if(fuelLevel) CurrentState = TankFueled;
-                ES_Timer_InitTimer(FUEL_READ_TIMER, QTR_SEC);
+                ES_Event FuelEvent; 
+                FuelEvent.EventType = ES_TX_REQUEST_SEND;
+                FuelEvent.EventParam = constructFuelByte();
+                PostUARTTXService(FuelEvent);
             }
             break;
     } // end switch on Current State
@@ -220,6 +203,28 @@ LevelSensorState_t QueryTemplateFSM ( void )
    return(CurrentState);
 }
 
+/****************************************************************************
+ Function
+    getFuelLevel
+
+ Parameters
+    nothing
+
+ Returns
+    uint8_t - returns a number indicating the fuel level as defined in 
+              readFuelLevel, i.e. 0 = empty and 8 is completely full.
+       
+ Description
+    returns the last level reading
+ Notes
+   
+ Author
+   Drew Bell, 05/14/18, 20:23
+ ****************************************************************************/
+uint8_t getFuelLevel(void){
+    return fuelLevel;
+}
+
 /***************************************************************************
  private functions
  ***************************************************************************/
@@ -245,41 +250,50 @@ LevelSensorState_t QueryTemplateFSM ( void )
    Drew Bell, 05/07/18, 20:23
  ****************************************************************************/
 uint8_t readFuelLevel(void){   
-    rawFuelReading = PORTC;
     uint8_t level = 0;
-    int buffer = rawFuelReading;
+    uint8_t buffer = PORTC;
     
     // get the highest bit set
-    for(uint8_t i = 0; i < 8; i++){
-        if(buffer & 0x01) level++;
+    while(buffer){                  // loop as long as there is a bit set
+        level++;
         buffer = buffer >> 1;
     }
     if(level > NUM_FUEL_PADS) level = NUM_FUEL_PADS;    // clamp at 8
-    fuelLevel = level;      // store value in module-level variable
-    return fuelLevel;
+    return fuelLevel = level;      // store value in module-level variable
 }
 
 /****************************************************************************
  Function
-    getLastLevelReading
+ CheckFuelLevel
 
  Parameters
-    nothing
+    none
 
  Returns
-    uint8_t - returns 8 bits corresponding to the last state of the array 
-        
+   boolean
 
  Description
-    returns the last level reading
- Notes
-   
- Author
-   Drew Bell, 05/07/18, 20:23
+   event checker for fuelLevel
  ****************************************************************************/
-uint8_t getLastLevelReading(void){
-    return fuelLevel;
+boolean CheckFuelLevel(void) {
+    uint8_t oldFuelLevel = fuelLevel;
+    ES_Event LevelEvent;
+    readFuelLevel();
+    if(fuelLevel != 0 && oldFuelLevel == 0){    // became fueled
+        LevelEvent.EventType = ES_FUELED;
+        FastPostLevelSensorService(LevelEvent); //Hard coded macro to reduce stack use. TODO: check to make sure priority matches with es configure
+        return True;
+    }
+    else if(fuelLevel == 0 && oldFuelLevel != 0){   // became empty
+        LevelEvent.EventType = ES_EMPTY;
+        FastPostLevelSensorService(LevelEvent); //Hard coded macro to reduce stack use. TODO: check to make sure priority matches with es configure
+        return True;
+    }    
+    return False;       // otherwise, no event to note
 }
+
+
+
 
 
 /****************************************************************************
@@ -327,8 +341,8 @@ uint8_t constructFuelByte(void){
         
 
  Description
-    returns a byte of mostly-random garbage from scraping the special function
-    registers
+    returns a byte of mostly-random garbage from scraping the first 16 special 
+    function registers
  Notes
    
  Author
@@ -336,9 +350,9 @@ uint8_t constructFuelByte(void){
  ****************************************************************************/
 uint8_t get3GarbageBits(void){
     uint8_t garbage = 0xbb;
-    //char *p = 0x00;     // pointer to the special function registers
-    //for(int i = 0; 1 < 16; i++){
-    //    garbage ^= *(p + i);
-    //}
+    char *p = 0x00;     // pointer to the special function registers
+    for(int i = 0; 1 < 16; i++){
+        garbage ^= *(p + i);
+    }
     return garbage;  
 }

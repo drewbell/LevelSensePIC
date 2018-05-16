@@ -125,13 +125,11 @@ ES_Event RunUARTRXService(ES_Event ThisEvent)
 
     switch (ThisEvent.EventType){
         case ES_RX_NEW_PACKET: //if a new packet event has been posted from the event checker
-            /*
-            ES_Event UARTEvent; 
-            UARTEvent.EventType = ES_FUEL_QUERY;
-            UARTEvent.EventParam = ReceivedData;
-            PostLevelSensorService(UARTEvent);
-            */
-
+            if(ThisEvent.EventParam == 0xAA){
+                ES_Event UARTEvent; 
+                UARTEvent.EventType = ES_FUEL_QUERY;
+                FastPostLevelSensorService(UARTEvent);
+            }
             break;
         default:
             break;
@@ -169,13 +167,21 @@ uint8_t RX_getResponse(void) {
     none
 
  Description
- respond to the incoming data based on state of state machine
+    respond to incoming data and error check
  ****************************************************************************/
 inline void UARTRXIntResponse(void) {
-    
-    uint8_t ReceivedData = RCREG; // Read pending byte and clear interrupt
-    RXFlag = True;
-    
+    if(FERR){   // framing error
+        uint8_t garbage = RCREG; // Read to get past frame error byte
+    }
+    else{
+        uint8_t ReceivedData = RCREG; // Read pending byte and clear interrupt
+        RXFlag = True;
+
+        if(OERR){           // if overrun, clear error by clearing the receiver
+            CREN = 0;       // enable bit, then re-enable to receive more
+            CREN = 1; 
+        }
+    }
 }
 
 /****************************************************************************
@@ -190,14 +196,15 @@ inline void UARTRXIntResponse(void) {
 
  Description
    event checker for the receive flag
+   Note: the extra step of polling the RXFlag is here instead of posting directly 
+         to the run function is because the latter causes stack overflow. 
  ****************************************************************************/
 boolean CheckUARTRXEvent(void) {
     if (RXFlag) //If the received flag has been set
     {
-        //Post a New Packet Event to the run RX Service
         ES_Event CommEvent;
         CommEvent.EventType = ES_RX_NEW_PACKET;
-        CommEvent.EventParam = 0;
+        CommEvent.EventParam = ReceivedData;
         FastPostUARTRXService(CommEvent); //Hard coded macro to reduce stack use. TODO: check to make sure priority matches with es configure
 
         RXFlag = False; //clear the received flag

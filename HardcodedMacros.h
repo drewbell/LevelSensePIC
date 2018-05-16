@@ -8,7 +8,9 @@
 #ifndef HARDCODEDMACROS_H
 #define	HARDCODEDMACROS_H
 
+#define FastPostLevelSensorService(X) ES_PostToService(0, X)
 #define FastPostUARTRXService(X) ES_PostToService(2, X)
+
 
 #endif	/* HARDCODEDMACROS_H */
 

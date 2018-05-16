@@ -263,6 +263,7 @@ ES_Return_t ES_Run(void) {
         
         // Saving a level of stack by calling directly here
         //CheckSSEvent();
+        CheckFuelLevel();
         CheckUARTRXEvent();
   
     }
