@@ -247,6 +247,12 @@ ES_Return_t ES_Run(void) {
                 case 1:
                     if (SERV_1_RUN(ThisEvent).EventType != ES_NO_EVENT) return FailedRun;
                     break;
+                case 2:
+                    if (SERV_2_RUN(ThisEvent).EventType != ES_NO_EVENT) return FailedRun;
+                    break;
+                default: 
+                    while(1);       // add your service here if more than 3
+                    break;
             }
         }
 
@@ -256,7 +262,8 @@ ES_Return_t ES_Run(void) {
 
         
         // Saving a level of stack by calling directly here
-        CheckSSEvent();
+        //CheckSSEvent();
+        CheckFuelLevel();
         CheckUARTRXEvent();
   
     }

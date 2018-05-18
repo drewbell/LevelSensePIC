@@ -11,6 +11,8 @@
 #ifdef	__cplusplus
 extern "C" {
 #endif
+    
+#define FUEL_LEVEL_QUERY 0xAA
 
 #define FRAME_BYTE 0x7E
 #define MSB        0
@@ -19,7 +21,7 @@ extern "C" {
 #define VALID_CKSUM 0xFF
 
 //this variable is set by comm protocol
-#define MSG_SIZE       9   // Maximum length of a received mssage from the XBee
+#define MSG_SIZE       1   // Maximum length of a received mssage from the XBee
 
 #define GAME_STATUS_SIZE 2 //number of bytes to store game status response
 #define SCORE_SIZE       2    //number of bytes to store score response
@@ -30,9 +32,9 @@ extern "C" {
 // Define offset into the message bytes
     
 // RX Offsets //within the data part fo the packet
-#define API_INDENTIFIER_INDEX 0        // Offset to API type byte
-#define FIELD_ADDRESS_MSB_INDEX 1 //MSB of field address
-#define FIELD_ADDRESS_LSB_INDEX 2    //LSB of field address
+#define API_INDENTIFIER_INDEX 0         // Offset to API type byte
+#define FIELD_ADDRESS_MSB_INDEX 1       //MSB of field address
+#define FIELD_ADDRESS_LSB_INDEX 2       //LSB of field address
 #define RSSI_INDEX     3
 #define OPTIONS_INDEX 4 //bit 0, reserved, bit 1 address broadcast, bit 2 PAN broadcast, bit 3-7 reserved
 #define DATA_INDEX  OPTIONS_INDEX+1
