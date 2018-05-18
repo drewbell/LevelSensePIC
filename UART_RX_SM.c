@@ -171,10 +171,10 @@ uint8_t RX_getResponse(void) {
  ****************************************************************************/
 inline void UARTRXIntResponse(void) {
     if(FERR){   // framing error
-        uint8_t garbage = RCREG; // Read to get past frame error byte
+        uint8_t ignore = RCREG; // Read to get past frame error byte
     }
     else{
-        uint8_t ReceivedData = RCREG; // Read pending byte and clear interrupt
+        ReceivedData = RCREG; // Read pending byte and clear interrupt
         RXFlag = True;
 
         if(OERR){           // if overrun, clear error by clearing the receiver
@@ -204,7 +204,8 @@ boolean CheckUARTRXEvent(void) {
     {
         ES_Event CommEvent;
         CommEvent.EventType = ES_RX_NEW_PACKET;
-        CommEvent.EventParam = ReceivedData;
+        uint8_t numToSend = ReceivedData;
+        CommEvent.EventParam = numToSend;
         FastPostUARTRXService(CommEvent); //Hard coded macro to reduce stack use. TODO: check to make sure priority matches with es configure
 
         RXFlag = False; //clear the received flag

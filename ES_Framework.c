@@ -263,8 +263,9 @@ ES_Return_t ES_Run(void) {
         
         // Saving a level of stack by calling directly here
         //CheckSSEvent();
+        CheckUARTRXEvent();     // check for UART message first to respond faster
         CheckFuelLevel();
-        CheckUARTRXEvent();
+        
   
     }
     return 0; /* this is solely to quiet a PIC compiler warning */

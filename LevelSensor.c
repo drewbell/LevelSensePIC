@@ -168,6 +168,7 @@ ES_Event RunLevelSensorService(ES_Event ThisEvent) {
         case TankEmpty:
             if (ThisEvent.EventType == ES_FUELED) {
                 CurrentState = TankFueled;
+                ES_Timer_StopTimer(FUEL_EMPTY_TIMER);   // stop the empty timer
             }
             else if(ThisEvent.EventType == ES_TIMEOUT && ThisEvent.EventParam ==
                     FUEL_EMPTY_TIMER){
@@ -175,6 +176,7 @@ ES_Event RunLevelSensorService(ES_Event ThisEvent) {
                 FuelEvent.EventType = ES_TX_REQUEST_SEND;
                 FuelEvent.EventParam = constructFuelByte();
                 PostUARTTXService(FuelEvent);
+                ES_Timer_InitTimer(FUEL_EMPTY_TIMER, ONE_SECOND);
             }
             break;
     } // end switch on Current State
@@ -324,7 +326,7 @@ uint8_t constructFuelByte(void){
         // write garbage in bits except for the "empty" bit
         fuelMsg = 0x07 & get3GarbageBits();     
     }
-    fuelMsg |= ((fuelMsg ^ 0xF0) << 4);   //upper 4 bits are complement of lower 4
+    fuelMsg |= ((fuelMsg ^ 0x0F) << 4);   //upper 4 bits are complement of lower 4
     return fuelMsg;
 }
 
@@ -349,9 +351,9 @@ uint8_t constructFuelByte(void){
    Drew Bell, 05/14/18, 20:23
  ****************************************************************************/
 uint8_t get3GarbageBits(void){
-    uint8_t garbage = 0xbb;
+    uint8_t garbage = 0x00;
     char *p = 0x00;     // pointer to the special function registers
-    for(int i = 0; 1 < 16; i++){
+    for(int i = 0; i < 16; i++){
         garbage ^= *(p + i);
     }
     return garbage;  

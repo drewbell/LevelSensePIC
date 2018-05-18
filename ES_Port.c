@@ -23,16 +23,19 @@ static unsigned char TickCount;
      J. Edward Carryer, 02/24/97 14:23
  ****************************************************************************/
 void ES_Sys_Timer_Init(void) {
+    
+    //db: PortC is an input reading the level, for this function use another pin
     /*
      *  RC0 = heartbeat output
      */
-    TRISC0 = 0; // Output
-    ANS4 = 0; // disable A/D on RC0 so we can read it
-    RC0 = 0;
+    //TRISC0 = 0; // Output
+    //ANS4 = 0; // disable A/D on RC0 so we can read it
+    //RC0 = 0;
 
+    //db: RC5 is an input reading the level, for this function use another pin
     // RC5  = Interrupt Timing
-    TRISC5 = 0;
-    RC5 = 0; // Initialize low
+    //TRISC5 = 0;
+    //RC5 = 0; // Initialize low
 
     // Use timer 0 for system clock so that we can still use ECCP module.
     DisableInterrupts; // Disable interrupts to be sure for setup
@@ -51,7 +54,8 @@ void ES_Sys_Timer_Init(void) {
 }
 
 void interrupt ISR(void) {
-    RC5 = 1; // Raise line for heartbeat / interrupt timing
+    //db: RC5 is an input reading the level, for this function use another pin
+    //RC5 = 1; // Raise line for heartbeat / interrupt timing
 
     if (SSPIF && SSPIE) {
         //SPIIntResponse();
@@ -62,17 +66,17 @@ void interrupt ISR(void) {
     }
 
     // remove this block to remove transmitting functions
-//    if (TXIF && TXIE) {
-//        UARTTXIntResponse();
-//    }
+    if (TXIF && TXIE) {
+        UARTTXIntResponse();
+    }
 
     if (T0IF) {
         T0IF = 0; // clear Timer 0 flag
         TickCount++; // count number of timer ticks that need to be processed
         PORTC ^= BIT0HI;
     }
-
-    RC5 = 0; // Lower line for heartbeat/interrupt timing
+    //db: RC5 is an input reading the level, for this function use another pin
+    //RC5 = 1; // Raise line for heartbeat / interrupt timing
 }
 
 unsigned char IsTimerPending(void) {
