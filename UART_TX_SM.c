@@ -48,6 +48,7 @@
 static uint8_t MyPriority;
 static UART_TX_State_t currentState;
 static boolean TXError = False;
+static volatile boolean TXFlag = False;
 
 /*------------------------------ Module Code ------------------------------*/
 
@@ -156,11 +157,35 @@ ES_Event RunUARTTXService(ES_Event ThisEvent) {
  ***************************************************************************/
 
 inline void UARTTXIntResponse(void) {
-    TXIE = 0;                   // clear TX interrupt
-    ES_Event TXEvent;
-    TXEvent.EventType = ES_TX_SEND_COMPLETE;
-    TXEvent.EventParam = 0;
-    ES_PostToService(MyPriority, TXEvent);
+    TXIE = 0;               // clear TX interrupt
+    TXFlag = True;          // notify event checker of TX event
+}
+
+/****************************************************************************
+ Function
+    CheckUARTTXEvent
+
+ Parameters
+    none
+
+ Returns
+   boolean
+
+ Description
+   event checker for the transmit flag
+   Note: the extra step of polling the TXFlag is here instead of posting directly 
+         to the run function is because the latter causes stack overflow. 
+ ****************************************************************************/
+boolean CheckUARTTXEvent(void) {
+    if (TXFlag) //If the received flag has been set
+    {
+        ES_Event CommEvent;
+        CommEvent.EventType = ES_TX_SEND_COMPLETE;
+        FastPostUARTTXService(CommEvent); //Hard coded macro to reduce stack use. TODO: check to make sure priority matches with es configure
+        TXFlag = False; //clear the received flag
+        return True;
+    }
+    return False;
 }
 
 /***************************************************************************

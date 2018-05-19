@@ -30,17 +30,9 @@ void main(void) {
 
     USART_Init(); // Initialize the UART modules
 
-    /*
-    // Set up RC3 (display LED)
-    TRISC3 = 0;
-    ANS7 = 0;
-    RC3 = 0; // Initialize low
-     */
-    
-
     // now initialize the Events and Services Framework and start it running
     ErrorType = ES_Initialize(ES_Timer_RATE_1MS);
-    
+
     // Start the Framework
     if (ErrorType == Success) {
 

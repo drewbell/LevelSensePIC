@@ -24,16 +24,7 @@ boolean PostUARTTXService(ES_Event ThisEvent);
 ES_Event RunUARTTXService(ES_Event ThisEvent);
 UART_TX_State_t QueryUARTTXService(void);
 
-boolean TX_clearXBeePacket(void);
-boolean TX_appendXBeePacket(uint8_t newByte);
-uint8_t TX_getChecksum(void);
-uint8_t TX_getXBeePacket(uint8_t _index);
-uint8_t TX_getLength(void);
-
-uint8_t *TX_getSuperPACAddr(void);
-
 boolean CheckUARTTXEvent(void);
-
 inline void UARTTXIntResponse(void);
 
 

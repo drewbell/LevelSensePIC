@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-  <executable name="dist/default/production\PAC.production.hex">
+  <executable name="dist/default/production\LevelSensePic.production.hex">
     <memory name="program">
       <units>words</units>
       <length>4096</length>
-      <used>2756</used>
-      <free>1340</free>
+      <used>1453</used>
+      <free>2643</free>
     </memory>
     <memory name="data">
       <units>bytes</units>
       <length>256</length>
-      <used>240</used>
-      <free>16</free>
+      <used>125</used>
+      <free>131</free>
     </memory>
   </executable>
 </project>

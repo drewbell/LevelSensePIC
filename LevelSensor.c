@@ -79,8 +79,13 @@ boolean InitLevelSensorService(uint8_t Priority) {
     
     // Set up RC0-7 as inputs to the 
     TRISC = 0xFF;      // set all as inputs
-    ANSEL = 0;         // set all as digital
-
+    ANSEL = 0x00;         // set analog 0-7 as normal input
+    ANSELH &= ~0x0F;   // set analog 8-11 as normal input
+    
+    // Set up RA0 (display LED)
+    TRISA0 = 0;     
+    // analog already turned off above
+   
     fuelLevel = 0;     // set fuel level to empty
     CurrentState = InitLevelState;
 
@@ -137,14 +142,15 @@ ES_Event RunLevelSensorService(ES_Event ThisEvent) {
     ReturnEvent.EventType = ES_NO_EVENT; // assume no errors
 
     switch (CurrentState) {
-        case InitLevelState: // If current state is initial Psedudo State
+        case InitLevelState:    // If current state is initial Psedudo State
+            RA0 = 1;            // raise for successful init of LevelSensor
             if (ThisEvent.EventType == ES_INIT)// only respond to ES_Init
             { 
                 if(fuelLevel = readFuelLevel())     // read state and do test
                     CurrentState = TankFueled;
                 else{
                     CurrentState = TankEmpty; 
-                    ES_Timer_InitTimer(FUEL_EMPTY_TIMER, ONE_SECOND);
+                    //debug ES_Timer_InitTimer(FUEL_EMPTY_TIMER, ONE_SECOND);
                 }
             }
             break;
@@ -152,7 +158,7 @@ ES_Event RunLevelSensorService(ES_Event ThisEvent) {
         case TankFueled:
             if (ThisEvent.EventType == ES_EMPTY) {
                 CurrentState = TankEmpty;
-                ES_Timer_InitTimer(FUEL_EMPTY_TIMER, ONE_SECOND);
+                // debug ES_Timer_InitTimer(FUEL_EMPTY_TIMER, ONE_SECOND);
             } 
             else if (ThisEvent.EventType == ES_FUELED) {
                 CurrentState = TankFueled;
@@ -161,7 +167,8 @@ ES_Event RunLevelSensorService(ES_Event ThisEvent) {
                 ES_Event FuelEvent;  // transmit fuel Level
                 FuelEvent.EventType = ES_TX_REQUEST_SEND;
                 FuelEvent.EventParam = constructFuelByte();
-                PostUARTTXService(FuelEvent);
+                FastPostUARTTXService(FuelEvent);
+                
             }
             break;
 
@@ -175,8 +182,8 @@ ES_Event RunLevelSensorService(ES_Event ThisEvent) {
                 ES_Event FuelEvent; 
                 FuelEvent.EventType = ES_TX_REQUEST_SEND;
                 FuelEvent.EventParam = constructFuelByte();
-                PostUARTTXService(FuelEvent);
-                ES_Timer_InitTimer(FUEL_EMPTY_TIMER, ONE_SECOND);
+                FastPostUARTTXService(FuelEvent);
+                //debug ES_Timer_InitTimer(FUEL_EMPTY_TIMER, ONE_SECOND);
             }
             break;
     } // end switch on Current State
@@ -324,7 +331,8 @@ uint8_t constructFuelByte(void){
     }
     else{   // OUT OF FUEL
         // write garbage in bits except for the "empty" bit
-        fuelMsg = 0x07 & get3GarbageBits();     
+        //fuelMsg = 0x07 & get3GarbageBits();     //debug
+        fuelMsg = 0x07;
     }
     fuelMsg |= ((fuelMsg ^ 0x0F) << 4);   //upper 4 bits are complement of lower 4
     return fuelMsg;

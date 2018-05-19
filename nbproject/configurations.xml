@@ -67,7 +67,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>Simulator</platformTool>
         <languageToolchain>XC8</languageToolchain>
-        <languageToolchainVersion>1.45</languageToolchainVersion>
+        <languageToolchainVersion>1.43</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <compileType>
@@ -381,7 +381,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>
         <languageToolchain>XC8</languageToolchain>
-        <languageToolchainVersion>1.45</languageToolchainVersion>
+        <languageToolchainVersion>1.43</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <compileType>
@@ -737,8 +737,8 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>Simulator</platformTool>
         <languageToolchain>XC8</languageToolchain>
-        <languageToolchainVersion>1.45</languageToolchainVersion>
-        <platform>4</platform>
+        <languageToolchainVersion>1.43</languageToolchainVersion>
+        <platform>3</platform>
       </toolsSet>
       <compileType>
         <linkerTool>

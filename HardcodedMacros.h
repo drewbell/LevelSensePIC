@@ -10,7 +10,9 @@
 
 // Make sure the first argument number reflects the service number
 #define FastPostLevelSensorService(X) ES_PostToService(0, X)    
+#define FastPostUARTTXService(X) ES_PostToService(1, X)
 #define FastPostUARTRXService(X) ES_PostToService(2, X)
+
 
 
 #endif	/* HARDCODEDMACROS_H */

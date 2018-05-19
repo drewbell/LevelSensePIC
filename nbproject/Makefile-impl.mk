@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=LevelSensor
+PROJECTNAME=LevelSensePic
 
 # Active Configuration
 DEFAULTCONF=Managed_Stack

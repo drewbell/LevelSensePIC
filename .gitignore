@@ -1,2 +1,4 @@
 /dist/Managed_Stack/
 build/*
+dist/
+nbproject/
