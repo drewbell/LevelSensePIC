@@ -40,11 +40,11 @@ void ES_Sys_Timer_Init(void) {
     // Use timer 0 for system clock so that we can still use ECCP module.
     DisableInterrupts; // Disable interrupts to be sure for setup
 
-    T0CS = 0; // Internal clock, Fosc/4 = 5MHz
+    T0CS = 0; // Internal clock, Fosc/4 = 2MHz
     PSA = 0; // Assign prescaler to Timer 0
-    PS0 = 1; // Prescale by 256.  This gives 13.11 ms/tick //111
+    PS0 = 0; // Prescale by 256.  This gives 13.11 ms/tick //111
     PS1 = 1;
-    PS2 = 1;
+    PS2 = 0;
 
     TMR0 = 0; // Clear Timer 0
     T0IF = 0; // Clear pending interrupt

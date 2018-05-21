@@ -264,6 +264,7 @@ ES_Return_t ES_Run(void) {
         // Saving a level of stack by calling directly here
         //CheckSSEvent();
         CheckUARTRXEvent();     // check for UART message first to respond faster
+        CheckUARTTXEvent();
         CheckFuelLevel();
         
   
@@ -348,18 +349,21 @@ boolean ES_PostToService(uint8_t WhichService, ES_Event TheEvent) {
  Author
    J. Edward Carryer, 10/23/11, 
  ****************************************************************************/
-static boolean CheckSystemEvents(void) {
+/*
+ static boolean CheckSystemEvents(void) {
     // Don't need kbhit on this PIC
-    /*if ( kbhit() != 0 ) // new key waiting?
+    if ( kbhit() != 0 ) // new key waiting?
     {
       ES_Event ThisEvent;
       ThisEvent.EventType = ES_NEW_KEY;
       ThisEvent.EventParam = getchar();
       (*pPostKeyFunc)( ThisEvent );
       return True;
-    }*/
+    }
     return False;
 }
+
+*/
 
 /*------------------------------- Footnotes -------------------------------*/
 /*------------------------------ End of file ------------------------------*/

@@ -13,9 +13,9 @@ void USART_Init(void) {
     GIE = 0;
 
     // Set up timing
-    SPBRG = 129; // Baud rate = 9600, assuming 20MHz Fosc
-    SPBRGH = 0; // BR = Fosc(20M) / (16 * (SPBRG + 1)
-    BRGH = 1; // BR = 20M/(16 * 130) = 9615
+    SPBRG = 51; // Baud rate = 9600, assuming 8MHz Fosc
+    SPBRGH = 0; // BR = Fosc(8M) / (16 * (SPBRG + 1)
+    BRGH = 1; // BR = 8M/(16 * (51 + 1)) = 9615
     BRG16 = 0;
 
     // Set up in 8 bit async mode
@@ -35,7 +35,7 @@ void USART_Init(void) {
     ANS11 = 0;
 
     // Enable interrupts
-    GIE = 1;
+    GIE = 1;          // RE-ENABLE interrupts for UART after debugging
 
 }
 

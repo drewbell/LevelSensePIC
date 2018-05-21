@@ -231,9 +231,11 @@ boolean CheckUARTRXEvent(void) {
  Description
  clears the received data array
  ****************************************************************************/
+/*
 static void ClearReceivedData(void) {
         ReceivedData = 0; //clear
 }
+*/
 /*------------------------------- Footnotes -------------------------------*/
 /*------------------------------ End of file ------------------------------*/
 

@@ -216,7 +216,7 @@ typedef enum {
 #define TIMER_UNUSED ((pPostFunc)0)
 #define TIMER0_RESP_FUNC PostUARTRXService
 #define TIMER1_RESP_FUNC PostLevelSensorService
-#define TIMER2_RESP_FUNC TIMER_UNUSED
+#define TIMER2_RESP_FUNC PostLevelSensorService
 #define TIMER3_RESP_FUNC TIMER_UNUSED
 #define TIMER4_RESP_FUNC TIMER_UNUSED
 #define TIMER5_RESP_FUNC TIMER_UNUSED
@@ -231,5 +231,6 @@ typedef enum {
 
 #define HEARTBEAT_TIMER  0
 #define FUEL_EMPTY_TIMER 1
+#define LED_TIMER 2
 
 #endif /* CONFIGURE_H */

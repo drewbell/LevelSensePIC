@@ -23,16 +23,21 @@
  */
 #include "ES_Configure.h"
 #include "ES_Framework.h"
+#include "ES_Timers.h"
 #include "LevelSensor.h"
 #include "UART_RX_SM.h"
 #include "UART_TX_SM.h"
 #include "COMMDEFS.h"
 
+// legacy headers
+#include <htc.h>
+#include "sci.h"
 
 /*----------------------------- Module Defines ----------------------------*/
 #define FUEL_EMPTY 0
 #define ONE_SECOND 1000   // 1s = 1000ms
-#define QTR_SEC 250    // ms
+#define HALF_SECOND 500  // ms
+#define QTR_SEC 250       // ms
 #define FUELED_BIT 0x08
 #define NUM_FUEL_PADS 0x08
 #define BAD_FUEL_QUERY_MSG (uint8_t) 0xAA
@@ -74,17 +79,7 @@ static LevelSensorState_t CurrentState;
  ****************************************************************************/
 boolean InitLevelSensorService(uint8_t Priority) {
     ES_Event ThisEvent;
-
     MyPriority = Priority;
-    
-    // Set up RC0-7 as inputs to the 
-    TRISC = 0xFF;      // set all as inputs
-    ANSEL = 0x00;         // set analog 0-7 as normal input
-    ANSELH &= ~0x0F;   // set analog 8-11 as normal input
-    
-    // Set up RA0 (display LED)
-    TRISA0 = 0;     
-    // analog already turned off above
    
     fuelLevel = 0;     // set fuel level to empty
     CurrentState = InitLevelState;
@@ -140,17 +135,24 @@ boolean PostLevelSensorService(ES_Event ThisEvent) {
 ES_Event RunLevelSensorService(ES_Event ThisEvent) {
     ES_Event ReturnEvent;
     ReturnEvent.EventType = ES_NO_EVENT; // assume no errors
+    
+    // in all states, if we get an LED_TIMER event, turn off the timer
+    if(ThisEvent.EventType == ES_TIMEOUT && ThisEvent.EventParam == LED_TIMER){
+       RA0 = 0;     // turn off LED
+    }
 
     switch (CurrentState) {
         case InitLevelState:    // If current state is initial Psedudo State
             RA0 = 1;            // raise for successful init of LevelSensor
+            ES_Timer_InitTimer(LED_TIMER, 750); 
+            
             if (ThisEvent.EventType == ES_INIT)// only respond to ES_Init
             { 
                 if(fuelLevel = readFuelLevel())     // read state and do test
                     CurrentState = TankFueled;
                 else{
                     CurrentState = TankEmpty; 
-                    //debug ES_Timer_InitTimer(FUEL_EMPTY_TIMER, ONE_SECOND);
+                    ES_Timer_InitTimer(FUEL_EMPTY_TIMER, ONE_SECOND);
                 }
             }
             break;
@@ -158,7 +160,7 @@ ES_Event RunLevelSensorService(ES_Event ThisEvent) {
         case TankFueled:
             if (ThisEvent.EventType == ES_EMPTY) {
                 CurrentState = TankEmpty;
-                // debug ES_Timer_InitTimer(FUEL_EMPTY_TIMER, ONE_SECOND);
+                ES_Timer_InitTimer(FUEL_EMPTY_TIMER, ONE_SECOND);
             } 
             else if (ThisEvent.EventType == ES_FUELED) {
                 CurrentState = TankFueled;
@@ -169,6 +171,9 @@ ES_Event RunLevelSensorService(ES_Event ThisEvent) {
                 FuelEvent.EventParam = constructFuelByte();
                 FastPostUARTTXService(FuelEvent);
                 
+                // Raise Status LED for qtr second on fueled message
+                RA0 = 1;
+                ES_Timer_InitTimer(LED_TIMER, HALF_SECOND/2);
             }
             break;
 
@@ -183,7 +188,11 @@ ES_Event RunLevelSensorService(ES_Event ThisEvent) {
                 FuelEvent.EventType = ES_TX_REQUEST_SEND;
                 FuelEvent.EventParam = constructFuelByte();
                 FastPostUARTTXService(FuelEvent);
-                //debug ES_Timer_InitTimer(FUEL_EMPTY_TIMER, ONE_SECOND);
+                ES_Timer_InitTimer(FUEL_EMPTY_TIMER, ONE_SECOND);
+                
+                // Raise Status LED for half second on empty message
+                RA0 = 1;
+                ES_Timer_InitTimer(LED_TIMER, HALF_SECOND);
             }
             break;
     } // end switch on Current State
@@ -365,4 +374,34 @@ uint8_t get3GarbageBits(void){
         garbage ^= *(p + i);
     }
     return garbage;  
+}
+
+/****************************************************************************
+ Function
+ initLevelSensorHW
+
+ Parameters
+    nothing
+
+ Returns
+    nothing
+        
+
+ Description
+    inits the level sensor hardware
+ Notes
+   
+ Author
+   Drew Bell, 05/14/18, 20:23
+ ****************************************************************************/
+void initLevelSensorHW(void){
+    // Set up RC0-7 as inputs to the 
+    TRISC = 0xFF;      // set all of Port C as inputs
+    ANSEL = 0x00;      // set analog 0-7 as normal inputs
+    ANSELH &= ~0x0F;   // set analog 8-11 as normal inputs
+    
+    // Set up RA0 (display LED)
+    TRISA0 = 0;
+    // analog already turned off above
+    RA0 = 0;    // start with RA0 Low
 }

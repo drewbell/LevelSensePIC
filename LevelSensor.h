@@ -19,6 +19,7 @@ LevelSensorState_t QueryLevelSensorState(void);
 
 
 // Public Function Prototypes
+void initLevelSensorHW(void);
 boolean CheckFuelLevel(void);
 uint8_t readFuelLevel(void);
 uint8_t getFuelLevel(void);
